@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio | CNO IV - Seguridad Informática</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Variables (Paleta Cálida y Calmada) */
+    :root {
+      --bg-body: #f8f7f4;
+      --bg-card: #ffffff;
+      --text-main: #3b332c;
+      --text-muted: #70655d;
+      --primary: #b8860b;
+      --secondary: #5c4033;
+      --gradient: linear-gradient(135deg, #b8860b, #5c4033);
+      --shadow: 0 10px 25px -5px rgba(92, 64, 51, 0.05);
+      --shadow-hover: 0 20px 25px -5px rgba(92, 64, 51, 0.12);
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.7;
+      overflow-x: hidden;
+      background-image: radial-gradient(circle at 10% 20%, rgba(184, 134, 11, 0.03) 0%, transparent 20%),
+      radial-gradient(circle at 90% 80%, rgba(92, 64, 51, 0.03) 0%, transparent 20%);
+    }
+
+    /* Header */
+    header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 5%;
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+      border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+    }
+
+    .hamburger {
+      font-size: 2rem;
+      color: var(--secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-right: 1.5rem;
+      transition: transform 0.3s;
+    }
+    .hamburger:hover { transform: scale(1.1); color: var(--primary); }
+
+    .header-info h1 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-info p { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
+
+    /* Menú Lateral */
+    .sidebar {
+      height: 100vh;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: rgba(253, 252, 250, 0.97);
+      backdrop-filter: blur(15px);
+      overflow-x: hidden;
+      transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      padding-top: 80px;
+      z-index: 99;
+      box-shadow: 10px 0 30px rgba(92, 64, 51, 0.08);
+      border-right: 1px solid rgba(184, 134, 11, 0.1);
+    }
+
+    .sidebar a {
+      padding: 15px 30px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: block;
+      transition: all 0.3s;
+      border-left: 4px solid transparent;
+    }
+
+    .sidebar a:hover, .sidebar a.active {
+      color: var(--secondary);
+      background-color: rgba(184, 134, 11, 0.05);
+      border-left: 4px solid var(--primary);
+      padding-left: 40px;
+    }
+
+    .sidebar .disabled { opacity: 0.4; pointer-events: none; font-size: 0.95rem; }
+
+    /* Contenedor y Tarjetas */
+    .container {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .container { grid-template-columns: 1fr 1fr; }
+      .hero-section, .contact-section { grid-column: 1 / -1; }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(92, 64, 51, 0.04);
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient);
+      opacity: 0.08;
+      border-bottom-left-radius: 100%;
+      transition: transform 0.5s ease-out;
+    }
+    .card:hover::before { transform: scale(2.5); opacity: 0.12; }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(184, 134, 11, 0.15);
+      padding-bottom: 0.5rem;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: var(--gradient);
+      color: white;
+      border: none;
+    }
+    .hero-section h2 { color: white; justify-content: center; font-size: 2.2rem; margin-bottom: 1rem; border-bottom: none; }
+    .hero-section::before { display: none; }
+    .hero-section p { font-size: 1.1rem; opacity: 0.95; max-width: 800px; margin: 0 auto; font-weight: 300; }
+
+    /* Tags Tecnológicos */
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
+    .tech-tags span {
+      background-color: rgba(184, 134, 11, 0.1);
+      color: var(--secondary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(184, 134, 11, 0.2);
+    }
+
+    /* Formulario */
+    form { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.5rem; }
+    input, textarea {
+      background-color: #faf9f7;
+      border: 1px solid #e3ddd7;
+      color: var(--text-main);
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--primary); background-color: #fff; box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.15); }
+
+    button[type="submit"] {
+      background: var(--gradient);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 0.5rem;
+    }
+    button[type="submit"]:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(92, 64, 51, 0.25); }
+
+    footer { text-align: center; padding: 2rem; font-size: 0.85rem; color: var(--text-muted); margin-top: 2rem; border-top: 1px solid rgba(92, 64, 51, 0.1); }
+  </style>
+</head>
+<body>
+
+<!-- MENÚ LATERAL -->
+<nav id="sideMenu" class="sidebar">
+  <a href="index.html" class="active">Inicio</a>
+  <a href="parcial1.html">Parcial I</a>
+  <a href="#" class="disabled">Parcial II (Próximamente)</a>
+  <a href="#" class="disabled">Parcial III (Próximamente)</a>
+</nav>
+
+<header>
+  <button class="hamburger" onclick="toggleNav()">☰</button>
+  <div class="header-info">
+    <h1>CNO IV – Seguridad Informática</h1>
+    <p>Jorge Abraham Castelo Curioca | Univ. Politécnica de San Luis Potosí | Semestre 2026</p>
+  </div>
+</header>
+
+<main class="container">
+  <section class="card hero-section">
+    <h2>Portafolio Digital de Evidencias</h2>
+    <p>Este espacio funciona como contenedor oficial de las evidencias académicas del curso. Su propósito es documentar el proceso de aprendizaje, reflejando un orden lógico, documentación estructurada y una presentación profesional.</p>
+  </section>
+
+  <!-- PERFIL ACTUALIZADO -->
+  <section class="card">
+    <h2>Perfil del Estudiante</h2>
+    <p><strong>Estudiante de Ingeniería en Tecnologías de la Información y Sistemas.</strong></p>
+    <p>Especializado en la <strong>automatización de procesos</strong>, la <strong>obtención de requerimientos</strong> y el <strong>desarrollo de proyectos</strong> empresariales.</p>
+    <p>Cuento con experiencia práctica como IT Intern en el sector industrial, donde mi enfoque principal ha sido la optimización de flujos de trabajo e infraestructura TI, utilizando intensivamente herramientas de la <strong>Power Suite</strong> para construir soluciones escalables que aporten valor al negocio.</p>
+    <div class="tech-tags">
+      <span>PowerApps</span>
+      <span>Power Automate</span>
+      <span>SharePoint</span>
+      <span>Python</span>
+      <span>SQL Server</span>
+      <span>Análisis de Requerimientos</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Arquitectura del Sitio</h2>
+    <p>Desarrollado bajo estándares modernos para garantizar eficiencia y seguridad estática:</p>
+    <ul style="margin-left: 20px; color: var(--text-muted); margin-top: 1rem;">
+      <li style="margin-bottom: 10px;"><strong>Stack Tecnológico:</strong> HTML5, CSS3 y JavaScript nativo.</li>
+      <li style="margin-bottom: 10px;"><strong>Plataforma de Hosting:</strong> GitHub Pages.</li>
+      <li style="margin-bottom: 10px;"><strong>Control de Versiones:</strong> Git y GitHub.</li>
+      <li><strong>Seguridad:</strong> Cifrado de extremo a extremo mediante certificado SSL (HTTPS).</li>
+    </ul>
+  </section>
+
+  <section class="card contact-section">
+    <h2>Contacto Institucional</h2>
+    <p style="color: var(--text-muted);">Para consultas o retroalimentación sobre las evidencias presentadas. El sistema generará una respuesta de confirmación automática.</p>
+    <form action="https://formsubmit.co/TU_CORREO_AQUI@ejemplo.com" method="POST">
+      <input type="hidden" name="_subject" value="Nuevo mensaje - Portafolio">
+      <input type="hidden" name="_autoresponse" value="Estimado/a, he recibido su mensaje desde mi portafolio. Le daré seguimiento a la brevedad. Atentamente, Jorge Castelo.">
+      <input type="hidden" name="_template" value="table">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+      </div>
+      <textarea name="mensaje" rows="4" placeholder="Redacte su mensaje aquí..." required></textarea>
+      <button type="submit">Enviar Mensaje</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Jorge Abraham Castelo Curioca. Desarrollado para la asignatura CNO IV - Seguridad Informática.</p>
+</footer>
+
+<script>
+  let menuOpen = false;
+  function toggleNav() {
+    const sidebar = document.getElementById("sideMenu");
+    if (!menuOpen) { sidebar.style.width = "280px"; menuOpen = true; }
+    else { sidebar.style.width = "0"; menuOpen = false; }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcial I | Portafolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Mismas variables para mantener la consistencia del diseño */
+        :root {
+            --bg-body: #f8f7f4;
+            --bg-card: #ffffff;
+            --text-main: #3b332c;
+            --text-muted: #70655d;
+            --primary: #b8860b;
+            --secondary: #5c4033;
+            --gradient: linear-gradient(135deg, #b8860b, #5c4033);
+            --shadow: 0 10px 25px -5px rgba(92, 64, 51, 0.05);
+            --shadow-hover: 0 20px 25px -5px rgba(92, 64, 51, 0.12);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 10% 20%, rgba(184, 134, 11, 0.03) 0%, transparent 20%),
+            radial-gradient(circle at 90% 80%, rgba(92, 64, 51, 0.03) 0%, transparent 20%);
+        }
+
+        /* Header (Igual que index) */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+        }
+
+        .hamburger {
+            font-size: 2rem;
+            color: var(--secondary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .hamburger:hover { transform: scale(1.1); color: var(--primary); }
+
+        .header-info h1 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-info p { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
+
+        /* Menú Lateral */
+        .sidebar {
+            height: 100vh;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(253, 252, 250, 0.97);
+            backdrop-filter: blur(15px);
+            overflow-x: hidden;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-top: 80px;
+            z-index: 99;
+            box-shadow: 10px 0 30px rgba(92, 64, 51, 0.08);
+            border-right: 1px solid rgba(184, 134, 11, 0.1);
+        }
+
+        .sidebar a {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: block;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            color: var(--secondary);
+            background-color: rgba(184, 134, 11, 0.05);
+            border-left: 4px solid var(--primary);
+            padding-left: 40px;
+        }
+
+        .sidebar .disabled { opacity: 0.4; pointer-events: none; font-size: 0.95rem; }
+
+        /* Contenedor Principal para Actividades */
+        .container {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 5%;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary);
+            font-size: 2.2rem;
+            border-bottom: 2px solid rgba(184, 134, 11, 0.2);
+            padding-bottom: 1rem;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* GRID PARA LOS THUMBNAILS DE ACTIVIDADES */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Estilo de la Tarjeta de Actividad */
+        .activity-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(92, 64, 51, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Contenedor del Thumbnail */
+        .thumbnail {
+            width: 100%;
+            height: 200px;
+            background-color: #e3ddd7;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(92, 64, 51, 0.1);
+        }
+
+        /* Imagen del Thumbnail */
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .activity-card:hover .thumbnail img {
+            transform: scale(1.05);
+        }
+
+        /* Etiqueta flotante sobre el thumbnail */
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Contenido de la tarjeta */
+        .activity-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .activity-info h3 {
+            color: var(--secondary);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .activity-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* Botón de ver actividad */
+        .btn-view {
+            display: inline-block;
+            text-align: center;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .btn-view:hover {
+            box-shadow: 0 5px 15px rgba(92, 64, 51, 0.3);
+            opacity: 0.95;
+        }
+
+        footer { text-align: center; padding: 2rem; font-size: 0.85rem; color: var(--text-muted); margin-top: 4rem; border-top: 1px solid rgba(92, 64, 51, 0.1); }
+    </style>
+</head>
+<body>
+
+<!-- MENÚ LATERAL -->
+<nav id="sideMenu" class="sidebar">
+    <a href="index.html">Inicio</a>
+    <a href="parcial1.html" class="active">Parcial I</a>
+    <a href="#" class="disabled">Parcial II (Próximamente)</a>
+    <a href="#" class="disabled">Parcial III (Próximamente)</a>
+</nav>
+
+<header>
+    <button class="hamburger" onclick="toggleNav()">☰</button>
+    <div class="header-info">
+        <h1>CNO IV – Seguridad Informática</h1>
+        <p>Jorge Abraham Castelo Curioca | Univ. Politécnica de San Luis Potosí</p>
+    </div>
+</header>
+
+<main class="container">
+    <h2 class="page-title">Evidencias del Parcial I</h2>
+
+    <!-- CUADRÍCULA DE ACTIVIDADES -->
+    <div class="activities-grid">
+
+        <!-- Actividad 1 -->
+        <div class="activity-card">
+            <div class="thumbnail">
+                <span class="status-badge">Completado</span>
+                <!-- Para colocar tu propia captura de pantalla, cambia el 'src' por el nombre de tu imagen (ej. src="img/actividad1.png") -->
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Miniatura de la Actividad 1">
+            </div>
+            <div class="activity-info">
+                <h3>Actividad 01: Creación del Portafolio</h3>
+                <p>Diseño e implementación de la estructura base del portafolio digital utilizando GitHub Pages, integrando navegación, accesibilidad y documentación técnica.</p>
+                <a href="index.html" class="btn-view">Ver Evidencia</a>
+            </div>
+        </div>
+
+        <!-- Actividad 2 -->
+        <div class="activity-card">
+            <div class="thumbnail">
+                <span class="status-badge" style="background-color: var(--secondary);">En progreso</span>
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Miniatura de la Actividad 2">
+            </div>
+            <div class="activity-info">
+                <h3>Actividad 02: [Nombre de Actividad]</h3>
+                <p>Espacio reservado para la descripción de la siguiente actividad o práctica de laboratorio del primer parcial.</p>
+                <a href="#" class="btn-view">Ver Evidencia</a>
+            </div>
+        </div>
+
+        <!-- Actividad 3 -->
+        <div class="activity-card">
+            <div class="thumbnail">
+                <span class="status-badge" style="background-color: var(--text-muted);">Pendiente</span>
+                <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=600&q=80" alt="Miniatura de la Actividad 3">
+            </div>
+            <div class="activity-info">
+                <h3>Actividad 03: [Nombre de Actividad]</h3>
+                <p>Espacio reservado para futuras entregas y asignaciones dentro del bloque uno de la asignatura.</p>
+                <a href="#" class="btn-view">Ver Evidencia</a>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 Jorge Abraham Castelo Curioca. Desarrollado para la asignatura CNO IV - Seguridad Informática.</p>
+</footer>
+
+<script>
+    let menuOpen = false;
+    function toggleNav() {
+        const sidebar = document.getElementById("sideMenu");
+        if (!menuOpen) { sidebar.style.width = "280px"; menuOpen = true; }
+        else { sidebar.style.width = "0"; menuOpen = false; }
+    }
+</script>
+</body>
+</html>
