@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 03 | CNO IV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Variables Globales */
+        :root {
+            --bg-body: #f8f7f4;
+            --bg-card: #ffffff;
+            --text-main: #3b332c;
+            --text-muted: #70655d;
+            --primary: #b8860b;
+            --secondary: #5c4033;
+            --gradient: linear-gradient(135deg, #b8860b, #5c4033);
+            --shadow: 0 10px 25px -5px rgba(92, 64, 51, 0.05);
+            --radius: 12px;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header y Navegación */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+        }
+
+        .hamburger {
+            font-size: 2rem;
+            color: var(--secondary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .hamburger:hover { transform: scale(1.1); color: var(--primary); }
+
+        .header-info h1 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-info p { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
+
+        .sidebar {
+            height: 100vh;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(253, 252, 250, 0.97);
+            backdrop-filter: blur(15px);
+            overflow-x: hidden;
+            transition: 0.4s;
+            padding-top: 80px;
+            z-index: 99;
+            box-shadow: 10px 0 30px rgba(92, 64, 51, 0.08);
+            border-right: 1px solid rgba(184, 134, 11, 0.1);
+        }
+
+        .sidebar a {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: block;
+            border-left: 4px solid transparent;
+        }
+        .sidebar a:hover, .sidebar a.active { color: var(--secondary); background-color: rgba(184, 134, 11, 0.05); border-left: 4px solid var(--primary); }
+
+        /* Contenedor del Documento */
+        .container { max-width: 900px; margin: 3rem auto; padding: 0 5%; }
+
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid var(--secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .btn-back:hover { background-color: var(--secondary); color: white; }
+
+        .report-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(92, 64, 51, 0.05);
+        }
+
+        .report-title {
+            color: var(--secondary);
+            font-size: 2rem;
+            border-bottom: 2px solid rgba(184, 134, 11, 0.2);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .report-section { margin-bottom: 2.5rem; }
+        .report-section h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem; }
+        .report-section p { margin-bottom: 1rem; color: var(--text-main); }
+
+        /* Estilos para Bloques de Código */
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* Estilos para Imágenes/Capturas */
+        .screenshot-container {
+            width: 100%;
+            background-color: #e3ddd7;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(92, 64, 51, 0.1);
+            text-align: center;
+        }
+
+        .screenshot-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .img-caption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        footer { text-align: center; padding: 2rem; font-size: 0.85rem; color: var(--text-muted); margin-top: 4rem; border-top: 1px solid rgba(92, 64, 51, 0.1); }
+    </style>
+</head>
+<body>
+
+<nav id="sideMenu" class="sidebar">
+    <a href="index.html">Inicio</a>
+    <a href="parcial1.html" class="active">Parcial I</a>
+    <a href="#" style="opacity: 0.4; pointer-events: none;">Parcial II (Próximamente)</a>
+    <a href="#" style="opacity: 0.4; pointer-events: none;">Parcial III (Próximamente)</a>
+</nav>
+
+<header>
+    <button class="hamburger" onclick="toggleNav()">☰</button>
+    <div class="header-info">
+        <h1>CNO IV – Seguridad Informática</h1>
+        <p>Jorge Abraham Castelo Curioca | Univ. Politécnica de San Luis Potosí</p>
+    </div>
+</header>
+
+<main class="container">
+    <a href="parcial1.html" class="btn-back">← Volver al Parcial I</a>
+
+    <article class="report-card">
+        <h2 class="report-title">Actividad 03: No presiones Esc... todavía</h2>
+
+        <div class="report-section">
+            <h3>Objetivo de la Actividad</h3>
+            <p>Implementar y documentar un programa basado en <i>event hooks</i> y <i>callbacks</i> que registre eventos de teclado. El desarrollo incorpora persistencia de datos local, asociación temporal de eventos y transmisión de telemetría hacia un receptor en un entorno controlado (Kali Linux), con el fin de analizar técnicas de captura de entrada y sus implicaciones en ciberseguridad.</p>
+        </div>
+
+        <div class="report-section">
+            <h3>1. Persistencia del Registro</h3>
+            <p>Se modificó el código base para asegurar que los eventos generados durante la ejecución se almacenen en un archivo de texto local. A continuación, se muestra el fragmento de código responsable de la escritura en disco:</p>
+
+            <pre><code>// Inserte aquí el fragmento de código de persistencia
+// Ejemplo:
+def write_log(event_data):
+    with open("local_log.txt", "a") as log_file:
+        log_file.write(event_data + "\n")</code></pre>
+        </div>
+
+        <div class="report-section">
+            <h3>2. Asociación Temporal</h3>
+            <p>Para cumplir con el requerimiento de trazabilidad, se implementó una función que añade una marca de tiempo a cada evento capturado. El formato utilizado es <code>YYYY-MM-DD HH:MM:SS.mmm | PRESS | evento</code>.</p>
+
+            <pre><code>// Inserte aquí el código de formato de tiempo
+// Salida esperada: 2026-08-18 12:15:04.215 | PRESS | evento_001</code></pre>
+        </div>
+
+        <div class="report-section">
+            <h3>3. Transmisión a Kali Linux (Telemetría)</h3>
+            <p>El programa envía la información registrada mediante un socket hacia una máquina local con Kali Linux. En la siguiente captura se demuestra la recepción exitosa de los paquetes de datos en el servidor de laboratorio.</p>
+
+            <!-- Contenedor para tu captura de pantalla -->
+            <div class="screenshot-container">
+                <!-- Sustituye la URL de la imagen por tu propia captura cuando la tengas, ej: src="img/kali_receptor.jpg" -->
+                <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=800&q=80" alt="Captura de recepción en Kali Linux">
+            </div>
+            <p class="img-caption">Figura 1: Recepción de eventos de teclado en máquina receptora Kali Linux.</p>
+        </div>
+
+        <div class="report-section">
+            <h3>Análisis y Conclusiones</h3>
+            <p>Redacte aquí sus conclusiones sobre el funcionamiento técnico del programa. Explique cómo la integración de <i>event hooks</i>, combinada con la persistencia y la transmisión en red, conforman la base de herramientas tanto de diagnóstico legítimas como de técnicas ofensivas (keyloggers) en el ámbito de la ciberseguridad.</p>
+        </div>
+
+    </article>
+</main>
+
+<footer>
+    <p>&copy; 2026 Jorge Abraham Castelo Curioca. Desarrollado para la asignatura CNO IV - Seguridad Informática.</p>
+</footer>
+
+<script>
+    let menuOpen = false;
+    function toggleNav() {
+        const sidebar = document.getElementById("sideMenu");
+        if (!menuOpen) { sidebar.style.width = "280px"; menuOpen = true; }
+        else { sidebar.style.width = "0"; menuOpen = false; }
+    }
+</script>
+</body>
+</html>
