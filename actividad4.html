@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 04 | Portafolio CNO IV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Variables (Paleta Cálida y Calmada Original) */
+        :root {
+            --bg-body: #f8f7f4;
+            --bg-card: #ffffff;
+            --text-main: #3b332c;
+            --text-muted: #70655d;
+            --primary: #b8860b;
+            --secondary: #5c4033;
+            --gradient: linear-gradient(135deg, #b8860b, #5c4033);
+            --shadow: 0 10px 25px -5px rgba(92, 64, 51, 0.05);
+            --shadow-hover: 0 20px 25px -5px rgba(92, 64, 51, 0.12);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 10% 20%, rgba(184, 134, 11, 0.03) 0%, transparent 20%),
+            radial-gradient(circle at 90% 80%, rgba(92, 64, 51, 0.03) 0%, transparent 20%);
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+        }
+
+        .hamburger {
+            font-size: 2rem;
+            color: var(--secondary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .hamburger:hover { transform: scale(1.1); color: var(--primary); }
+
+        .header-info h1 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-info p { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
+
+        /* Menú Lateral */
+        .sidebar {
+            height: 100vh;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(253, 252, 250, 0.97);
+            backdrop-filter: blur(15px);
+            overflow-x: hidden;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-top: 80px;
+            z-index: 99;
+            box-shadow: 10px 0 30px rgba(92, 64, 51, 0.08);
+            border-right: 1px solid rgba(184, 134, 11, 0.1);
+        }
+
+        .sidebar a {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: block;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            color: var(--secondary);
+            background-color: rgba(184, 134, 11, 0.05);
+            border-left: 4px solid var(--primary);
+            padding-left: 40px;
+        }
+
+        /* Contenedor y Tarjetas */
+        .container {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .container { grid-template-columns: 1fr 1fr; }
+            .full-width { grid-column: 1 / -1; }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(92, 64, 51, 0.04);
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(184, 134, 11, 0.15);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+        }
+        .hero-section h2 { color: white; justify-content: center; font-size: 2.2rem; margin-bottom: 1rem; border-bottom: none; }
+        .hero-section p { font-size: 1.1rem; opacity: 0.95; max-width: 800px; margin: 0 auto; font-weight: 300; }
+
+        /* Listas y Textos */
+        ul, ol { margin-left: 20px; color: var(--text-muted); margin-top: 1rem; margin-bottom: 1rem;}
+        li { margin-bottom: 10px; }
+        strong { color: var(--secondary); }
+        code { background-color: rgba(184, 134, 11, 0.1); padding: 2px 6px; border-radius: 4px; color: var(--secondary); font-family: monospace;}
+
+        /* Placeholders de Imágenes */
+        .img-placeholder {
+            background-color: rgba(184, 134, 11, 0.03);
+            border: 2px dashed rgba(184, 134, 11, 0.2);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+        .img-placeholder img {
+            max-width: 100%;
+            border-radius: 8px;
+            display: none; /* Quita esto cuando agregues la ruta real del src */
+        }
+
+        /* Botón */
+        .btn-download {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 1rem;
+            border: none;
+        }
+        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(92, 64, 51, 0.25); color: white;}
+
+        footer { text-align: center; padding: 2rem; font-size: 0.85rem; color: var(--text-muted); margin-top: 2rem; border-top: 1px solid rgba(92, 64, 51, 0.1); }
+    </style>
+</head>
+<body>
+
+<!-- MENÚ LATERAL -->
+<nav id="sideMenu" class="sidebar">
+    <a href="index.html">Inicio</a>
+    <a href="parcial1.html">Parcial I</a>
+    <a href="#" class="active">Actividad 04</a>
+</nav>
+
+<header>
+    <button class="hamburger" onclick="toggleNav()">☰</button>
+    <div class="header-info">
+        <h1>CNO IV – Seguridad Informática</h1>
+        <p>Jorge Abraham Castelo Curioca | Univ. Politécnica de San Luis Potosí | Semestre 2026</p>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="card hero-section full-width">
+        <h2>Actividad 04: Una página demasiado convincente</h2>
+        <p>Documentación y simulación de un ataque de ingeniería social en un laboratorio controlado mediante Social-Engineer Toolkit (SET).</p>
+    </section>
+
+    <section class="card">
+        <h2>Objetivo de la actividad</h2>
+        <p style="color: var(--text-muted);">Implementar y analizar una simulación de ingeniería social generando un sitio falso. El propósito es utilizar el método <code>POST</code> de un formulario web para interceptar credenciales en texto plano, comprendiendo así el funcionamiento de una campaña de phishing.</p>
+    </section>
+
+    <section class="card">
+        <h2>Descripción del Escenario</h2>
+        <p style="color: var(--text-muted);">Se desarrolló una página web ficticia simulando un portal de inicio de sesión institucional, apoyada por herramientas de IA para optimizar el código HTML/CSS. Se evitó clonar sitios reales para cumplir con las normas del laboratorio.</p>
+    </section>
+
+    <section class="card full-width">
+        <h2>Configuración del Laboratorio</h2>
+        <p style="color: var(--text-muted);">Para garantizar el aislamiento de la prueba y evitar la exposición a internet, se configuró una red virtual privada (Adaptador Solo Anfitrión).</p>
+        <ul>
+            <li><strong>Máquina Atacante:</strong> Kali Linux (IP: <code>192.168.56.101</code>) ejecutando el módulo Credential Harvester de SEToolkit.</li>
+            <li><strong>Máquina Víctima:</strong> Windows 7 (IP: <code>192.168.56.102</code>) fungiendo como el cliente vulnerado.</li>
+            <li><strong>Vector:</strong> Archivo local con un formulario HTTP configurado con el método POST.</li>
+        </ul>
+    </section>
+
+    <section class="card full-width">
+        <h2>Evidencias de Funcionamiento</h2>
+        <p style="color: var(--text-muted);">A continuación, se presentan las pruebas de conectividad y la captura de datos exitosa:</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+            <div class="img-placeholder">
+                <br>
+                <img src="ruta/a/tu/imagen_ping_kali.png" alt="Ping desde Kali">
+            </div>
+            <div class="img-placeholder">
+                [Inserta aquí la imagen del Ping desde Windows]<br>
+                <img src="ruta/a/tu/imagen_ping_windows.png" alt="Ping desde Windows">
+            </div>
+            <div class="img-placeholder">
+                [Inserta aquí la captura de la página falsa en el navegador]<br>
+                <img src="ruta/a/tu/imagen_pagina_falsa.png" alt="Página Falsa">
+            </div>
+            <div class="img-placeholder">
+                [Inserta aquí la captura de SEToolkit (WE GOT A HIT!)]<br>
+                <img src="ruta/a/tu/imagen_setoolkit.png" alt="SEToolkit Hit">
+            </div>
+        </div>
+    </section>
+
+    <section class="card full-width">
+        <h2>Explicación del Flujo de Captura</h2>
+        <p style="color: var(--text-muted);">El ataque funciona explotando la transmisión de datos a través del protocolo HTTP sin cifrar:</p>
+        <ol>
+            <li>La víctima realiza una petición <code>GET</code> a la dirección IP del servidor web falso.</li>
+            <li>El servidor atacante (Kali/SET) responde entregando el portal HTML.</li>
+            <li>La víctima introduce sus datos de acceso y presiona enviar, generando una petición <code>POST</code>.</li>
+            <li>Al no existir cifrado SSL/TLS, SET intercepta localmente los parámetros <code>username</code> y <code>password</code> directamente desde el cuerpo de la petición.</li>
+        </ol>
+    </section>
+
+    <section class="card">
+        <h2>Indicadores de Phishing</h2>
+        <ul>
+            <li><strong>URL anómala:</strong> Acceso mediante una IP cruda (192.168.56.101).</li>
+            <li><strong>Ausencia de cifrado:</strong> Falta de certificado SSL/TLS (No es HTTPS).</li>
+            <li><strong>Sentido de urgencia:</strong> Mensajes alarmantes ("Su sesión ha expirado").</li>
+            <li><strong>Diseño genérico:</strong> Carencia de identidad corporativa verificable.</li>
+            <li><strong>Origen del vector:</strong> Spoofing en correos electrónicos.</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>Controles de Seguridad</h2>
+        <ul>
+            <li><strong>Autenticación Multifactor (MFA):</strong> Exige un token temporal adicional.</li>
+            <li><strong>Gestores de contraseñas:</strong> Bloquean el autocompletado en URLs falsas.</li>
+            <li><strong>Filtros EDR/Correo:</strong> Bloquean accesos a IPs directas.</li>
+            <li><strong>Filtrado DNS:</strong> Impide la resolución de servidores maliciosos.</li>
+            <li><strong>Concientización:</strong> Entrenamiento continuo a empleados.</li>
+        </ul>
+    </section>
+
+    <section class="card full-width" style="text-align: center;">
+        <h2>Documento Formal</h2>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Si el docente requiere el archivo formal para evaluación, puedes descargar el reporte completo en formato PDF estructurado.</p>
+        <!-- Coloca aquí el link al archivo que generamos en el paso anterior -->
+        <a href="ruta/a/tu/Reporte_Actividad_04_Ciberseguridad.pdf" download class="btn-download">Descargar Reporte (PDF)</a>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Jorge Abraham Castelo Curioca. Desarrollado para la asignatura CNO IV - Seguridad Informática.</p>
+</footer>
+
+<script>
+    let menuOpen = false;
+    function toggleNav() {
+        const sidebar = document.getElementById("sideMenu");
+        if (!menuOpen) { sidebar.style.width = "280px"; menuOpen = true; }
+        else { sidebar.style.width = "0"; menuOpen = false; }
+    }
+</script>
+</body>
+</html>
