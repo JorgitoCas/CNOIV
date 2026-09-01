@@ -239,28 +239,36 @@
     </section>
 
     <section class="card full-width">
-        <h2>Evidencias de Funcionamiento</h2>
-        <p style="color: var(--text-muted);">A continuación, se presentan las pruebas de conectividad y la captura de datos exitosa:</p>
+    <h2>Evidencias de Funcionamiento</h2>
+    <p style="color: var(--text-muted);">A continuación, se presentan las pruebas de conectividad y la captura de datos exitosa:</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+      
+      <!-- 1. Ping desde Kali -->
+      <div class="img-placeholder" style="padding: 1rem; border: 1px solid rgba(184, 134, 11, 0.2); background: transparent;">
+        <img src="PingKaliWin7.png" alt="Ping desde Kali hacia Windows" style="display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      </div>
+      
+      <!-- 2. Ping desde Windows -->
+      <div class="img-placeholder" style="padding: 1rem; border: 1px solid rgba(184, 134, 11, 0.2); background: transparent;">
+        <img src="PingWin7Kali.png" alt="Ping desde Windows hacia Kali" style="display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      </div>
+      
+      <!-- 3. Página Falsa -->
+      <div class="img-placeholder" style="padding: 1rem; border: 1px solid rgba(184, 134, 11, 0.2); background: transparent;">
+        <img src="FotoPortal.png" alt="Portal Falso en navegador" style="display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      </div>
+      
+      <!-- 4. Captura SEToolkit (Faltante en tu lista, requerida por la rúbrica) -->
+      <div class="img-placeholder" style="padding: 2rem; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px;">
+        <span style="font-weight: 600; color: #b8860b;">⚠️ Evidencia Faltante</span>
+        <span style="font-size: 0.9rem;">Inserta aquí tu imagen (ej. <code>CapturaSET.png</code>) con las credenciales interceptadas en texto plano para asegurar el Criterio 2.</span>
+        <!-- Cuando la tengas, borra los <span> de arriba y usa esta etiqueta: -->
+        <!-- <img src="TU_IMAGEN_AQUI.png" alt="Credenciales SEToolkit" style="display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);"> -->
+      </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-            <div class="img-placeholder">
-                <br>
-                <img src="ruta/a/tu/imagen_ping_kali.png" alt="Ping desde Kali">
-            </div>
-            <div class="img-placeholder">
-                [Inserta aquí la imagen del Ping desde Windows]<br>
-                <img src="ruta/a/tu/imagen_ping_windows.png" alt="Ping desde Windows">
-            </div>
-            <div class="img-placeholder">
-                [Inserta aquí la captura de la página falsa en el navegador]<br>
-                <img src="ruta/a/tu/imagen_pagina_falsa.png" alt="Página Falsa">
-            </div>
-            <div class="img-placeholder">
-                [Inserta aquí la captura de SEToolkit (WE GOT A HIT!)]<br>
-                <img src="ruta/a/tu/imagen_setoolkit.png" alt="SEToolkit Hit">
-            </div>
-        </div>
-    </section>
+    </div>
+  </section>
 
     <section class="card full-width">
         <h2>Explicación del Flujo de Captura</h2>
