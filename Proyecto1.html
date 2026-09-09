@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walkthrough: Snakeoil | Práctica de Ciberseguridad</title>
+    <style>
+        /* Variables de color de la paleta - Estilo profesional y sobrio */
+        :root {
+            --bg-principal: #F8F5EE;       /* Beige claro / Neutro */
+            --texto-principal: #3E2723;    /* Marrón profundo */
+            --acento: #DAA520;             /* Ocre dorado */
+            --fondo-tarjeta: #FDFBF7;      /* Beige más claro para contraste */
+            --borde-suave: #E8E0D5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            line-height: 1.6;
+        }
+
+        /* Encabezado principal */
+        header {
+            background-color: var(--texto-principal);
+            color: var(--bg-principal);
+            text-align: center;
+            padding: 4rem 2rem;
+            border-bottom: 6px solid var(--acento);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--acento);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Contenedor central */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--acento);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            color: var(--texto-principal);
+        }
+
+        /* Grid de Tarjetas (Qué, Por qué y Cómo) */
+        .grid-fases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tarjeta {
+            background-color: var(--fondo-tarjeta);
+            border: 1px solid var(--borde-suave);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(62, 39, 35, 0.08);
+        }
+
+        .tarjeta h3 {
+            color: var(--acento);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contenedor Multimedia Flexbox */
+        .media-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            background-color: var(--fondo-tarjeta);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--borde-suave);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .media-container p {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        /* Wrapper Responsivo para YouTube */
+        .video-wrapper-container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Proporción 16:9 perfecta */
+            height: 0;
+            overflow: hidden;
+            width: 100%;
+            background: #000;
+            border-radius: 8px;
+            border: 1px solid var(--borde-suave);
+            box-shadow: 0 4px 10px rgba(62, 39, 35, 0.15);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Visor de PDF */
+        .pdf-viewer {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            border: 2px solid var(--borde-suave);
+            border-radius: 6px;
+        }
+
+        /* Botón de descarga */
+        .btn {
+            display: inline-block;
+            background-color: var(--acento);
+            color: var(--texto-principal);
+            font-weight: bold;
+            text-decoration: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--texto-principal);
+            color: var(--acento);
+        }
+
+        /* Pie de página */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--texto-principal);
+            color: var(--bg-principal);
+            border-top: 4px solid var(--acento);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>De la Teoría a la Práctica</h1>
+    <p>Walkthrough detallado de pentesting sobre la máquina vulnerable <em>digitalworld.local: snakeoil</em>. Un análisis profundo de vulnerabilidades web y escalamiento de privilegios.</p>
+</header>
+
+<div class="container">
+
+    <!-- Sección: Resumen del Proyecto -->
+    <section>
+        <h2>Metodología de Ataque</h2>
+        <div class="grid-fases">
+            <div class="tarjeta">
+                <h3>1. ¿Qué se hizo? (Reconocimiento y Fuzzing)</h3>
+                <p>Se desplegó un entorno aislado para analizar la máquina objetivo. Se utilizó <strong>Nmap</strong> para identificar servicios en los puertos 22 (SSH) y 8080 (HTTP). Posteriormente, mediante <strong>Gobuster</strong>, se descubrieron endpoints ocultos de una API (login y registration) que no estaban expuestos al usuario.</p>
+            </div>
+
+            <div class="tarjeta">
+                <h3>2. ¿Por qué funcionó? (Explotación Web)</h3>
+                <p>La API presentaba una mala gestión de métodos HTTP. Al interceptar el tráfico con <strong>Burp Suite</strong> y forzar un método POST en lugar de GET, se logró saltar las validaciones. Esto permitió crear un usuario ilícito, autenticarse y recibir un token de sesión criptográfico (JWT).</p>
+            </div>
+
+            <div class="tarjeta">
+                <h3>3. ¿Cómo se obtuvo el control? (Escalamiento)</h3>
+                <p>Se realizó una <strong>Inyección de Comandos (OS Command Injection)</strong> explotando la falta de sanitización al enviar la entrada de red hacia el comando <code>curl</code> del sistema, revelando las credenciales de SSH. Finalmente, se abusó de una configuración permisiva en el archivo <em>Sudoers</em> para ejecutar comandos sin contraseña, logrando acceso Root.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Video Tutorial embebido de YouTube -->
+    <section>
+        <h2>Video Walkthrough (Tutorial paso a paso)</h2>
+        <div class="media-container">
+            <p>Reproduce el tutorial de 40 minutos donde se explica teórica y prácticamente la ejecución y mitigación de cada vector de ataque.</p>
+
+            <div class="video-wrapper-container">
+                <div class="video-wrapper">
+                    <iframe
+                            src="https://www.youtube.com/embed/zXtARoranKM?si=wBGOZVOpadIoXrMW"
+                            title="Walkthrough digitalworld.local: snakeoil"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sección: Documentación (Reporte PDF) -->
+    <section>
+        <h2>Documentación Oficial</h2>
+        <div class="media-container">
+            <p>Revisa el reporte técnico exhaustivo con las capturas de pantalla, justificación de comandos y remediaciones propuestas.</p>
+
+            <!-- Visor embebido del PDF -->
+            <!-- Asegúrate de que el archivo PDF se llame 'reporte.pdf' y esté en la misma carpeta que este HTML -->
+            <iframe src="reporte.pdf" class="pdf-viewer" title="Reporte Técnico de Pentesting"></iframe>
+
+            <a href="reporte.pdf" download class="btn">Descargar Reporte PDF</a>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 - Repositorio de Ciberseguridad. Proyecto final.</p>
+</footer>
+
+</body>
+</html>
