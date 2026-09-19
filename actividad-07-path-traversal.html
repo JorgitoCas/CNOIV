@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 07 - Path Traversal | Portafolio</title>
+    <!-- Fuentes modernas: Space Grotesk para títulos, Inter para lectura -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-principal: #F8FAFC;       /* Blanco/Grisáceo muy claro */
+            --texto-principal: #0F172A;    /* Azul Marino / Carbón */
+            --texto-secundario: #475569;   /* Gris pizarra */
+            --acento: #FFC107;             /* Amarillo institucional UPSLP */
+            --fondo-tarjeta: #FFFFFF;
+            --sombra-elegante: 0 10px 30px -10px rgba(15, 23, 42, 0.1);
+            --borde-suave: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .btn {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Encabezado Dinámico */
+        header {
+            background-color: var(--texto-principal);
+            color: #FFFFFF;
+            padding: 5rem 2rem;
+            text-align: center;
+            border-bottom: 6px solid var(--acento);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Patrón de fondo sutil en el header */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        header > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-volver {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--acento);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-volver:hover {
+            color: #FFFFFF;
+            transform: translateX(-5px);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .badge-lab {
+            display: inline-block;
+            background-color: var(--acento);
+            color: var(--texto-principal);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        /* Contenedor Principal */
+        .container {
+            max-width: 1200px;
+            margin: -3rem auto 3rem;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Tarjeta de Introducción */
+        .intro-card {
+            background-color: var(--fondo-tarjeta);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--sombra-elegante);
+            margin-bottom: 4rem;
+            border-top: 4px solid var(--acento);
+            text-align: center;
+        }
+
+        .intro-card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .intro-card p {
+            color: var(--texto-secundario);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Grid de Tarjetas (Desarrollo) */
+        .seccion-titulo {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .grid-fases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .tarjeta {
+            background-color: var(--fondo-tarjeta);
+            border: 1px solid var(--borde-suave);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--sombra-elegante);
+            border-color: var(--acento);
+        }
+
+        .tarjeta-numero {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--bg-principal);
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            opacity: 0.8;
+            -webkit-text-stroke: 2px var(--borde-suave);
+            transition: color 0.4s ease;
+        }
+
+        .tarjeta:hover .tarjeta-numero {
+            color: rgba(255, 193, 7, 0.1);
+            -webkit-text-stroke: 2px var(--acento);
+        }
+
+        .tarjeta h3 {
+            font-size: 1.4rem;
+            color: var(--texto-principal);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tarjeta p {
+            color: var(--texto-secundario);
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        code {
+            background-color: var(--bg-principal);
+            color: #D97706;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-weight: bold;
+            border: 1px solid var(--borde-suave);
+        }
+
+        /* Sección del PDF */
+        .pdf-section {
+            background-color: var(--fondo-tarjeta);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--sombra-elegante);
+            text-align: center;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 700px;
+            border: 2px solid var(--borde-suave);
+            border-radius: 12px;
+            margin: 2rem 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .pdf-viewer:hover {
+            border-color: var(--acento);
+        }
+
+        .btn-descarga {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--acento);
+            color: var(--texto-principal);
+            font-weight: 700;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-descarga:hover {
+            background-color: var(--texto-principal);
+            color: var(--acento);
+            transform: scale(1.05);
+        }
+
+        /* Pie de página */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background-color: var(--texto-principal);
+            color: #FFFFFF;
+            margin-top: 4rem;
+        }
+
+        /* Animaciones (Fade in Up) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Encabezado -->
+<header>
+    <a href="Actividad 6.html" class="btn-volver">← Roadmap Principal</a>
+    <div>
+        <span class="badge-lab">Laboratorio 07</span>
+    </div>
+    <h1>File Path Traversal</h1>
+    <p style="color: #cbd5e1; max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+        Resolución práctica y análisis de vulnerabilidad de salto de directorio mediante Burp Suite.
+    </p>
+</header>
+
+<!-- Contenido Principal -->
+<main class="container">
+
+    <!-- Tarjeta de Introducción -->
+    <section class="intro-card reveal">
+        <h2>Contexto de la Práctica</h2>
+        <p>El presente documento adjunta de qué manera se puede usar herramientas como el Burp Suite con la intención de vulnerar una debilidad en sitios web[cite: 5]. En este caso usaremos el Path File Traversal, lo cual significa usar la falta de validación para ejecutar comandos que nos puedan retornar valores como contraseñas o cuentas[cite: 5].</p>
+    </section>
+
+    <h2 class="seccion-titulo reveal">Metodología de Explotación</h2>
+
+    <!-- Grid de Tarjetas Dinámicas -->
+    <div class="grid-fases">
+
+        <!-- Paso 1 -->
+        <div class="tarjeta reveal" style="transition-delay: 100ms;">
+            <div class="tarjeta-numero">1</div>
+            <h3>Intercepción Inicial</h3>
+            <p>Se inicia el Burp Suite y se accede al link de la práctica, además que se le da adelante por primera vez para cargar el sitio[cite: 5]. Esto nos permite ver las primeras consultas que genera[cite: 5]. Al cargar las imágenes nos permite ver que las está tomando desde alguna carpeta[cite: 5]. Es importante verificar que nos está pidiendo obtener los contenidos de <code>/etc/password</code>[cite: 5].</p>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="tarjeta reveal" style="transition-delay: 200ms;">
+            <div class="tarjeta-numero">2</div>
+            <h3>Análisis de Respuesta</h3>
+            <p>Ahora tomamos una de estas request de imagen para ver cómo es que interactúa[cite: 5]. Al ver cómo interactúa nos damos cuenta que en efecto está retornando la imagen[cite: 5]. Así que intentaremos darle otras instrucciones a ver cómo reacciona[cite: 5]. Para esto es importante entender que solo se podrán ver los archivos a los cuales la cuenta de la app tenga permisos[cite: 5].</p>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="tarjeta reveal" style="transition-delay: 300ms;">
+            <div class="tarjeta-numero">3</div>
+            <h3>Inyección del Payload</h3>
+            <p>Intentamos empezar la vulneración, primero verificaremos si acepta la ruta absoluta[cite: 5]. Nos contesta que no encuentra o no existe <code>etc/passwd</code> debido a que estamos dentro del folder de imágenes[cite: 5]. Como no sabemos en qué nivel estamos, probamos retroceder agregando directorios con un back, y en este caso con 4 niveles (<code>../../../../</code>) lo logramos[cite: 5].</p>
+        </div>
+
+    </div>
+
+    <!-- Sección del PDF -->
+    <section class="pdf-section reveal">
+        <h2>Evidencia Documental</h2>
+        <p style="color: var(--texto-secundario); margin-bottom: 1rem;">Consulta el reporte original con las capturas de pantalla del proceso en Burp Suite.</p>
+
+        <!-- Visor de PDF embebido -->
+        <iframe src="Reporte Path File 1.pdf" class="pdf-viewer" title="Reporte Lab File Path Traversal"></iframe>
+
+        <a href="Reporte Path File 1.pdf" download="Reporte_Path_File_Traversal.pdf" class="btn-descarga">
+            📄 Descargar Reporte PDF
+        </a>
+    </section>
+
+</main>
+
+<!-- Pie de página -->
+<footer>
+    <h3 style="margin-bottom: 0.5rem; color: var(--acento);">Road to Hall of Fame</h3>
+    <p>Portafolio Digital de Ciberseguridad &copy; 2026</p>
+    <p style="margin-top: 0.5rem; color: #94a3b8; font-size: 0.85rem; font-family: 'Inter', sans-serif;">Jorge Abraham Castelo Curioca - Ingeniería en TI</p>
+</footer>
+
+<!-- Script para animaciones de scroll (Intersection Observer) -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const reveals = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Deja de observar una vez que aparece
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.15, // Se activa cuando el 15% del elemento es visible
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        reveals.forEach(reveal => {
+            revealOnScroll.observe(reveal);
+        });
+
+        // Activar inmediatamente los elementos que ya están en pantalla al cargar
+        setTimeout(() => {
+            reveals.forEach(reveal => {
+                const rect = reveal.getBoundingClientRect();
+                if(rect.top < window.innerHeight) {
+                    reveal.classList.add('active');
+                }
+            });
+        }, 100);
+    });
+</script>
+
+</body>
+</html>
