@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 06: Road to Hall of Fame</title>
+
+    <!-- Fuentes de Google: Space Grotesk (Títulos) e Inter (Texto) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configuración personalizada de Tailwind y CSS puro -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#0B1120',
+                            800: '#0F172A',
+                            700: '#1E293B',
+                        },
+                        accent: {
+                            DEFAULT: '#FFC107', // Amarillo vibrante
+                            hover: '#FFB300',
+                            light: '#FFF8E1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F8FAFC; /* Blanco/Gris muy claro limpio */
+            color: #0F172A; /* Gris carbón/Azul marino */
+            overflow-x: hidden;
+        }
+
+        /* --- Estilos Core del Timeline --- */
+        .timeline-container {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        /* Línea central amarilla */
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #FFC107;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 4px;
+        }
+
+        .timeline-item {
+            padding: 10px 50px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        /* Posicionamiento Lado a Lado (Escritorio) */
+        .timeline-item:nth-child(odd) { left: 0; }
+        .timeline-item:nth-child(even) { left: 50%; }
+
+        /* Puntos indicadores en la línea */
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #FFFFFF;
+            border: 5px solid #FFC107;
+            top: 30px;
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:nth-child(odd)::after { right: -12px; }
+        .timeline-item:nth-child(even)::after { left: -12px; }
+
+        /* Efecto del punto al hacer hover en la tarjeta */
+        .timeline-item:hover::after {
+            background-color: #FFC107;
+            transform: scale(1.2);
+        }
+
+        /* --- Responsividad del Timeline (Móviles) --- */
+        @media screen and (max-width: 768px) {
+            .timeline-container::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 15px;
+            }
+            .timeline-item:nth-child(even) {
+                left: 0%;
+            }
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 19px;
+            }
+        }
+
+        /* --- Animaciones de Scroll --- */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .is-visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* --- Efectos de Tarjeta --- */
+        .lab-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .lab-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            transition: background 0.3s ease;
+        }
+
+        .lab-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #CBD5E1;
+        }
+
+        .lab-card:hover::before {
+            background: #FFC107; /* Borde superior amarillo al hacer hover */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- Encabezado -->
+<header class="pt-24 pb-16 px-6 border-b border-gray-200 bg-white relative overflow-hidden">
+    <!-- Decoración geométrica sutil -->
+    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-accent-light opacity-50 blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-slate-100 opacity-50 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto text-center relative z-10 reveal-up">
+            <span class="inline-block py-1 px-4 rounded-full bg-accent-light text-yellow-600 text-sm font-semibold tracking-widest uppercase mb-4">
+                Actividad 06
+            </span>
+        <h1 class="font-display text-4xl md:text-6xl font-bold text-navy-800 mb-6 tracking-tight">
+            ROAD TO <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-yellow-600">HALL OF FAME</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-light">
+            Ruta de progreso de laboratorios técnicos. Evidencias de desarrollo, análisis y documentación estructurada.
+        </p>
+    </div>
+</header>
+
+<!-- Contenido Principal: Timeline -->
+<main class="py-20 px-4 md:px-6">
+    <div class="timeline-container">
+
+        <!-- Laboratorio 1 -->
+        <div class="timeline-item reveal-left">
+            <div class="lab-card">
+                <!-- Imagen (Unsplash tecnología/redes) -->
+                <div class="h-48 w-full bg-slate-200 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800" alt="Escaneo de Redes" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="p-6 md:p-8">
+                    <div class="text-sm font-semibold text-yellow-600 mb-2 font-display tracking-wide uppercase">Fase 1</div>
+                    <h2 class="text-2xl font-display font-bold text-navy-800 mb-3">Laboratorio 01: Escaneo de Redes</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed text-sm md:text-base">
+                        Implementación de técnicas de footprinting y reconocimiento activo. Uso de herramientas de mapeo para identificar topologías, puertos abiertos y servicios expuestos en el entorno de pruebas.
+                    </p>
+                    <button class="px-5 py-2.5 text-sm font-medium text-navy-800 bg-slate-100 hover:bg-accent hover:text-navy-900 rounded-lg transition-colors duration-300 flex items-center gap-2 group border border-slate-200 hover:border-accent">
+                        Ver Evidencia
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Laboratorio 2 -->
+        <div class="timeline-item reveal-right">
+            <div class="lab-card">
+                <div class="h-48 w-full bg-slate-200 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800" alt="Análisis de Vulnerabilidades" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="p-6 md:p-8">
+                    <div class="text-sm font-semibold text-yellow-600 mb-2 font-display tracking-wide uppercase">Fase 2</div>
+                    <h2 class="text-2xl font-display font-bold text-navy-800 mb-3">Laboratorio 02: Análisis de Vulnerabilidades</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed text-sm md:text-base">
+                        Evaluación sistemática de sistemas objetivo. Ejecución de escaneos autenticados y no autenticados para clasificar fallos de seguridad basados en la criticidad del CVSS.
+                    </p>
+                    <button class="px-5 py-2.5 text-sm font-medium text-navy-800 bg-slate-100 hover:bg-accent hover:text-navy-900 rounded-lg transition-colors duration-300 flex items-center gap-2 group border border-slate-200 hover:border-accent">
+                        Ver Evidencia
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Laboratorio 3 -->
+        <div class="timeline-item reveal-left">
+            <div class="lab-card">
+                <div class="h-48 w-full bg-slate-200 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800" alt="Explotación Web" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="p-6 md:p-8">
+                    <div class="text-sm font-semibold text-yellow-600 mb-2 font-display tracking-wide uppercase">Fase 3</div>
+                    <h2 class="text-2xl font-display font-bold text-navy-800 mb-3">Laboratorio 03: Explotación Web</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed text-sm md:text-base">
+                        Pruebas de concepto (PoC) sobre aplicaciones web defectuosas. Demostración práctica de inyección de código, manipulación de parámetros y evasión de controles de acceso.
+                    </p>
+                    <button class="px-5 py-2.5 text-sm font-medium text-navy-800 bg-slate-100 hover:bg-accent hover:text-navy-900 rounded-lg transition-colors duration-300 flex items-center gap-2 group border border-slate-200 hover:border-accent">
+                        Ver Evidencia
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Laboratorio 4 -->
+        <div class="timeline-item reveal-right">
+            <div class="lab-card">
+                <div class="h-48 w-full bg-slate-200 overflow-hidden relative flex items-center justify-center bg-navy-800">
+                    <!-- En lugar de imagen, un diseño tipográfico o de código para variar -->
+                    <div class="text-accent text-6xl opacity-20">
+                        <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8">
+                    <div class="text-sm font-semibold text-yellow-600 mb-2 font-display tracking-wide uppercase">Fase 4</div>
+                    <h2 class="text-2xl font-display font-bold text-navy-800 mb-3">Laboratorio 04: Reporte y Mitigación</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed text-sm md:text-base">
+                        Consolidación de hallazgos en un informe técnico profesional. Se incluyen las metodologías utilizadas, la evidencia recolectada y las recomendaciones para parchar las vulnerabilidades.
+                    </p>
+                    <button class="px-5 py-2.5 text-sm font-medium text-navy-800 bg-slate-100 hover:bg-accent hover:text-navy-900 rounded-lg transition-colors duration-300 flex items-center gap-2 group border border-slate-200 hover:border-accent">
+                        Ver Evidencia
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- Sección Final: Botón de Descarga -->
+<section class="py-24 bg-white border-t border-gray-200 text-center reveal-up">
+    <div class="max-w-3xl mx-auto px-6">
+        <h3 class="font-display text-2xl md:text-3xl font-bold text-navy-800 mb-4">Documentación Completa</h3>
+        <p class="text-slate-600 mb-8 font-light">
+            Descarga el documento final estructurado en formato PDF, que incluye la evidencia detallada de todos los laboratorios técnicos realizados durante la unidad.
+        </p>
+
+        <a href="#descargar" class="inline-flex items-center justify-center px-8 py-4 text-base md:text-lg font-bold text-navy-900 bg-accent hover:bg-accent-hover rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+            <svg class="w-6 h-6 mr-3 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            Descargar Documento Completo PDF
+        </a>
+    </div>
+</section>
+
+<!-- Scripts para animaciones de Scroll -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Opciones para el IntersectionObserver
+        const observerOptions = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.15 // Ejecuta la animación cuando el 15% del elemento es visible
+        };
+
+        // Función callback del Observer
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Deja de observar una vez que la animación se ejecutó
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        // Crear el observador
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        // Seleccionar todos los elementos a animar
+        const animatedElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
+
+        animatedElements.forEach(el => {
+            observer.observe(el);
+        });
+    });
+</script>
+</body>
+</html>
