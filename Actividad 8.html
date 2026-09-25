@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad 08 - Absolute Path Bypass</title>
+    <title>Actividad 09 - Traversal Sequences Stripped Non-Recursively</title>
 
     <!-- Fuentes de Google: Space Grotesk e Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,10 +48,11 @@
             overflow-x: hidden;
         }
 
+        /* Animaciones suaves al hacer scroll */
         .reveal-up {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .is-visible {
@@ -59,6 +60,7 @@
             transform: translate(0, 0);
         }
 
+        /* Tarjetas interactivas */
         .step-card {
             background: #FFFFFF;
             border: 1px solid #E2E8F0;
@@ -70,11 +72,12 @@
         }
 
         .step-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-color: #CBD5E1;
-            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -5px rgba(15, 23, 42, 0.08);
+            border-color: #FFC107;
+            transform: translateY(-3px);
         }
 
+        /* Indicador numérico del paso */
         .step-number {
             position: absolute;
             top: -15px;
@@ -92,130 +95,152 @@
             font-weight: 700;
             border: 4px solid #FFFFFF;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .step-card:hover .step-number {
+            background-color: var(--tw-colors-accent-DEFAULT);
+            color: var(--tw-colors-navy-900);
+            transform: scale(1.05);
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased selection:bg-accent selection:text-navy-900">
 
-<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
-    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+<!-- Barra de Navegación Responsiva -->
+<nav class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         <a href="index.html" class="inline-flex items-center text-sm font-medium text-slate-600 hover:text-navy-800 transition-colors group">
-            <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             Volver al Roadmap
         </a>
         <div class="text-xs font-display font-bold tracking-widest text-slate-400 uppercase hidden sm:block">
-            Hall of Fame / Actividad 08
+            Road to Hall of Fame / Actividad 09
         </div>
     </div>
 </nav>
 
-<header class="pt-16 pb-12 px-6 bg-white border-b border-gray-200">
+<!-- Encabezado Principal -->
+<header class="pt-12 md:pt-16 pb-10 md:pb-12 px-4 sm:px-6 bg-white border-b border-gray-200">
     <div class="max-w-4xl mx-auto reveal-up">
-        <div class="flex items-center gap-3 mb-4">
-            <span class="px-3 py-1 text-xs font-bold text-navy-900 bg-accent rounded-md uppercase tracking-wide">Actividad 08</span>
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="px-3 py-1 text-xs font-bold text-navy-900 bg-accent rounded-md uppercase tracking-wide shadow-sm">Actividad 09</span>
+            <span class="px-3 py-1 text-xs font-semibold text-slate-600 bg-slate-100 rounded-md">Nivel: Practitioner</span>
             <span class="text-sm font-medium text-slate-500">PortSwigger Web Security Academy</span>
         </div>
-        <h1 class="font-display text-3xl md:text-5xl font-bold text-navy-800 mb-4 leading-tight">
-            File Path Traversal: Traversal sequences blocked with absolute path bypass
+        <h1 class="font-display text-2xl sm:text-3xl md:text-5xl font-bold text-navy-800 mb-4 leading-tight">
+            File Path Traversal: Traversal sequences stripped non-recursively
         </h1>
-        <a href="https://portswigger.net/web-security/file-path-traversal/lab-absolute-path-bypass" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm mb-6 transition-colors">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-            Enlace al Laboratorio Oficial
+        <p class="text-base sm:text-lg text-slate-600 font-light max-w-2xl mb-6">
+            Evasión de filtros de sanitización no recursivos mediante la inyección de secuencias de salto de directorio anidadas.
+        </p>
+        <a href="https://portswigger.net/web-security/file-path-traversal/lab-sequences-stripped-non-recursively" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm font-semibold text-navy-800 hover:text-accent transition-colors bg-slate-50 hover:bg-navy-900 px-4 py-2 rounded-lg border border-slate-200">
+            <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+            Acceder al Laboratorio Oficial en PortSwigger
         </a>
     </div>
 </header>
 
-<main class="py-12 px-6 max-w-4xl mx-auto space-y-16">
+<!-- Contenido Principal -->
+<main class="py-10 md:py-12 px-4 sm:px-6 max-w-4xl mx-auto space-y-14 md:space-y-16">
 
     <!-- Sección 1: Ficha Técnica -->
     <section class="reveal-up">
-        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
-            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
             1. Ficha Técnica del Laboratorio
         </h2>
-        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Nombre del Laboratorio</h3>
-                <p class="text-navy-900 font-medium">Traversal sequences blocked with absolute path bypass</p>
+                <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Nombre del Laboratorio</h3>
+                <p class="text-navy-900 font-semibold">Traversal sequences stripped non-recursively</p>
             </div>
             <div>
-                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Nivel</h3>
-                <p class="text-navy-900 font-medium">Practitioner</p>
+                <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Nivel de Dificultad</h3>
+                <p class="text-navy-900 font-semibold flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                    Practitioner
+                </p>
             </div>
             <div>
-                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Tipo de Explotación</h3>
-                <p class="text-navy-900 font-medium">File Path Traversal / Directory Traversal</p>
+                <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Tipo de Explotación</h3>
+                <p class="text-navy-900 font-semibold">File Path Traversal (Filter Bypass por Anidación)</p>
             </div>
             <div>
-                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Objetivo del Laboratorio</h3>
-                <p class="text-navy-900 font-medium">Evadir las defensas de la aplicación para recuperar y visualizar el contenido del archivo de sistema <code>/etc/passwd</code>.</p>
+                <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Objetivo del Laboratorio</h3>
+                <p class="text-navy-900 font-semibold">Evadir la depuración no recursiva de secuencias <code>../</code> para extraer el archivo <code>/etc/passwd</code>.</p>
             </div>
         </div>
     </section>
 
-    <!-- Sección 2: Marco Teórico -->
+    <!-- Sección 2: Marco Teórico y Fundamentación Técnica -->
     <section class="reveal-up">
-        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
-            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
             2. Explicación Técnica de la Vulnerabilidad
         </h2>
-        <div class="bg-navy-800 text-white p-6 md:p-8 rounded-xl shadow-lg relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-accent opacity-10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-            <p class="text-slate-300 leading-relaxed relative z-10 text-lg">
-                En muchas ocasiones, los desarrolladores intentan defenderse contra los ataques de Path Traversal bloqueando explícitamente secuencias de caracteres como <code>../</code> o sus representaciones codificadas. Sin embargo, si la validación solo se enfoca en bloquear saltos relativos, es posible evadir este filtro utilizando una <strong>ruta absoluta</strong>. Una ruta absoluta especifica la ubicación exacta del archivo desde el directorio raíz del sistema de archivos (ej. <code>/etc/passwd</code>), permitiendo acceder a archivos sensibles sin necesidad de navegar hacia arriba en la estructura de directorios.
+        <div class="bg-navy-800 text-white p-6 sm:p-8 rounded-xl shadow-lg relative overflow-hidden space-y-4">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-accent opacity-10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+
+            <p class="text-slate-200 leading-relaxed relative z-10 text-base sm:text-lg">
+                Una defensa común pero defectuosa contra ataques de <strong>Path Traversal</strong> consiste en sanitizar la entrada del usuario eliminando las subcadenas de salto de directorio (<code class="text-accent font-mono">../</code>) antes de concatenar el parámetro con el directorio base del servidor. El fallo crítico ocurre cuando esta sustitución se aplica de forma <strong>no recursiva</strong> (en una sola pasada, por ejemplo mediante funciones simples como <code class="text-accent font-mono">replace("../", "")</code>).
+            </p>
+            <p class="text-slate-300 leading-relaxed relative z-10 text-sm sm:text-base">
+                Dentro del marco de <strong>OWASP Top 10 (A01: Broken Access Control)</strong>, esta debilidad compromete directamente el pilar de <strong>Confidencialidad</strong> de la tríada CIA, permitiendo a un atacante reconstruir secuencias válidas tras la ejecución del filtro y leer archivos arbitrarios del sistema operativo o configuraciones de bases de datos a las que el usuario del servicio web tenga permisos de lectura.
             </p>
         </div>
     </section>
 
-    <!-- Sección 3: Procedimiento y Explotación -->
+    <!-- Sección 3: Procedimiento Paso a Paso -->
     <section>
-        <div class="mb-10 reveal-up">
-            <h2 class="font-display text-2xl font-bold text-navy-800 mb-2 flex items-center gap-2">
-                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+        <div class="mb-8 reveal-up">
+            <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-2 flex items-center gap-2">
+                <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 3. Procedimiento Paso a Paso
             </h2>
+            <p class="text-slate-500 text-sm sm:text-base">Metodología aplicada mediante Burp Suite para interceptar, analizar y vulnerar el filtro del servidor.</p>
         </div>
 
-        <div class="space-y-8">
+        <div class="space-y-6 sm:space-y-8">
 
             <!-- Paso 1 -->
-            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+            <div class="step-card p-6 sm:p-8 pt-10 reveal-up">
                 <div class="step-number">1</div>
-                <h3 class="text-xl font-bold text-navy-800 mb-3">Intercepción Inicial</h3>
-                <p class="text-slate-600">
-                    Primero se tiene que iniciar el laboratorio y abrirlo desde BurpSuite[cite: 8]. Una vez está abierta la actividad podemos proceder a verificar qué tipo de consultas genera[cite: 8].
+                <h3 class="text-lg sm:text-xl font-bold text-navy-800 mb-2">Intercepción de Peticiones en Burp Suite</h3>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Se inicia el entorno del laboratorio utilizando el navegador integrado de Burp Suite. A través del módulo <strong>Proxy (HTTP History)</strong>, se habilita la captura de tráfico para inspeccionar las peticiones GET generadas al cargar el catálogo de productos, identificando el endpoint vulnerable <code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">/image?filename=18.jpg</code>.
                 </p>
             </div>
 
             <!-- Paso 2 -->
-            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+            <div class="step-card p-6 sm:p-8 pt-10 reveal-up">
                 <div class="step-number">2</div>
-                <h3 class="text-xl font-bold text-navy-800 mb-3">Análisis de la Consulta</h3>
-                <p class="text-slate-600">
-                    Una vez verificamos nos damos cuenta que está tomando las imágenes desde un directorio, así que intentaremos utilizar el path traversal más simple que es usando el path absoluto[cite: 8].
+                <h3 class="text-lg sm:text-xl font-bold text-navy-800 mb-2">Identificación del Filtro en Repeater</h3>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Se envía la petición capturada hacia la herramienta <strong>Repeater</strong> (<code class="bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-mono text-xs">Ctrl + R</code>). Al probar vectores tradicionales como la ruta absoluta (<code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">/etc/passwd</code>) o secuencias simples (<code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">../../../etc/passwd</code>), el servidor responde con un error <code class="bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-mono text-xs">400 Bad Request ("No such file")</code>, confirmando que la aplicación exige partir del directorio local y elimina activamente las subcadenas <code class="font-mono text-xs">../</code>.
                 </p>
             </div>
 
             <!-- Paso 3 -->
-            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+            <div class="step-card p-6 sm:p-8 pt-10 reveal-up">
                 <div class="step-number">3</div>
-                <h3 class="text-xl font-bold text-navy-800 mb-3">Envío del Payload</h3>
-                <p class="text-slate-600">
-                    Verificación de vulneración[cite: 8]. A continuación intentamos usar el path absoluto para <code>/etc/passwd</code>[cite: 8]. Para esto mandamos desde el repetidor el request modificado[cite: 8].
+                <h3 class="text-lg sm:text-xl font-bold text-navy-800 mb-2">Inyección de Secuencias Anidadas</h3>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Para evadir la limpieza no recursiva, se construye un payload con secuencias dobladas o anidadas. Se modifica el parámetro <code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded">filename</code> en el Repeater ingresando <code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">....//....//....//etc/passwd</code> y se transmite la consulta hacia el servidor.
                 </p>
             </div>
 
             <!-- Paso 4 -->
-            <div class="step-card bg-accent-light border-accent p-6 md:p-8 pt-10 reveal-up">
-                <div class="step-number !bg-accent !text-white !border-white">4</div>
-                <div class="flex items-center gap-4 mb-3">
-                    <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm">
-                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div class="step-card bg-accent-light border-accent p-6 sm:p-8 pt-10 reveal-up">
+                <div class="step-number !bg-accent !text-navy-900 !border-white">4</div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-sm shrink-0">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-navy-800">Confirmación de Éxito</h3>
+                    <h3 class="text-lg sm:text-xl font-bold text-navy-800">Extracción de Datos y Resolución</h3>
                 </div>
-                <p class="text-slate-600">
-                    Y listo, esta actividad no tiene ningún tipo de validación de request por lo que el método más fácil funcionó[cite: 8].
+                <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+                    El filtro del servidor elimina la secuencia interna <code class="font-mono text-xs">../</code> una sola vez, provocando que los caracteres restantes se unan y formen la ruta <code class="font-mono text-xs font-semibold">../../../etc/passwd</code>. El servidor responde con un código <code class="font-mono text-xs font-bold text-green-700">HTTP/2 200 OK</code> desplegando todos los usuarios del sistema y marcando el laboratorio como resuelto.
                 </p>
             </div>
 
@@ -223,66 +248,78 @@
     </section>
 
     <!-- Sección 4: Explicación del Payload y Mitigación -->
-    <section class="reveal-up mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section class="reveal-up grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
 
         <!-- Explicación del Payload -->
-        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm">
-            <h2 class="font-display text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                4. Explicación del Payload
-            </h2>
-            <div class="bg-slate-50 p-3 rounded border border-slate-200 border-dashed mb-4">
-                <span class="text-sm font-mono text-pink-600 font-bold">/etc/passwd</span>
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+                <h2 class="font-display text-lg sm:text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    4. Explicación del Payload
+                </h2>
+                <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 border-dashed mb-4 overflow-x-auto">
+                    <code class="text-xs sm:text-sm font-mono text-pink-600 font-bold whitespace-nowrap">....//....//....//etc/passwd</code>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                    El éxito de este payload radica en explotar la lógica de reemplazo lineal de cadenas. Cuando el backend ejecuta una instrucción equivalente a buscar y borrar <code class="font-mono text-xs bg-slate-100 px-1 rounded">../</code> sin repetir el ciclo de validación:
+                </p>
             </div>
-            <p class="text-slate-600 text-sm leading-relaxed">
-                A diferencia del ejercicio anterior donde se utilizaban saltos de directorio (<code>../../../</code>), en este caso la aplicación web filtra o bloquea dichas secuencias relativas para protegerse. Al ingresar directamente la ruta absoluta del archivo objetivo en el sistema de archivos del servidor, logramos evadir la regla de bloqueo. El sistema procesa la ruta tal cual se recibe y devuelve exitosamente la información solicitada sin requerir manipulación de saltos.
-            </p>
+            <div class="bg-navy-900 text-slate-200 p-4 rounded-lg font-mono text-xs space-y-1.5">
+                <div><span class="text-slate-400">1. Entrada:</span> ..<span class="text-red-400 underline">../</span>/..<span class="text-red-400 underline">../</span>/..<span class="text-red-400 underline">../</span>/etc/passwd</div>
+                <div><span class="text-slate-400">2. Filtro:</span> Elimina la subcadena central <span class="text-red-400">"../"</span></div>
+                <div><span class="text-slate-400">3. Resultado:</span> <span class="text-accent font-bold">../../../etc/passwd</span></div>
+            </div>
         </div>
 
         <!-- Mitigación -->
-        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-green-500">
-            <h2 class="font-display text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-green-500">
+            <h2 class="font-display text-lg sm:text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                 5. Mitigación Recomendada
             </h2>
-            <p class="text-slate-600 text-sm leading-relaxed mb-3">
-                La defensa implementada por el desarrollador en este laboratorio (bloquear <code>../</code>) fue insuficiente, ya que es una estrategia basada en "lista negra" (Blacklisting).
+            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                Depurar entradas eliminando secuencias conocidas es una práctica insegura propensa a evasiones. Para mitigar de raíz la vulnerabilidad se debe implementar:
             </p>
-            <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
-                <li>Se recomienda utilizar validaciones mediante <strong>listas blancas</strong> (Whitelisting) validando que el archivo solicitado corresponda únicamente a nombres de archivos esperados.</li>
-                <li>Utilizar las APIs del sistema operativo para normalizar las rutas absolutas y verificar que el archivo de destino resida siempre dentro del directorio raíz previsto para la aplicación.</li>
+            <ul class="list-disc list-inside text-slate-600 text-sm space-y-2.5 leading-relaxed">
+                <li><strong>Validación por Lista Blanca (Whitelisting):</strong> Verificar que el parámetro coincida estrictamente con una lista cerrada de nombres de archivo permitidos o utilizar identificadores numéricos mapeados en base de datos.</li>
+                <li><strong>Canonicalización y Verificación de Ruta Base:</strong> Utilizar APIs como <code class="font-mono text-xs bg-slate-100 px-1 rounded"> Path.GetFullPath()</code> o <code class="font-mono text-xs bg-slate-100 px-1 rounded">getCanonicalPath()</code> para resolver la ruta absoluta final y comprobar mediante código que comience estrictamente con el directorio público autorizado (ej. <code class="font-mono text-xs bg-slate-100 px-1 rounded">/var/www/images/</code>).</li>
             </ul>
         </div>
     </section>
 
     <!-- Sección 5: Evidencia Documental (PDF Viewer) -->
-    <section class="reveal-up mt-16">
-        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
-            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+    <section class="reveal-up">
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
             6. Evidencia Documental Original
         </h2>
-        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm text-center">
-            <p class="text-slate-600 mb-6 text-lg">Consulta el reporte técnico original de la Actividad 8 con las evidencias de intercepción y explotación.</p>
+        <div class="bg-white p-5 sm:p-8 rounded-xl border border-slate-200 shadow-sm text-center">
+            <p class="text-slate-600 mb-6 text-sm sm:text-base max-w-2xl mx-auto">
+                Consulta el reporte técnico en PDF con las 4 capturas de pantalla obligatorias: request interceptado, payload utilizado, respuesta vulnerable y confirmación de "Lab Solved".
+            </p>
 
-            <!-- Visor de PDF embebido -->
-            <iframe src="Path Traversal 2 Actividad 8.pdf" class="w-full h-[700px] rounded-lg border-2 border-slate-200 mb-8 shadow-inner" title="Reporte Lab Absolute Path Bypass"></iframe>
+            <!-- Visor de PDF Responsivo -->
+            <div class="w-full overflow-hidden rounded-lg border-2 border-slate-200 mb-8 shadow-inner bg-slate-100">
+                <iframe src="Path Traversal 3 Actividad 9.pdf" class="w-full h-[450px] sm:h-[600px] md:h-[700px]" title="Reporte Actividad 09"></iframe>
+            </div>
 
-            <a href="Path Traversal 2 Actividad 8.pdf" download="Path Traversal 2 Actividad 8.pdf" class="inline-flex items-center gap-3 bg-accent text-navy-900 font-bold px-8 py-4 rounded-full hover:bg-navy-900 hover:text-accent transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                Descargar Documento (PDF)
+            <a href="Path Traversal 3 Actividad 9.pdf" download="Path Traversal 3 Actividad 9.pdf" class="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-accent text-navy-900 font-bold px-8 py-4 rounded-full hover:bg-navy-900 hover:text-accent transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm sm:text-base">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                Descargar Documento Completo (PDF)
             </a>
         </div>
     </section>
 
 </main>
 
-<footer class="border-t border-gray-200 bg-white mt-12 py-10 text-center">
+<!-- Pie de página -->
+<footer class="border-t border-gray-200 bg-white mt-12 py-10 px-4 text-center">
     <h3 class="font-display font-bold text-accent text-xl mb-2">Road to Hall of Fame</h3>
     <p class="text-slate-500 text-sm mb-1">
         Portafolio Digital de Ciberseguridad &copy; 2026.
     </p>
     <p class="text-slate-400 text-xs">
-        Jorge Abraham Castelo Curioca - Ingeniería en TI
+        Jorge Abraham Castelo Curioca - Ingeniería en Tecnologías de la Información (UPSLP)
     </p>
 </footer>
 
