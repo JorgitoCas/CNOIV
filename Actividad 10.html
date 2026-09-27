@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividad 10 - Superfluous URL-Decode</title>
+
+  <!-- Fuentes de Google: Space Grotesk e Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
+          },
+          colors: {
+            navy: {
+              900: '#0B1120',
+              800: '#0F172A',
+              700: '#1E293B',
+            },
+            accent: {
+              DEFAULT: '#FFC107',
+              hover: '#FFB300',
+              light: '#FFF8E1',
+              subtle: 'rgba(255, 193, 7, 0.1)'
+            },
+            bgbase: '#F8FAFC'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: var(--tw-colors-bgbase);
+      color: var(--tw-colors-navy-800);
+      overflow-x: hidden;
+    }
+
+    /* Animaciones suaves al hacer scroll */
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .is-visible {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    /* Tarjetas interactivas */
+    .step-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step-card:hover {
+      box-shadow: 0 12px 20px -5px rgba(15, 23, 42, 0.08);
+      border-color: #FFC107;
+      transform: translateY(-3px);
+    }
+
+    /* Indicador numérico del paso */
+    .step-number {
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      width: 60px;
+      height: 60px;
+      background-color: var(--tw-colors-accent-light);
+      color: var(--tw-colors-accent-DEFAULT);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      border: 4px solid #FFFFFF;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .step-card:hover .step-number {
+      background-color: var(--tw-colors-accent-DEFAULT);
+      color: var(--tw-colors-navy-900);
+      transform: scale(1.05);
+    }
+
+    /* Fondo estilizado para el contenedor de imagen */
+    .image-placeholder {
+      background-image: repeating-linear-gradient(45deg, #f1f5f9 25%, transparent 25%, transparent 75%, #f1f5f9 75%, #f1f5f9), repeating-linear-gradient(45deg, #f1f5f9 25%, #ffffff 25%, #ffffff 75%, #f1f5f9 75%, #f1f5f9);
+      background-position: 0 0, 10px 10px;
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-navy-900">
+
+<!-- Barra de Navegación Responsiva -->
+<nav class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <a href="index.html" class="inline-flex items-center text-sm font-medium text-slate-600 hover:text-navy-800 transition-colors group">
+      <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Volver al Roadmap
+    </a>
+    <div class="text-xs font-display font-bold tracking-widest text-slate-400 uppercase hidden sm:block">
+      Road to Hall of Fame / Actividad 10
+    </div>
+  </div>
+</nav>
+
+<!-- Encabezado Principal -->
+<header class="pt-12 md:pt-16 pb-10 md:pb-12 px-4 sm:px-6 bg-white border-b border-gray-200">
+  <div class="max-w-4xl mx-auto reveal-up">
+    <div class="flex flex-wrap items-center gap-3 mb-4">
+      <span class="px-3 py-1 text-xs font-bold text-navy-900 bg-accent rounded-md uppercase tracking-wide shadow-sm">Actividad 10</span>
+      <span class="px-3 py-1 text-xs font-semibold text-slate-600 bg-slate-100 rounded-md">Nivel: Practitioner</span>
+      <span class="text-sm font-medium text-slate-500">PortSwigger Web Security Academy</span>
+    </div>
+    <h1 class="font-display text-2xl sm:text-3xl md:text-5xl font-bold text-navy-800 mb-4 leading-tight">
+      File Path Traversal: Traversal sequences stripped with superfluous URL-decode
+    </h1>
+    <p class="text-base sm:text-lg text-slate-600 font-light max-w-2xl mb-6">
+      Evasión de filtros de sanitización mediante codificación URL doble (Double URL-Encoding) aprovechando decodificaciones superfluas en el backend.
+    </p>
+    <a href="https://portswigger.net/web-security/file-path-traversal/lab-superfluous-url-decode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm font-semibold text-navy-800 hover:text-accent transition-colors bg-slate-50 hover:bg-navy-900 px-4 py-2 rounded-lg border border-slate-200">
+      <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+      Acceder al Laboratorio Oficial en PortSwigger
+    </a>
+  </div>
+</header>
+
+<!-- Contenido Principal -->
+<main class="py-10 md:py-12 px-4 sm:px-6 max-w-4xl mx-auto space-y-14 md:space-y-16">
+
+  <!-- Sección 1: Ficha Técnica -->
+  <section class="reveal-up">
+    <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+      <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+      1. Ficha Técnica del Laboratorio
+    </h2>
+    <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div>
+        <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Nombre del Laboratorio</h3>
+        <p class="text-navy-900 font-semibold">Traversal sequences stripped with superfluous URL-decode</p>
+      </div>
+      <div>
+        <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Nivel de Dificultad</h3>
+        <p class="text-navy-900 font-semibold flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+          Practitioner
+        </p>
+      </div>
+      <div>
+        <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Tipo de Explotación</h3>
+        <p class="text-navy-900 font-semibold">File Path Traversal (Double URL-Encoding Bypass)</p>
+      </div>
+      <div>
+        <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Objetivo del Laboratorio</h3>
+        <p class="text-navy-900 font-semibold">Evadir el filtro de secuencias utilizando doble codificación URL para leer el contenido de <code>/etc/passwd</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 2: Marco Teórico y Fundamentación Técnica -->
+  <section class="reveal-up">
+    <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+      <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+      2. Explicación Técnica de la Vulnerabilidad
+    </h2>
+    <div class="bg-navy-800 text-white p-6 sm:p-8 rounded-xl shadow-lg relative overflow-hidden space-y-4">
+      <div class="absolute top-0 right-0 w-40 h-40 bg-accent opacity-10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+
+      <p class="text-slate-200 leading-relaxed relative z-10 text-base sm:text-lg">
+        Esta variante de <strong>Path Traversal</strong> se origina por una discrepancia en el orden de operaciones entre la validación de seguridad y la transformación de datos (<em>Time-of-Check to Time-of-Use</em> en el procesamiento de entradas). La aplicación bloquea o elimina secuencias <code class="text-accent font-mono">../</code> de la entrada del usuario, pero posteriormente realiza una <strong>decodificación URL adicional (superflua)</strong> antes de pasar la ruta a la API del sistema de archivos.
+      </p>
+      <p class="text-slate-300 leading-relaxed relative z-10 text-sm sm:text-base">
+        Catalogada dentro de <strong>OWASP Top 10 (A01: Broken Access Control / A03: Injection)</strong>, esta falla vulnera directamente la <strong>Confidencialidad</strong> de la tríada CIA. Un atacante puede aplicar <strong>Doble Codificación URL (Double URL-Encoding)</strong> para que el servidor web decodifique la primera capa al recibir la petición HTTP, el filtro de seguridad evalúe la cadena aún codificada sin detectar el patrón <code class="text-accent font-mono">../</code>, y finalmente la función superflua decodifique la segunda capa, reconstruyendo el salto de directorio hacia archivos críticos del sistema o credenciales de bases de datos.
+      </p>
+    </div>
+  </section>
+
+  <!-- Sección 3: Procedimiento Paso a Paso -->
+  <section>
+    <div class="mb-8 reveal-up">
+      <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-2 flex items-center gap-2">
+        <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+        3. Procedimiento Paso a Paso
+      </h2>
+      <p class="text-slate-500 text-sm sm:text-base">Metodología técnica de intercepción, codificación y explotación en Burp Suite.</p>
+    </div>
+
+    <div class="space-y-6 sm:space-y-8">
+
+      <!-- Paso 1 -->
+      <div class="step-card p-6 sm:p-8 pt-10 reveal-up">
+        <div class="step-number">1</div>
+        <h3 class="text-lg sm:text-xl font-bold text-navy-800 mb-2">Intercepción del Tráfico HTTP</h3>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+          Se accede al laboratorio a través del navegador preconfigurado en <strong>Burp Suite</strong>. En la pestaña <strong>Proxy &gt; HTTP history</strong>, se activan los filtros para visualizar las peticiones de imágenes y se selecciona una consulta GET hacia el endpoint <code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">/image?filename=18.jpg</code>, enviándola al módulo <strong>Repeater</strong>.
+        </p>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="step-card p-6 sm:p-8 pt-10 reveal-up">
+        <div class="step-number">2</div>
+        <h3 class="text-lg sm:text-xl font-bold text-navy-800 mb-2">Comprobación de Defensas Activas</h3>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+          Desde el Repeater se prueban los vectores anteriores: secuencias directas (<code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">../../../etc/passwd</code>), secuencias anidadas (<code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">....//....//....//etc/passwd</code>) y codificación URL simple (<code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">..%2f..%2f..%2fetc/passwd</code>). Todas devuelven <code class="bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-mono text-xs">400 Bad Request ("No such file")</code>, confirmando que el servidor decodifica la entrada una vez y limpia de forma efectiva cualquier secuencia <code class="font-mono text-xs">../</code> visible.
+        </p>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="step-card p-6 sm:p-8 pt-10 reveal-up">
+        <div class="step-number">3</div>
+        <h3 class="text-lg sm:text-xl font-bold text-navy-800 mb-2">Construcción e Inyección con Doble URL-Encode</h3>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+          Se codifica dos veces la barra diagonal (<code class="font-mono text-xs">/</code> &rarr; <code class="font-mono text-xs">%2f</code> &rarr; <code class="font-mono text-xs">%252f</code>). Se reemplaza el valor del parámetro <code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded">filename</code> por la cadena <code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">..%252f..%252f..%252fetc/passwd</code> y se envía la petición modificada.
+        </p>
+      </div>
+
+      <!-- Paso 4 -->
+      <div class="step-card bg-accent-light border-accent p-6 sm:p-8 pt-10 reveal-up">
+        <div class="step-number !bg-accent !text-navy-900 !border-white">4</div>
+        <div class="flex items-center gap-3 mb-2">
+          <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-sm shrink-0">
+            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <h3 class="text-lg sm:text-xl font-bold text-navy-800">Obtención de /etc/passwd y Confirmación</h3>
+        </div>
+        <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+          Tras superar el filtro de limpieza gracias a la doble codificación, la función de decodificación superflua del backend interpreta los caracteres <code class="font-mono text-xs">%2f</code> como barras diagonales reales. El servidor responde con estado <code class="font-mono text-xs font-bold text-green-700">HTTP/2 200 OK</code> mostrando las cuentas del sistema en texto plano y completando el laboratorio.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sección 4: Espacio para Foto de Evidencia -->
+  <section class="reveal-up">
+    <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+      <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+      4. Evidencia Gráfica de Explotación
+    </h2>
+    <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm">
+      <p class="text-slate-600 text-sm sm:text-base mb-6">
+        Captura de la ejecución exitosa del payload en Burp Suite Repeater mostrando el request modificado con doble codificación URL y la respuesta vulnerable con el contenido de <code>/etc/passwd</code>.
+      </p>
+
+      <!-- Contenedor de Imagen de Evidencia -->
+      <!-- Reemplaza "evidencia-act10.png" por el nombre exacto de tu captura -->
+      <div class="w-full rounded-xl overflow-hidden border-2 border-dashed border-slate-300 image-placeholder flex flex-col items-center justify-center min-h-[320px] sm:min-h-[420px] p-4 relative group hover:border-accent transition-colors">
+        <img src="evidencia-act10.png" alt="Evidencia de explotación Actividad 10 en Burp Suite" class="max-h-[550px] w-auto object-contain rounded-lg shadow-md z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+        <!-- Vista previa elegante mientras no se cargue el archivo de imagen -->
+        <div class="hidden flex-col items-center justify-center text-center p-6 z-0">
+          <div class="w-16 h-16 rounded-full bg-accent-light text-accent flex items-center justify-center mb-4 shadow-sm">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          </div>
+          <p class="font-display font-bold text-navy-800 text-lg mb-1">Espacio para Foto de Evidencia</p>
+          <p class="text-slate-500 text-sm max-w-md">
+            Guarda tu captura en la misma carpeta con el nombre <code class="bg-white px-2 py-0.5 rounded border border-slate-200 text-pink-600 font-mono text-xs">evidencia-act10.png</code> o actualiza el atributo <code class="font-mono text-xs">src</code> de la etiqueta <code class="font-mono text-xs">&lt;img&gt;</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección 5: Explicación del Payload y Mitigación -->
+  <section class="reveal-up grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+
+    <!-- Explicación del Payload -->
+    <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+      <div>
+        <h2 class="font-display text-lg sm:text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+          5. Explicación del Payload
+        </h2>
+        <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 border-dashed mb-4 overflow-x-auto">
+          <code class="text-xs sm:text-sm font-mono text-pink-600 font-bold whitespace-nowrap">..%252f..%252f..%252fetc/passwd</code>
+        </div>
+        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+          En formato hexadecimal ASCII, el signo de porcentaje (<code class="font-mono text-xs">%</code>) equivale a <code class="font-mono text-xs">%25</code> y la barra diagonal (<code class="font-mono text-xs">/</code>) equivale a <code class="font-mono text-xs">%2f</code>. Al codificar doblemente la barra como <code class="font-mono text-xs font-semibold">%252f</code>, engañamos el flujo de validación en tres etapas:
+        </p>
+      </div>
+      <div class="bg-navy-900 text-slate-200 p-4 rounded-lg font-mono text-xs space-y-1.5">
+        <div><span class="text-slate-400">1. Envío:</span> ..<span class="text-pink-400">%252f</span>..<span class="text-pink-400">%252f</span>..<span class="text-pink-400">%252f</span>etc/passwd</div>
+        <div><span class="text-slate-400">2. 1er Decode + Filtro:</span> ..<span class="text-sky-400">%2f</span>..<span class="text-sky-400">%2f</span>..<span class="text-sky-400">%2f</span>etc/passwd</div>
+        <div><span class="text-slate-400">3. 2do Decode (Superfluo):</span> <span class="text-accent font-bold">../../../etc/passwd</span></div>
+      </div>
+    </div>
+
+    <!-- Mitigación -->
+    <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-green-500">
+      <h2 class="font-display text-lg sm:text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+        <svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        6. Mitigación Recomendada
+      </h2>
+      <p class="text-slate-600 text-sm leading-relaxed mb-4">
+        Para erradicar vulnerabilidades derivadas de decodificaciones múltiples y filtros de secuencias, se deben aplicar los siguientes controles defensivos:
+      </p>
+      <ul class="list-disc list-inside text-slate-600 text-sm space-y-2.5 leading-relaxed">
+        <li><strong>Decodificar antes de validar:</strong> Nunca ejecutar transformaciones o decodificaciones URL adicionales después de haber aplicado un filtro de seguridad.</li>
+        <li><strong>Validación Estricta (Whitelisting):</strong> Validar que el parámetro contenga exclusivamente caracteres alfanuméricos permitidos o comparar contra una lista blanca de archivos existentes.</li>
+        <li><strong>Canonicalización de Rutas:</strong> Resolver la ruta completa con APIs nativas del sistema (<code class="font-mono text-xs bg-slate-100 px-1 rounded">getCanonicalPath()</code>) al final de todo procesamiento y verificar que el prefijo coincida con el directorio base esperado.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Sección 6: Evidencia Documental (PDF Viewer) -->
+  <section class="reveal-up">
+    <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+      <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+      7. Evidencia Documental Original
+    </h2>
+    <div class="bg-white p-5 sm:p-8 rounded-xl border border-slate-200 shadow-sm text-center">
+      <p class="text-slate-600 mb-6 text-sm sm:text-base max-w-2xl mx-auto">
+        Consulta el reporte completo en formato PDF con la secuencia íntegra de evidencias: request interceptado, payload utilizado, respuesta vulnerable y confirmación de "Lab Solved".
+      </p>
+
+      <!-- Visor de PDF Responsivo -->
+      <div class="w-full overflow-hidden rounded-lg border-2 border-slate-200 mb-8 shadow-inner bg-slate-100">
+        <iframe src="Path Traversal 4 Actividad 10.pdf" class="w-full h-[450px] sm:h-[600px] md:h-[700px]" title="Reporte Actividad 10"></iframe>
+      </div>
+
+      <a href="Path Traversal 4 Actividad 10.pdf" download="Path Traversal 4 Actividad 10.pdf" class="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-accent text-navy-900 font-bold px-8 py-4 rounded-full hover:bg-navy-900 hover:text-accent transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm sm:text-base">
+        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        Descargar Documento Completo (PDF)
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Pie de página -->
+<footer class="border-t border-gray-200 bg-white mt-12 py-10 px-4 text-center">
+  <h3 class="font-display font-bold text-accent text-xl mb-2">Road to Hall of Fame</h3>
+  <p class="text-slate-500 text-sm mb-1">
+    Portafolio Digital de Ciberseguridad &copy; 2026.
+  </p>
+  <p class="text-slate-400 text-xs">
+    Jorge Abraham Castelo Curioca - Ingeniería en Tecnologías de la Información (UPSLP)
+  </p>
+</footer>
+
+<!-- Scripts para animaciones de Scroll -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1
+    };
+
+    const observerCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const animatedElements = document.querySelectorAll('.reveal-up');
+
+    animatedElements.forEach(el => observer.observe(el));
+  });
+</script>
+</body>
+</html>
