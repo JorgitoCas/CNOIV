@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 12 - Null Byte Bypass</title>
+
+    <!-- Fuentes de Google: Space Grotesk e Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#0B1120',
+                            800: '#0F172A',
+                            700: '#1E293B',
+                        },
+                        accent: {
+                            DEFAULT: '#FFC107',
+                            hover: '#FFB300',
+                            light: '#FFF8E1',
+                            subtle: 'rgba(255, 193, 7, 0.1)'
+                        },
+                        bgbase: '#F8FAFC'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: var(--tw-colors-bgbase);
+            color: var(--tw-colors-navy-800);
+            overflow-x: hidden;
+        }
+
+        /* Animaciones suaves al hacer scroll */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .is-visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* Tarjetas interactivas */
+        .step-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            box-shadow: 0 12px 20px -5px rgba(15, 23, 42, 0.08);
+            border-color: #FFC107;
+            transform: translateY(-3px);
+        }
+
+        /* Indicador numérico del paso */
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--tw-colors-accent-light);
+            color: var(--tw-colors-accent-DEFAULT);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border: 4px solid #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .step-card:hover .step-number {
+            background-color: var(--tw-colors-accent-DEFAULT);
+            color: var(--tw-colors-navy-900);
+            transform: scale(1.05);
+        }
+
+        /* Fondo estilizado para el contenedor de imagen */
+        .image-placeholder {
+            background-image: repeating-linear-gradient(45deg, #f1f5f9 25%, transparent 25%, transparent 75%, #f1f5f9 75%, #f1f5f9), repeating-linear-gradient(45deg, #f1f5f9 25%, #ffffff 25%, #ffffff 75%, #f1f5f9 75%, #f1f5f9);
+            background-position: 0 0, 10px 10px;
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-navy-900">
+
+<!-- Barra de Navegación Responsiva -->
+<nav class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+        <a href="index.html" class="inline-flex items-center text-sm font-medium text-slate-600 hover:text-navy-800 transition-colors group">
+            <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Volver al Roadmap
+        </a>
+        <div class="text-xs font-display font-bold tracking-widest text-slate-400 uppercase hidden sm:block">
+            Road to Hall of Fame / Actividad 12
+        </div>
+    </div>
+</nav>
+
+<!-- Encabezado Principal -->
+<header class="pt-12 md:pt-16 pb-10 md:pb-12 px-4 sm:px-6 bg-white border-b border-gray-200">
+    <div class="max-w-4xl mx-auto reveal-up">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="px-3 py-1 text-xs font-bold text-navy-900 bg-accent rounded-md uppercase tracking-wide shadow-sm">Actividad 12</span>
+            <span class="px-3 py-1 text-xs font-semibold text-slate-600 bg-slate-100 rounded-md">Nivel: Practitioner</span>
+            <span class="text-sm font-medium text-slate-500">PortSwigger Web Security Academy</span>
+        </div>
+        <h1 class="font-display text-2xl sm:text-3xl md:text-5xl font-bold text-navy-800 mb-4 leading-tight">
+            File Path Traversal: Validation of file extension with null byte bypass
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 font-light max-w-2xl mb-6">
+            Evasión de validación de extensión obligatoria mediante la inyección de un byte nulo codificado (<code>%00</code>) para truncar la lectura de la ruta en el sistema de archivos.
+        </p>
+        <a href="https://portswigger.net/web-security/file-path-traversal/lab-validate-file-extension-null-byte-bypass" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm font-semibold text-navy-800 hover:text-accent transition-colors bg-slate-50 hover:bg-navy-900 px-4 py-2 rounded-lg border border-slate-200">
+            <svg class="w-4 h-4 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+            Acceder al Laboratorio Oficial en PortSwigger
+        </a>
+    </div>
+</header>
+
+<!-- Contenido Principal -->
+<main class="py-10 md:py-12 px-4 sm:px-6 max-w-4xl mx-auto space-y-14 md:space-y-16">
+
+    <!-- Sección 1: Ficha Técnica -->
+    <section class="reveal-up">
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            1. Ficha Técnica del Laboratorio
+        </h2>
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Nombre del Laboratorio</h3>
+                <p class="text-navy-900 font-semibold">Validation of file extension with null byte bypass</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Nivel de Dificultad</h3>
+                <p class="text-navy-900 font-semibold flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                    Practitioner
+                </p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Tipo de Explotación</h3>
+                <p class="text-navy-900 font-semibold">File Path Traversal (Null Byte Injection / Extension Bypass)</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Objetivo del Laboratorio</h3>
+                <p class="text-navy-900 font-semibold">Evadir la validación de extensión <code>.jpg</code> mediante un byte nulo (<code>%00</code>) para extraer el archivo <code>/etc/passwd</code>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 2: Marco Teórico y Fundamentación Técnica -->
+    <section class="reveal-up">
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            2. Explicación Técnica de la Vulnerabilidad
+        </h2>
+        <div class="bg-navy-800 text-white p-6 sm:p-8 rounded-xl shadow-lg relative overflow-hidden space-y-4">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-accent opacity-10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+
+            <p class="text-slate-200 leading-relaxed relative z-10 text-base sm:text-lg">
+                Para restringir el acceso a recursos no autorizados, algunas aplicaciones verifican que el nombre del archivo proporcionado por el usuario concluya con una extensión específica permitida (como <code class="text-accent font-mono">.jpg</code> o <code class="text-accent font-mono">.png</code>). La vulnerabilidad de <strong>Null Byte Bypass</strong> surge por una asimetría en el manejo de cadenas entre el lenguaje de alto nivel de la aplicación web y las bibliotecas de bajo nivel del sistema operativo (escritas en C/C++).
+            </p>
+            <p class="text-slate-300 leading-relaxed relative z-10 text-sm sm:text-base">
+                Mientras el lenguaje de alto nivel trata la cadena completa como un objeto de longitud definida y valida satisfactoriamente el sufijo <code class="text-accent font-mono">.jpg</code>, las llamadas al sistema operativo interpretan el carácter nulo (<code class="text-accent font-mono">0x00</code> o <code class="text-accent font-mono">%00</code> en URL) como un <strong>terminador de cadena (Null Terminator)</strong>, ignorando todo lo que se encuentre a su derecha. Dentro de <strong>OWASP Top 10 (A01: Broken Access Control / A03: Injection)</strong>, este fallo compromete críticamente la <strong>Confidencialidad</strong> en la tríada CIA, permitiendo exfiltrar archivos del sistema operativo, código fuente o archivos de configuración con credenciales de bases de datos sin importar su extensión real.
+            </p>
+        </div>
+    </section>
+
+    <!-- Sección 3: Procedimiento Paso a Paso -->
+    <section>
+        <div class="mb-8 reveal-up">
+            <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-2 flex items-center gap-2">
+                <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                3. Procedimiento Paso a Paso
+            </h2>
+            <p class="text-slate-500 text-sm sm:text-base">Secuencia técnica de intercepción, inyección de byte nulo y análisis de respuesta mediante Burp Suite.</p>
+        </div>
+
+        <div class="space-y-6 sm:space-y-8">
+
+            <!-- Paso 1 -->
+            <div class="step-card p-6 sm:p-8 pt-10 reveal-up">
+                <div class="step-number">1</div>
+                <h3 class="text-lg sm:text-xl font-bold text-navy-800 mb-2">Intercepción de la Petición de Imagen</h3>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Se inicia el laboratorio en el navegador integrado de <strong>Burp Suite</strong>. En la pestaña <strong>Proxy &gt; HTTP history</strong>, se filtran los recursos tipo imagen y se localiza la petición GET hacia el endpoint vulnerable <code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">/image?filename=31.jpg</code>, la cual se envía al módulo <strong>Repeater</strong> (<code class="bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-mono text-xs">Ctrl + R</code>).
+                </p>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="step-card p-6 sm:p-8 pt-10 reveal-up">
+                <div class="step-number">2</div>
+                <h3 class="text-lg sm:text-xl font-bold text-navy-800 mb-2">Verificación del Filtro de Extensión</h3>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    En el Repeater se intenta inyectar el vector tradicional <code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">../../../etc/passwd</code>. El servidor rechaza la petición con un error <code class="bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded font-mono text-xs">400 Bad Request ("No such file")</code> debido a que el validador del backend exige estrictamente que el parámetro <code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded">filename</code> termine con la extensión <code class="font-mono text-xs">.jpg</code>.
+                </p>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="step-card p-6 sm:p-8 pt-10 reveal-up">
+                <div class="step-number">3</div>
+                <h3 class="text-lg sm:text-xl font-bold text-navy-800 mb-2">Inyección del Payload con Null Byte (%00)</h3>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Para satisfacer la validación del sufijo y al mismo tiempo truncar la ruta al abrir el archivo en el sistema operativo, se inserta un byte nulo codificado en URL (<code class="font-mono text-xs">%00</code>) antes de la extensión requerida: <code class="bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-xs sm:text-sm border border-slate-200">filename=../../../etc/passwd%00.jpg</code>.
+                </p>
+            </div>
+
+            <!-- Paso 4 -->
+            <div class="step-card bg-accent-light border-accent p-6 sm:p-8 pt-10 reveal-up">
+                <div class="step-number !bg-accent !text-navy-900 !border-white">4</div>
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white shadow-sm shrink-0">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-navy-800">Truncamiento de Extensión y Resolución</h3>
+                </div>
+                <p class="text-slate-700 text-sm sm:text-base leading-relaxed">
+                    El filtro de alto nivel verifica que la cadena termina en <code class="font-mono text-xs">.jpg</code> y autoriza la operación. Al llegar al sistema de archivos subyacente, la lectura se detiene en el byte nulo <code class="font-mono text-xs">%00</code>, ignorando la extensión y retornando un estado <code class="font-mono text-xs font-bold text-green-700">HTTP/2 200 OK</code> con el contenido de <code class="font-mono text-xs">/etc/passwd</code>, completando el laboratorio.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sección 4: Espacio para Foto de Evidencia -->
+    <section class="reveal-up">
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            4. Evidencia Gráfica de Explotación
+        </h2>
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm">
+            <p class="text-slate-600 text-sm sm:text-base mb-6">
+                Captura de la inyección del payload con byte nulo (<code>%00.jpg</code>) en Burp Suite Repeater y la respuesta del servidor mostrando los usuarios de <code>/etc/passwd</code>.
+            </p>
+
+            <!-- Contenedor de Imagen de Evidencia -->
+            <div class="w-full rounded-xl overflow-hidden border-2 border-dashed border-slate-300 image-placeholder flex flex-col items-center justify-center min-h-[320px] sm:min-h-[420px] p-4 relative group hover:border-accent transition-colors">
+                <img src="evidencia-act12.png" alt="Evidencia de explotación Actividad 12 en Burp Suite" class="max-h-[550px] w-auto object-contain rounded-lg shadow-md z-10" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                <!-- Vista previa elegante mientras no se cargue el archivo de imagen -->
+                <div class="hidden flex-col items-center justify-center text-center p-6 z-0">
+                    <div class="w-16 h-16 rounded-full bg-accent-light text-accent flex items-center justify-center mb-4 shadow-sm">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <p class="font-display font-bold text-navy-800 text-lg mb-1">Espacio para Foto de Evidencia</p>
+                    <p class="text-slate-500 text-sm max-w-md">
+                        Guarda tu captura en la misma carpeta con el nombre <code class="bg-white px-2 py-0.5 rounded border border-slate-200 text-pink-600 font-mono text-xs">evidencia-act12.png</code> o actualiza el atributo <code class="font-mono text-xs">src</code> de la etiqueta <code class="font-mono text-xs">&lt;img&gt;</code>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 5: Explicación del Payload y Mitigación -->
+    <section class="reveal-up grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+
+        <!-- Explicación del Payload -->
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+                <h2 class="font-display text-lg sm:text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    5. Explicación del Payload
+                </h2>
+                <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 border-dashed mb-4 overflow-x-auto">
+                    <code class="text-xs sm:text-sm font-mono text-pink-600 font-bold whitespace-nowrap">../../../etc/passwd%00.jpg</code>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                    El payload explota la diferencia en la representación de cadenas entre el entorno de ejecución web y las funciones nativas del sistema operativo:
+                </p>
+            </div>
+            <div class="bg-navy-900 text-slate-200 p-4 rounded-lg font-mono text-xs space-y-1.5">
+                <div><span class="text-slate-400">1. Validación App:</span> Termina en <span class="text-green-400">".jpg"</span> &rarr; Válido</div>
+                <div><span class="text-slate-400">2. Inyección Null:</span> <span class="text-pink-400">%00</span> actúa como fin de cadena (<span class="text-pink-400">\0</span>)</div>
+                <div><span class="text-slate-400">3. Lectura en SO:</span> <span class="text-accent font-bold">../../../etc/passwd</span><span class="text-slate-500 line-through">.jpg</span></div>
+            </div>
+        </div>
+
+        <!-- Mitigación -->
+        <div class="bg-white p-6 sm:p-8 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-green-500">
+            <h2 class="font-display text-lg sm:text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                6. Mitigación Recomendada
+            </h2>
+            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                Confiar únicamente en la validación de la extensión del archivo no impide el escalado de directorios ni la inyección de caracteres de control:
+            </p>
+            <ul class="list-disc list-inside text-slate-600 text-sm space-y-2.5 leading-relaxed">
+                <li><strong>Rechazar Bytes Nulos y Caracteres de Control:</strong> Filtrar o bloquear de forma inmediata cualquier entrada que contenga bytes nulos (<code class="font-mono text-xs bg-slate-100 px-1 rounded">\0</code> o <code class="font-mono text-xs bg-slate-100 px-1 rounded">%00</code>) y mantener actualizados los entornos de ejecución (versiones modernas de PHP y Java detectan bytes nulos en rutas de archivos).</li>
+                <li><strong>Validación por Lista Blanca y Canonicalización:</strong> Verificar el nombre del archivo contra una lista blanca estricta de caracteres alfanuméricos y comprobar mediante <code class="font-mono text-xs bg-slate-100 px-1 rounded">getCanonicalPath()</code> que el archivo resida dentro de <code class="font-mono text-xs bg-slate-100 px-1 rounded">/var/www/images/</code>.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Sección 6: Evidencia Documental (PDF Viewer) -->
+    <section class="reveal-up">
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            7. Evidencia Documental Original
+        </h2>
+        <div class="bg-white p-5 sm:p-8 rounded-xl border border-slate-200 shadow-sm text-center">
+            <p class="text-slate-600 mb-6 text-sm sm:text-base max-w-2xl mx-auto">
+                Consulta el documento completo en formato PDF con las 4 evidencias obligatorias de la práctica: request interceptado, payload utilizado, respuesta vulnerable y confirmación de "Lab Solved".
+            </p>
+
+            <!-- Visor de PDF Responsivo -->
+            <div class="w-full overflow-hidden rounded-lg border-2 border-slate-200 mb-8 shadow-inner bg-slate-100">
+                <iframe src="Actividad 12.pdf" class="w-full h-[450px] sm:h-[600px] md:h-[700px]" title="Reporte Actividad 12"></iframe>
+            </div>
+
+            <a href="Actividad 12.pdf" download="Actividad 12.pdf" class="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-accent text-navy-900 font-bold px-8 py-4 rounded-full hover:bg-navy-900 hover:text-accent transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg text-sm sm:text-base">
+                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                Descargar Documento Completo (PDF)
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<!-- Pie de página -->
+<footer class="border-t border-gray-200 bg-white mt-12 py-10 px-4 text-center">
+    <h3 class="font-display font-bold text-accent text-xl mb-2">Road to Hall of Fame</h3>
+    <p class="text-slate-500 text-sm mb-1">
+        Portafolio Digital de Ciberseguridad &copy; 2026.
+    </p>
+    <p class="text-slate-400 text-xs">
+        Jorge Abraham Castelo Curioca - Ingeniería en Tecnologías de la Información (UPSLP)
+    </p>
+</footer>
+
+<!-- Scripts para animaciones de Scroll -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observerOptions = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.1
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        const animatedElements = document.querySelectorAll('.reveal-up');
+
+        animatedElements.forEach(el => observer.observe(el));
+    });
+</script>
+</body>
+</html>
