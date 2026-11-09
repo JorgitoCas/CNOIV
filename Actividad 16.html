@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 16 - Adquisición forense con FTK Imager</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
+                    },
+                    colors: {
+                        navy: { 900: '#0B1120', 800: '#0F172A', 700: '#1E293B' },
+                        accent: { DEFAULT: '#FFC107', hover: '#FFB300', light: '#FFF8E1', subtle: 'rgba(255, 193, 7, 0.1)' },
+                        bgbase: '#F8FAFC'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #F8FAFC; color: #0F172A; overflow-x: hidden; }
+        .reveal-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .is-visible { opacity: 1; transform: translate(0, 0); }
+        .step-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .step-card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: #CBD5E1; transform: translateY(-2px); }
+        .step-number { position: absolute; top: -15px; left: -15px; width: 60px; height: 60px; background-color: #FFF8E1; color: #FFC107; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; border: 4px solid #FFFFFF; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .hash { word-break: break-all; }
+    </style>
+</head>
+<body class="antialiased">
+
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="index.html" class="inline-flex items-center text-sm font-medium text-slate-600 hover:text-navy-800 transition-colors group">
+            <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Volver al Roadmap
+        </a>
+        <div class="text-xs font-display font-bold tracking-widest text-slate-400 uppercase hidden sm:block">
+            Hall of Fame / Actividad 16
+        </div>
+    </div>
+</nav>
+
+<header class="pt-16 pb-12 px-6 bg-white border-b border-gray-200">
+    <div class="max-w-4xl mx-auto reveal-up">
+        <div class="flex items-center gap-3 mb-4">
+            <span class="px-3 py-1 text-xs font-bold text-navy-900 bg-accent rounded-md uppercase tracking-wide">Actividad 16</span>
+            <span class="text-sm font-medium text-slate-500">CNO IV · Informática Forense</span>
+        </div>
+        <h1 class="font-display text-3xl md:text-5xl font-bold text-navy-800 mb-4 leading-tight">
+            La verdad en los bits: adquisición forense con FTK Imager
+        </h1>
+        <p class="text-slate-500 text-lg">Creación de una imagen forense bit a bit de una memoria USB y verificación de su integridad con hashes MD5 y SHA-1.</p>
+    </div>
+</header>
+
+<main class="py-12 px-6 max-w-4xl mx-auto space-y-16">
+
+    <!-- 1. Ficha técnica -->
+    <section class="reveal-up">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            1. Ficha Técnica de la Actividad
+        </h2>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Herramienta</h3>
+                <p class="text-navy-900 font-medium">FTK Imager (AccessData / Exterro)</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Número de Caso</h3>
+                <p class="text-navy-900 font-medium font-mono text-sm">InfoCrim-01_21.11.2023</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Evidencia</h3>
+                <p class="text-navy-900 font-medium">ADATA USB Flash Drive · 29,600 MB · <code>\\.\PHYSICALDRIVE3</code></p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Formato de Imagen</h3>
+                <p class="text-navy-900 font-medium">Raw (dd), 20 segmentos</p>
+            </div>
+            <div class="md:col-span-2">
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Objetivo</h3>
+                <p class="text-navy-900 font-medium">Adquirir una copia exacta de la evidencia digital sin modificar el original, para su posterior análisis en el caso de fraude bancario.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Marco teórico -->
+    <section class="reveal-up">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            2. Fundamento: Adquisición Forense
+        </h2>
+        <div class="bg-navy-800 text-white p-6 md:p-8 rounded-xl shadow-lg relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-accent opacity-10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+            <p class="text-slate-300 leading-relaxed relative z-10 text-lg">
+                La adquisición es la primera de las cinco fases del análisis forense digital (adquisición, preservación, análisis, documentación y presentación). Consiste en obtener una copia <strong>bit a bit</strong> del dispositivo sospechoso sin modificar ningún dato, de modo que el análisis se realice siempre sobre la copia y la evidencia original quede intacta. La integridad se demuestra con funciones hash: si el hash de la imagen coincide con el de la fuente, la copia es idéntica.
+            </p>
+        </div>
+    </section>
+
+    <!-- 3. Procedimiento -->
+    <section>
+        <div class="mb-10 reveal-up">
+            <h2 class="font-display text-2xl font-bold text-navy-800 mb-2 flex items-center gap-2">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                3. Procedimiento Paso a Paso
+            </h2>
+        </div>
+
+        <div class="space-y-8">
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">1</div>
+                <h3 class="text-xl font-bold text-navy-800 mb-3">Preparación</h3>
+                <p class="text-slate-600">Se instaló FTK Imager y se conectó la memoria USB que funcionó como evidencia. Conforme a la indicación de la práctica, no se utilizó bloqueador de escritura.</p>
+            </div>
+
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">2</div>
+                <h3 class="text-xl font-bold text-navy-800 mb-3">Selección de la Fuente</h3>
+                <p class="text-slate-600">Desde <code>File</code> se eligió <code>Create Disk Image…</code>, la fuente <strong>Physical Drive</strong> y el dispositivo <code>\\.\PHYSICALDRIVE3</code>.</p>
+            </div>
+
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">3</div>
+                <h3 class="text-xl font-bold text-navy-800 mb-3">Destino y Datos del Caso</h3>
+                <p class="text-slate-600">Se agregó el destino en formato <strong>Raw (dd)</strong> y se capturaron los datos del caso: número de caso, descripción, examinador y notas. La imagen se guardó en la carpeta <code>InfoCrim13</code> con el nombre <code>infocrim_CasteloCurioca</code>.</p>
+            </div>
+
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">4</div>
+                <h3 class="text-xl font-bold text-navy-800 mb-3">Adquisición</h3>
+                <p class="text-slate-600 mb-4">Se inició el proceso con <code>Start</code>. FTK Imager copió los 60,620,800 sectores de la unidad.</p>
+                <img src="img/captura-adquisicion-en-proceso.png" alt="FTK Imager creando la imagen" class="rounded-lg border border-slate-200 w-full">
+            </div>
+
+            <div class="step-card bg-accent-light border-accent p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number !bg-accent !text-white !border-white">5</div>
+                <div class="flex items-center gap-4 mb-3">
+                    <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm">
+                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-800">Verificación de Integridad</h3>
+                </div>
+                <p class="text-slate-600 mb-4">La imagen se creó exitosamente en 6 minutos con 31 segundos y los hashes MD5 y SHA-1 de la imagen coincidieron con los de la fuente (<em>verified</em>).</p>
+                <img src="img/captura-adquisicion-completa.png" alt="Imagen creada exitosamente" class="rounded-lg border border-slate-200 mx-auto max-w-full">
+                <img src="img/captura-verificacion-hashes.png" alt="Resultados de verificación de hashes" class="rounded-lg border border-slate-200 mx-auto max-w-full mt-4">
+                <p class="text-slate-500 text-sm mt-2 text-center">Verificación: MD5 y SHA-1 calculados vs. reporte, resultado <em>Match</em>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Resultados -->
+    <section class="reveal-up">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            4. Resultados de la Adquisición
+        </h2>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Inicio / Término</h3>
+                <p class="text-navy-900 font-medium font-mono text-sm">23:45:49 → 23:52:20</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Tiempo Transcurrido</h3>
+                <p class="text-navy-900 font-medium">0:06:31</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Sectores Copiados</h3>
+                <p class="text-navy-900 font-medium font-mono text-sm">60,620,800</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Archivos Generados</h3>
+                <p class="text-navy-900 font-medium">21 (20 segmentos <code>.001</code>–<code>.020</code> + 1 <code>.txt</code>)</p>
+            </div>
+            <div class="md:col-span-2">
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Hash MD5</h3>
+                <p class="bg-slate-50 p-3 rounded border border-slate-200 border-dashed text-sm font-mono text-pink-600 font-bold hash">d15bc68e582b372cb605b439d6fb1f0b</p>
+            </div>
+            <div class="md:col-span-2">
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Hash SHA-1</h3>
+                <p class="bg-slate-50 p-3 rounded border border-slate-200 border-dashed text-sm font-mono text-pink-600 font-bold hash">3f1b39245618d95e7bb1d5fd6b561fd9a929cbaa</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Formatos -->
+    <section class="reveal-up grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm">
+            <h2 class="font-display text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                5. Raw (dd)
+            </h2>
+            <p class="text-slate-600 text-sm leading-relaxed">
+                Formato crudo que almacena una copia bit a bit, sector por sector, sin compresión ni metadatos incrustados. Su tamaño es igual al del dispositivo y casi cualquier herramienta forense puede abrirlo. Los datos del caso y los hashes se guardan aparte, en el archivo <code>.txt</code>.
+            </p>
+        </div>
+        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-green-500">
+            <h2 class="font-display text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                6. E01 y SMART
+            </h2>
+            <p class="text-slate-600 text-sm leading-relaxed">
+                E01 (Expert Witness Format de EnCase) comprime la imagen y guarda dentro del archivo los metadatos del caso, el hash y sumas de verificación por bloques. SMART (ASR Data, extensión <code>.s01</code>) es de la misma familia, pero más antiguo y menos compatible; E01 es el estándar de facto.
+            </p>
+        </div>
+    </section>
+
+    <!-- 6. PDF -->
+    <section class="reveal-up mt-16">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            7. Evidencia Documental Original
+        </h2>
+        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm text-center">
+            <p class="text-slate-600 mb-6 text-lg">Consulta el reporte de la Actividad 16 con el procedimiento, las respuestas y los resultados de la adquisición.</p>
+
+            <iframe src="Act16_CasteloCuriocaJorgeAbraham.pdf" class="w-full h-[700px] rounded-lg border-2 border-slate-200 mb-8 shadow-inner" title="Reporte Actividad 16 FTK Imager"></iframe>
+
+            <a href="Act16_CasteloCuriocaJorgeAbraham.pdf" download="Act16_CasteloCuriocaJorgeAbraham.pdf" class="inline-flex items-center gap-3 bg-accent text-navy-900 font-bold px-8 py-4 rounded-full hover:bg-navy-900 hover:text-accent transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                Descargar Documento (PDF)
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="border-t border-gray-200 bg-white mt-12 py-10 text-center">
+    <h3 class="font-display font-bold text-accent text-xl mb-2">Road to Hall of Fame</h3>
+    <p class="text-slate-500 text-sm mb-1">Portafolio Digital de Ciberseguridad &copy; 2026.</p>
+    <p class="text-slate-400 text-xs">Jorge Abraham Castelo Curioca - Ingeniería en TI</p>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('is-visible'); obs.unobserve(entry.target); }
+            });
+        }, { root: null, rootMargin: "0px", threshold: 0.1 });
+        document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+    });
+</script>
+</body>
+</html>
