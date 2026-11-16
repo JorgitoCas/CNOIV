@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 19 - Adquisición Forense en Escenas del Crimen Digital</title>
+
+    <!-- Fuentes de Google: Space Grotesk e Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#0B1120',
+                            800: '#0F172A',
+                            700: '#1E293B',
+                        },
+                        accent: {
+                            DEFAULT: '#FFC107',
+                            hover: '#FFB300',
+                            light: '#FFF8E1',
+                            subtle: 'rgba(255, 193, 7, 0.1)'
+                        },
+                        bgbase: '#F8FAFC'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F8FAFC;
+            color: #0F172A;
+            overflow-x: hidden;
+        }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        .is-visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        .step-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #CBD5E1;
+            transform: translateY(-2px);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 60px;
+            height: 60px;
+            background-color: #FFF8E1;
+            color: #FFC107;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border: 4px solid #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .evidence-img {
+            cursor: zoom-in;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .evidence-img:hover {
+            transform: scale(1.01);
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- Navbar -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="index.html" class="inline-flex items-center text-sm font-medium text-slate-600 hover:text-navy-800 transition-colors group">
+            <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Volver al Roadmap
+        </a>
+        <div class="text-xs font-display font-bold tracking-widest text-slate-400 uppercase hidden sm:block">
+            Hall of Fame / Actividad 19
+        </div>
+    </div>
+</nav>
+
+<!-- Header -->
+<header class="pt-16 pb-12 px-6 bg-white border-b border-gray-200">
+    <div class="max-w-4xl mx-auto reveal-up">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="px-3 py-1 text-xs font-bold text-navy-900 bg-accent rounded-md uppercase tracking-wide">Actividad 19</span>
+            <span class="text-sm font-medium text-slate-500">CNO IV - Seguridad Informática • Forense Digital</span>
+        </div>
+        <h1 class="font-display text-3xl md:text-5xl font-bold text-navy-800 mb-4 leading-tight">
+            Los primeros minutos cuentan: adquisición forense en escenas del crimen digital
+        </h1>
+        <p class="text-slate-600 text-base md:text-lg mb-6">
+            Informe ejecutivo — Parte I: Adquisición en caliente (Live Response) siguiendo el orden de volatilidad en entorno Windows.
+        </p>
+        <div class="flex flex-wrap gap-3 text-xs font-medium text-slate-600">
+            <span class="px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200">Equipo analizado: <strong class="text-navy-900">JACC</strong></span>
+            <span class="px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200">Fecha: <strong class="text-navy-900">16 de noviembre de 2026</strong></span>
+            <span class="px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200">UPSLP • Matrícula 181512</span>
+        </div>
+    </div>
+</header>
+
+<main class="py-12 px-6 max-w-4xl mx-auto space-y-16">
+
+    <!-- Sección 1: Ficha Técnica -->
+    <section class="reveal-up">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            1. Ficha Técnica de la Investigación
+        </h2>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Institución y Carrera</h3>
+                <p class="text-navy-900 font-medium">Universidad Politécnica de San Luis Potosí — Ingeniería en TI</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Materia</h3>
+                <p class="text-navy-900 font-medium">CNO IV - Seguridad Informática</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Primer Respondiente</h3>
+                <p class="text-navy-900 font-medium">Jorge Abraham Castelo Curioca (181512)</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Sistema Objetivo</h3>
+                <p class="text-navy-900 font-medium">Equipo Windows 11 Pro en caliente (<code>JACC</code>)</p>
+            </div>
+            <div class="md:col-span-2">
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Herramientas y Forma de Trabajo</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Se empleó <strong>CMD como administrador</strong> para comandos clásicos de Windows, <strong>PowerShell como administrador</strong> para contrastar resultados y filtrar objetos, <strong>NetUsers.exe v1.23</strong> para auditoría de sesiones activas e historial, y una carpeta dedicada (<code>Evidencia</code>) para volcar salidas extensas en archivos <code>.txt</code> y <code>.evtx</code> sin alterar el sistema.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 2: Resumen Ejecutivo -->
+    <section class="reveal-up">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            2. Resumen Ejecutivo y Orden de Volatilidad
+        </h2>
+        <div class="bg-navy-800 text-white p-6 md:p-8 rounded-xl shadow-lg relative overflow-hidden space-y-4">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-accent opacity-10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+            <p class="text-slate-300 leading-relaxed relative z-10 text-base md:text-lg">
+                Como investigador forense digital y primer respondiente, se recolectó evidencia de un sistema Windows encendido siguiendo estrictamente el <strong>orden de volatilidad</strong>: primero los artefactos que se pierden al apagar el equipo (hora, procesos, conexiones de red y caché DNS) y posteriormente los datos persistentes (usuarios, configuración, tareas programadas y registros de eventos).
+            </p>
+            <div class="relative z-10 pt-2">
+                <h3 class="text-accent font-display font-bold text-sm uppercase tracking-wider mb-3">Hallazgos Principales</h3>
+                <ul class="space-y-2 text-slate-300 text-sm md:text-base list-disc list-inside">
+                    <li>Solo existe una cuenta humana con sesión activa (<code>JACC\jacc2</code>), acompañada de una cuenta de servicio local (<code>NT SERVICE\lkClassAds</code>).</li>
+                    <li>No hay unidades de red mapeadas ni carpetas compartidas creadas por el usuario; únicamente recursos administrativos predeterminados.</li>
+                    <li>Las conexiones salientes establecidas pertenecen a software legítimo (Chrome, Discord, Spotify, Roblox, Riot y Copilot).</li>
+                    <li>El historial persistente de PowerShell contiene el comando <code class="text-amber-300">irm https://massgrave.dev/get | iex</code>, que descarga y ejecuta código remoto directamente en memoria.</li>
+                    <li>La caché DNS registra más de 40 dominios relacionados con «repacks» de videojuegos resolviendo hacia la misma IP (<code>109.94.209.70</code>).</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 3: Procedimiento Paso a Paso (20 Puntos) -->
+    <section>
+        <div class="mb-10 reveal-up">
+            <h2 class="font-display text-2xl font-bold text-navy-800 mb-2 flex items-center gap-2">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                3. Desarrollo de la Adquisición (Pasos 1 al 20)
+            </h2>
+            <p class="text-slate-500 text-sm">Haz clic en cualquier captura de pantalla para ampliarla y revisar el detalle técnico.</p>
+        </div>
+
+        <div class="space-y-8">
+
+            <!-- Paso 1 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">1</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Fecha y hora del sistema</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-100 text-amber-800">Evidencia Volátil</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4 overflow-x-auto">
+                    date /t &amp;&amp; time /t &amp;&amp; tzutil /g &nbsp;|&nbsp; PowerShell: Get-Date
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hacen:</strong> <code>date /t</code> y <code>time /t</code> muestran la fecha y hora actuales sin modificarlas; <code>tzutil /g</code> indica la zona horaria configurada; <code>Get-Date</code> entrega la marca temporal completa con segundos.</p>
+                    <p><strong>Resultado:</strong> En CMD se registró <strong>lunes 16/11/2026 a las 12:52 AM</strong> con zona horaria <code>Central Standard Time (Mexico)</code>. En PowerShell, <code>Get-Date</code> marcó <strong>1:12:24 AM</strong> del mismo día (unos 20 minutos después durante la sesión). En un primer intento se escribió <code>tzutil /t</code> provocando error de sintaxis, corregido con <code>/g</code>.</p>
+                    <p><strong>Por qué importa:</strong> Establece la referencia temporal base para correlacionar toda la evidencia adquirida y detectar desfases de reloj.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <img src="evidencia/time.png" alt="Fecha, hora y zona horaria en CMD" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 1. Fecha, hora y zona horaria en CMD.</figcaption>
+                </figure>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">2</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Procesos en ejecución</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-100 text-amber-800">Evidencia Volátil</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4 overflow-x-auto">
+                    tasklist &nbsp;|&nbsp; tasklist /svc
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-4">
+                    <p><strong>Qué hacen:</strong> <code>tasklist</code> enumera cada proceso activo junto con su identificador (PID) y consumo de memoria; <code>tasklist /svc</code> mapea los servicios hospedados dentro de cada proceso.</p>
+                    <p><strong>Resultado:</strong> Se volcaron ~350 procesos activos. Los más frecuentes fueron <code>svchost.exe</code> (90), <code>chrome.exe</code> (25) y <code>msedgewebview2.exe</code> (13), además de procesos críticos de Windows (<code>System</code>, <code>smss.exe</code>, <code>csrss.exe</code>, <code>wininit.exe</code>, <code>winlogon.exe</code>, <code>services.exe</code>, <code>lsass.exe</code>) y aplicaciones de usuario (Discord, Spotify, Steam, ASUS y NVIDIA). Con <code>/svc</code> se verificó que <code>lsass.exe</code> (PID 1524) ejecuta <code>KeyIso</code>, <code>SamSs</code> y <code>VaultSvc</code>.</p>
+                    <p><strong>Por qué importa:</strong> Permite identificar malware en memoria, procesos duplicados o ejecutables alojados en rutas anómalas antes de que el sistema se apague.</p>
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-slate-200 mb-3">
+                    <table class="w-full text-left text-xs font-mono">
+                        <thead class="bg-slate-100 text-slate-700">
+                        <tr>
+                            <th class="px-3 py-2">Image Name</th>
+                            <th class="px-3 py-2">PID</th>
+                            <th class="px-3 py-2">Session Name</th>
+                            <th class="px-3 py-2">Session#</th>
+                            <th class="px-3 py-2">Mem Usage</th>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-600 bg-white">
+                        <tr><td class="px-3 py-1.5">System Idle Process</td><td class="px-3 py-1.5">0</td><td class="px-3 py-1.5">Services</td><td class="px-3 py-1.5">0</td><td class="px-3 py-1.5">8 K</td></tr>
+                        <tr><td class="px-3 py-1.5">System</td><td class="px-3 py-1.5">4</td><td class="px-3 py-1.5">Services</td><td class="px-3 py-1.5">0</td><td class="px-3 py-1.5">16,776 K</td></tr>
+                        <tr><td class="px-3 py-1.5">smss.exe</td><td class="px-3 py-1.5">788</td><td class="px-3 py-1.5">Services</td><td class="px-3 py-1.5">0</td><td class="px-3 py-1.5">1,600 K</td></tr>
+                        <tr><td class="px-3 py-1.5">wininit.exe</td><td class="px-3 py-1.5">1352</td><td class="px-3 py-1.5">Services</td><td class="px-3 py-1.5">0</td><td class="px-3 py-1.5">8,788 K</td></tr>
+                        <tr><td class="px-3 py-1.5">winlogon.exe</td><td class="px-3 py-1.5">1452</td><td class="px-3 py-1.5">Console</td><td class="px-3 py-1.5">1</td><td class="px-3 py-1.5">16,224 K</td></tr>
+                        <tr><td class="px-3 py-1.5">lsass.exe</td><td class="px-3 py-1.5">1524</td><td class="px-3 py-1.5">Services</td><td class="px-3 py-1.5">0</td><td class="px-3 py-1.5">35,364 K</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a href="evidencia/Tasklist.txt" target="_blank" class="inline-flex items-center text-xs font-medium text-blue-600 hover:text-blue-800">
+                    Ver salida completa en archivo (evidencia/Tasklist.txt) &rarr;
+                </a>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">3</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Servicios en CMD y en PowerShell</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-100 text-amber-800">Evidencia Volátil</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4 overflow-x-auto">
+                    sc query state= all &nbsp;|&nbsp; Get-Service &nbsp;|&nbsp; Get-Service | Where-Object {$_.Status -eq 'Running'}
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hacen:</strong> Consultan al Service Control Manager (SCM) todos los servicios registrados y su estado actual.</p>
+                    <p><strong>Resultado y análisis:</strong> En CMD (<code>sc query</code>) se obtienen bloques detallados con tipo de servicio, estado (<code>RUNNING</code>/<code>STOPPED</code>) y códigos de salida (ej. <code>AdobeUpdateService</code> en ejecución; <code>ADPSvc</code> y <code>ALG</code> detenidos con código 1077). En PowerShell (<code>Get-Service</code>) se presenta una tabla estructurada filtrable por estado, observando servicios de Windows, Adobe, AMD y ASUS (<code>ArmouryCrateService</code>, <code>AsusFanControlService</code>), además de servicios por sesión de Windows 11 con sufijo <code>_80353</code> (como <code>AarSvc_80353</code>). No se detectaron nombres maliciosos.</p>
+                    <p><strong>Por qué importa:</strong> Los atacantes suelen registrar servicios para lograr persistencia y ejecución con privilegios <code>SYSTEM</code>.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+                    <figure class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                        <img src="evidencia/Screenshot 2026-11-16 005855.png" alt="Servicios con sc query state= all en CMD" loading="lazy" class="evidence-img w-full h-44 object-cover rounded border border-slate-200">
+                        <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 2. <code>sc query state= all</code> en CMD.</figcaption>
+                    </figure>
+                    <figure class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                        <img src="evidencia/Powershell date and get service.png" alt="Get-Date y Get-Service en PowerShell" loading="lazy" class="evidence-img w-full h-44 object-cover rounded border border-slate-200">
+                        <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 3. <code>Get-Date</code> y <code>Get-Service</code> en PS.</figcaption>
+                    </figure>
+                    <figure class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                        <img src="evidencia/Powershell running.png" alt="Servicios en ejecución con Where-Object" loading="lazy" class="evidence-img w-full h-44 object-cover rounded border border-slate-200">
+                        <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 4. Filtro <code>Running</code> en PS.</figcaption>
+                    </figure>
+                </div>
+                <a href="evidencia/svc.txt" target="_blank" class="inline-flex items-center text-xs font-medium text-blue-600 hover:text-blue-800">
+                    Ver volcado completo de servicios (evidencia/svc.txt) &rarr;
+                </a>
+            </div>
+
+            <!-- Paso 4 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">4</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Usuarios con sesión abierta ahora</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-blue-100 text-blue-800">Usuarios</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    NetUsers.exe /1
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hace:</strong> Lista las sesiones activas en tiempo real; el modificador <code>/1</code> incluye cuentas locales.</p>
+                    <p><strong>Resultado:</strong> Muestra dos entradas: <code>JACC\jacc2</code> (nombre completo «jorge castelo», sesión humana activa) y <code>NT SERVICE\lkClassAds</code> (cuenta de servicio de software instalado).</p>
+                    <p><strong>Por qué importa:</strong> Permite identificar quién opera el sistema en el instante de la intervención y descartar sesiones remotas o intrusos conectados simultáneamente.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <img src="evidencia/CurrentUsers.png" alt="Usuarios con sesión abierta con NetUsers" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 5. Usuarios con sesión abierta mediante <code>NetUsers.exe /1</code>.</figcaption>
+                </figure>
+            </div>
+
+            <!-- Paso 5 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">5</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Usuarios que alguna vez iniciaron sesión</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-blue-100 text-blue-800">Usuarios</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    NetUsers.exe /1 /h
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hace:</strong> Con <code>/h</code> recupera el historial de cuentas que han iniciado sesión en el equipo y su última marca de tiempo.</p>
+                    <p><strong>Resultado:</strong> Aparecen exclusivamente <code>JACC\jacc2</code> y <code>NT SERVICE\lkClassAds</code>, ambas con último inicio el <strong>2026/11/15 a las 13:28</strong>, coincidiendo con el último arranque del sistema (1:27:37 PM en <code>systeminfo</code>).</p>
+                    <p><strong>Por qué importa:</strong> Detecta cuentas creadas por atacantes (backdoor accounts) o accesos fuera de horario habitual.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <img src="evidencia/entusers2.png" alt="Historial de inicios de sesión con NetUsers" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 6. Historial de inicios de sesión con <code>NetUsers.exe /1 /h</code>.</figcaption>
+                </figure>
+            </div>
+
+            <!-- Paso 6 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">6</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Información de red</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800">Red</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    ipconfig /all &nbsp;|&nbsp; route print
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-4">
+                    <p><strong>Qué hacen:</strong> Despliegan la configuración física y lógica de todas las interfaces de red y la tabla de enrutamiento del sistema.</p>
+                    <p><strong>Resultado:</strong> La interfaz principal <code>Realtek Gaming 2.5GbE Family Controller</code> (MAC <code>58-11-22-CF-16-C5</code>) tiene asignada por DHCP la IP <code>192.168.1.73</code> con puerta de enlace <code>192.168.1.254</code> y servidores DNS <code>8.8.8.8</code> / <code>8.8.4.4</code>. Se detectan además dos adaptadores de VirtualBox (<code>192.168.56.1</code> y <code>192.168.212.1</code>).</p>
+                    <p><strong>Por qué importa:</strong> Identifica al host en la red local y alerta sobre la existencia de hipervisores/máquinas virtuales que pueden contener evidencia adicional.</p>
+                </div>
+                <pre class="bg-slate-900 text-slate-200 font-mono text-xs p-4 rounded-lg overflow-x-auto mb-3">Host Name . . . . . . . . . . . . : Jacc
+Description . . . . . . . . . . . : Realtek Gaming 2.5GbE Family Controller
+Physical Address. . . . . . . . . : 58-11-22-CF-16-C5
+DHCP Enabled. . . . . . . . . . . : Yes
+IPv4 Address. . . . . . . . . . . : 192.168.1.73 (Preferred)
+Subnet Mask . . . . . . . . . . . : 255.255.255.0
+Default Gateway . . . . . . . . . : fe80::1%14 / 192.168.1.254
+DHCP Server . . . . . . . . . . . : 192.168.1.254
+NetBIOS over Tcpip. . . . . . . . : Enabled</pre>
+                <a href="evidencia/ipconfig" target="_blank" class="inline-flex items-center text-xs font-medium text-blue-600 hover:text-blue-800">
+                    Ver salida completa de red (evidencia/ipconfig) &rarr;
+                </a>
+            </div>
+
+            <!-- Paso 7 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">7</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Nombres NetBIOS</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800">Red</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    nbtstat -n &nbsp;|&nbsp; nbtstat -c
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hacen:</strong> <code>-n</code> lista los nombres NetBIOS locales registrados; <code>-c</code> muestra la caché de nombres NetBIOS remotos resueltos recientemente.</p>
+                    <p><strong>Resultado:</strong> Se registran <code>JACC &lt;00&gt; UNIQUE</code> (nombre de equipo), <code>JACC &lt;20&gt; UNIQUE</code> (servicio de compartición de archivos) y <code>WORKGROUP &lt;00&gt; GROUP</code>. La caché aparece vacía (<code>No names in cache</code>) en las tres interfaces.</p>
+                    <p><strong>Por qué importa:</strong> Confirma que es una estación independiente (sin dominio Active Directory) y que no hubo comunicación NetBIOS reciente con otros hosts.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <img src="evidencia/Screenshot 2026-11-16 010041.png" alt="Nombres NetBIOS y caché con nbtstat" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 7. Nombres NetBIOS locales y caché con <code>nbtstat</code>.</figcaption>
+                </figure>
+            </div>
+
+            <!-- Paso 8 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">8</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Conexiones establecidas</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-100 text-amber-800">Evidencia Volátil</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    netstat -anob
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-4">
+                    <p><strong>Qué hace:</strong> Lista todas las conexiones TCP/UDP activas con direcciones locales/remotas, estado, PID y ejecutable propietario.</p>
+                    <p><strong>Resultado:</strong> Se contabilizaron 68 conexiones <code>ESTABLISHED</code> (en su mayoría tráfico loopback <code>127.0.0.1</code> / <code>::1</code>). Las conexiones externas salen por HTTPS (puerto <code>443</code>) y Spotify por el puerto <code>4070</code>. También se observaron sockets en estado <code>TIME_WAIT</code> hacia dos equipos de la LAN: <code>192.168.1.95</code> y <code>192.168.1.149</code>.</p>
+                    <p><strong>Por qué importa:</strong> Permite detectar canales de comando y control (C2) o exfiltración de datos en curso.</p>
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-slate-200">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-100 text-slate-700 font-semibold">
+                        <tr>
+                            <th class="px-4 py-2">Programa</th>
+                            <th class="px-4 py-2">Destino (IP:Puerto)</th>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-600 bg-white font-mono">
+                        <tr><td class="px-4 py-2 font-sans font-medium text-navy-900">Roblox (RobloxPlayerBeta.exe)</td><td class="px-4 py-2">128.116.95.3:443</td></tr>
+                        <tr><td class="px-4 py-2 font-sans font-medium text-navy-900">Discord (Discord.exe)</td><td class="px-4 py-2">162.159.133.234:443</td></tr>
+                        <tr><td class="px-4 py-2 font-sans font-medium text-navy-900">Riot (RiotClientServices.exe)</td><td class="px-4 py-2">104.18.157.37:443, 172.64.151.57:443, 104.16.55.40:443</td></tr>
+                        <tr><td class="px-4 py-2 font-sans font-medium text-navy-900">Copilot (copilotapphost.exe)</td><td class="px-4 py-2">20.184.175.3:443</td></tr>
+                        <tr><td class="px-4 py-2 font-sans font-medium text-navy-900">Chrome (chrome.exe)</td><td class="px-4 py-2">149.154.167.99:443</td></tr>
+                        <tr><td class="px-4 py-2 font-sans font-medium text-navy-900">Spotify (Spotify.exe)</td><td class="px-4 py-2">104.154.127.247:4070</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Paso 9 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">9</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Aplicaciones y puertos en escucha</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-100 text-amber-800">Evidencia Volátil</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    netstat -anob &nbsp;(ejecutado como Administrador)
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-4">
+                    <p><strong>Qué hace:</strong> El parámetro <code>-b</code> vincula cada socket en escucha (<code>LISTENING</code>) o activo con el binario exacto que lo abrió.</p>
+                    <p><strong>Resultado:</strong> Escuchan en todas las interfaces (<code>0.0.0.0</code>) los procesos <code>lkads.exe</code> (puerto <code>2343</code>, National Instruments) y <code>AacAmbientLighting.exe</code> (puerto <code>6850</code>, ASUS). De forma local (<code>127.0.0.1</code>) escuchan <code>ArmouryCrate.Service.exe</code> (<code>13010</code>), <code>ArmouryCrate.UserSessionHelper.exe</code> (<code>17945</code>) y <code>spoolsv.exe</code> (<code>47546</code>). El proceso <code>System</code> (PID 4) escucha en el puerto <code>139</code> sobre el adaptador VirtualBox <code>192.168.212.1</code>.</p>
+                    <p><strong>Por qué importa:</strong> Descubre backdoors o servicios expuestos en red que amplían la superficie de ataque.</p>
+                </div>
+                <pre class="bg-slate-900 text-slate-200 font-mono text-xs p-4 rounded-lg overflow-x-auto mb-3">TCP    192.168.1.73:54162     128.116.95.3:443       ESTABLISHED     32920  [RobloxPlayerBeta.exe]
+TCP    192.168.1.73:55722     162.159.133.234:443    ESTABLISHED     26564  [Discord.exe]
+TCP    192.168.1.73:62482     149.154.167.99:443     ESTABLISHED     27696  [chrome.exe]
+TCP    192.168.1.73:64436     104.154.127.247:4070   ESTABLISHED     31408  [Spotify.exe]
+TCP    0.0.0.0:2343           0.0.0.0:0              LISTENING       7420   [lkads.exe]</pre>
+                <a href="evidencia/anob.txt" target="_blank" class="inline-flex items-center text-xs font-medium text-blue-600 hover:text-blue-800">
+                    Ver salida completa de netstat -anob (evidencia/anob.txt) &rarr;
+                </a>
+            </div>
+
+            <!-- Paso 10 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">10</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Dominios consultados (Caché DNS)</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-100 text-amber-800">Evidencia Volátil</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    ipconfig /displaydns &gt; dns.txt &amp;&amp; type dns.txt | more
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hace:</strong> Extrae la caché del cliente DNS de Windows con todos los nombres de dominio resueltos recientemente y sus registros asociados.</p>
+                    <p><strong>Resultado:</strong> El archivo contiene 1,039 líneas y ~50 dominios distintos. Más de 40 incluyen la cadena <code>fitgirl</code> (como <code>fitgirl-repacks.cc</code>, <code>fitgirlrepacks.pro</code>, <code>fitgirlrepacks.in</code>, <code>fitgirltorrent.com</code>) y 44 registros apuntan a la misma IP: <code>109.94.209.70</code> (incluida una consulta inversa <code>70.209.94.109.in-addr.arpa</code>). También aparecen dominios de Steam, Vivox y Windows WNS.</p>
+                    <p><strong>Por qué importa:</strong> Conserva rastro de navegación reciente incluso si se borró el historial del navegador; múltiples dominios espejo apuntando a una sola IP son un vector habitual de distribución de troyanos.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200 mb-3">
+                    <img src="evidencia/dnstxt.png" alt="Caché DNS guardada en dns.txt" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 8. Inspección de la caché DNS exportada a <code>dns.txt</code>.</figcaption>
+                </figure>
+                <a href="evidencia/dns.txt" target="_blank" class="inline-flex items-center text-xs font-medium text-blue-600 hover:text-blue-800">
+                    Ver caché DNS completa (evidencia/dns.txt) &rarr;
+                </a>
+            </div>
+
+            <!-- Paso 11 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">11</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Tabla ARP (Dirección física y lógica)</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-100 text-amber-800">Evidencia Volátil</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    arp -a
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hace:</strong> Muestra la tabla de resolución de direcciones IP a direcciones MAC de los dispositivos vecinos en el segmento de red.</p>
+                    <p><strong>Resultado:</strong> En la interfaz <code>192.168.1.73</code> figuran 9 entradas dinámicas: <code>.95</code>, <code>.101</code>, <code>.107</code>, <code>.110</code>, <code>.111</code>, <code>.149</code>, <code>.150</code>, <code>.151</code> y la puerta de enlace <code>192.168.1.254</code> (MAC <code>f0-c8-b5-38-1a-73</code>), además de direcciones estáticas de broadcast/multicast.</p>
+                    <p><strong>Por qué importa:</strong> Permite identificar dispositivos locales con los que interactuó el equipo (especialmente <code>.95</code> y <code>.149</code> vistos en <code>netstat</code>) y detectar posibles ataques ARP spoofing.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <img src="evidencia/arpa.png" alt="Tabla ARP del equipo" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 9. Tabla ARP obtenida mediante <code>arp -a</code>.</figcaption>
+                </figure>
+            </div>
+
+            <!-- Paso 12 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">12</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Redes WiFi guardadas</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800">Red</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    netsh wlan show profiles
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hace:</strong> Enumera los perfiles de redes inalámbricas almacenados en el sistema.</p>
+                    <p><strong>Resultado:</strong> Devuelve <code>The Wireless AutoConfig Service (wlansvc) is not running</code>. Esto concuerda con <code>ipconfig /all</code>, dado que el equipo opera únicamente mediante interfaz cableada Ethernet y adaptadores virtuales. No se inició el servicio para preservar intacto el estado del sistema.</p>
+                    <p><strong>Por qué importa:</strong> En equipos portátiles permite reconstruir ubicaciones físicas; en un equipo de escritorio sin WLAN confirma la topología cableada.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <img src="evidencia/netsh.png" alt="Perfiles WiFi con netsh" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 10. Consulta de perfiles WiFi con <code>netsh wlan show profiles</code>.</figcaption>
+                </figure>
+            </div>
+
+            <!-- Paso 13 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">13</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Historial del intérprete de comandos</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-100 text-amber-800">Evidencia Volátil / Persistente</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    doskey /history &nbsp;|&nbsp; Get-History &nbsp;|&nbsp; type (Get-PSReadlineOption).HistorySavePath
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hacen:</strong> <code>doskey /history</code> y <code>Get-History</code> recuperan los comandos de la sesión actual en memoria; <code>(Get-PSReadlineOption).HistorySavePath</code> lee el historial persistente de PowerShell (<code>ConsoleHost_history.txt</code>).</p>
+                    <p><strong>Resultado:</strong> En CMD se documenta como procedimiento al cierre de la sesión. En PowerShell, <code>Get-History</code> muestra los 4 comandos de la adquisición actual, mientras que el archivo de <strong>PSReadLine</strong> revela ejecuciones previas: un script en Python (con <code>numpy</code> y <code>matplotlib</code>) y el comando <code class="text-pink-600 font-bold">irm https://massgrave.dev/get | iex</code>.</p>
+                    <p><strong>Por qué importa:</strong> Es uno de los artefactos forenses más reveladores para reconstruir acciones ejecutadas por el usuario o un atacante.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <figure class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                        <img src="evidencia/Powershell history .png" alt="Historial de la sesión con Get-History" loading="lazy" class="evidence-img w-full h-48 object-cover rounded border border-slate-200">
+                        <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 11. Historial de sesión activa con <code>Get-History</code>.</figcaption>
+                    </figure>
+                    <figure class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                        <img src="evidencia/Screenshot 2026-11-16 011409.png" alt="Archivo de historial de PowerShell PSReadLine" loading="lazy" class="evidence-img w-full h-48 object-cover rounded border border-slate-200">
+                        <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 12. Historial persistente de <code>PSReadLine</code>.</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- Paso 14 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">14</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Unidades mapeadas y volúmenes locales</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800">Red / Almacenamiento</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    net use &nbsp;|&nbsp; fsutil fsinfo drives
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hacen:</strong> <code>net use</code> lista unidades de red conectadas; <code>fsutil fsinfo drives</code> enumera todas las letras de unidad montadas en el sistema.</p>
+                    <p><strong>Resultado:</strong> <code>net use</code> reporta <code>There are no entries in the list</code> (sin unidades de red). <code>fsutil</code> identifica tres volúmenes locales: <code>C:\</code>, <code>D:\</code> y <code>E:\</code> (tras corregir un primer intento escrito sin espacio como <code>netuse</code>).</p>
+                    <p><strong>Por qué importa:</strong> Descarta repositorios remotos montados para exfiltración y señala unidades secundarias (<code>D:\</code> y <code>E:\</code>) que deben incluirse en la adquisición de disco.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <img src="evidencia/netuse.png" alt="Unidades mapeadas y unidades locales" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 13. Verificación con <code>net use</code> y <code>fsutil fsinfo drives</code>.</figcaption>
+                </figure>
+            </div>
+
+            <!-- Paso 15 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">15</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Recursos compartidos</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800">Red</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    net share
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hace:</strong> Muestra todos los recursos SMB compartidos por el equipo hacia la red.</p>
+                    <p><strong>Resultado:</strong> Únicamente aparecen los recursos administrativos predeterminados de Windows: <code>C$</code>, <code>D$</code>, <code>IPC$</code> y <code>ADMIN$</code>. No hay carpetas compartidas creadas manualmente.</p>
+                    <p><strong>Por qué importa:</strong> Confirma que el equipo no está exponiendo directorios de usuario para movimiento lateral.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <img src="evidencia/netshare.png" alt="Recursos compartidos con net share" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 14. Recursos compartidos listados con <code>net share</code>.</figcaption>
+                </figure>
+            </div>
+
+            <!-- Paso 16 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">16</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Información general del equipo</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-purple-100 text-purple-800">Configuración</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    systeminfo
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hace:</strong> Recopila perfil detallado del sistema operativo, hardware, BIOS, memoria RAM, fecha de instalación y tiempo de actividad.</p>
+                    <p><strong>Resultado:</strong> Host <code>JACC</code> con <strong>Microsoft Windows 11 Pro (10.0.26300)</strong>, rol <code>Standalone Workstation</code>, instalado originalmente el <strong>8 de enero de 2025</strong>, último arranque el <strong>15/11/2026 a la 1:27:37 PM</strong>, placa ASUS, procesador AMD (~4701 MHz), BIOS AMI v2413, ~32 GB RAM (31,968 MB) y zona horaria <code>UTC-06:00</code>.</p>
+                    <p><strong>Por qué importa:</strong> Define con exactitud el entorno técnico, el uptime del incidente y el nivel de parches del sistema.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <img src="evidencia/sysinfo.png" alt="Información del sistema con systeminfo" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 15. Perfil del sistema obtenido con <code>systeminfo</code>.</figcaption>
+                </figure>
+            </div>
+
+            <!-- Paso 17 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">17</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Tareas programadas</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-purple-100 text-purple-800">Configuración</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4">
+                    schtasks /query /fo LIST /v &gt; tareas.txt
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-4">
+                    <p><strong>Qué hace:</strong> Exporta en formato detallado todas las tareas programadas del sistema, incluyendo ruta del binario, estado, última ejecución y contexto de usuario.</p>
+                    <p><strong>Resultado:</strong> Se registraron 422 entradas (366 habilitadas y 56 deshabilitadas). Corresponden a componentes de Microsoft y software instalado (ASUS, Adobe, AMD, Canon, Google, Edge, National Instruments, NVIDIA, OneDrive, Opera GX, Ubisoft Connect y Npcap). No se detectaron ejecuciones desde carpetas temporales.</p>
+                    <p><strong>Por qué importa:</strong> Las tareas programadas son uno de los mecanismos de persistencia más empleados por malware; <code>\npcapwatchdog</code> confirma la presencia del driver de captura de paquetes Npcap.</p>
+                </div>
+                <pre class="bg-slate-900 text-slate-200 font-mono text-xs p-4 rounded-lg overflow-x-auto">TaskName:       \Adobe Uninstaller
+Status:         Ready
+Last Run Time:  5/20/2026 8:47:08 PM
+Author:         Adobe Systems Inc.
+
+TaskName:       \npcapwatchdog
+Task To Run:    C:\Program Files\Npcap\CheckStatus.bat
+Comment:        Ensure Npcap service is configured to start at boot</pre>
+            </div>
+
+            <!-- Paso 18 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">18</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Exportar los logs del sistema (.evtx)</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-indigo-100 text-indigo-800">Registros y Línea de Tiempo</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4 overflow-x-auto">
+                    wevtutil epl System "%USERPROFILE%\Desktop\System.evtx"<br>
+                    wevtutil epl Security "%USERPROFILE%\Desktop\Security.evtx"<br>
+                    wevtutil epl Application "%USERPROFILE%\Desktop\Application.evtx"<br>
+                    dir "%USERPROFILE%\Desktop\*.evtx"
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-5">
+                    <p><strong>Qué hacen:</strong> <code>wevtutil epl</code> exporta de forma íntegra los canales principales del Visor de Eventos de Windows sin alterar los archivos activos.</p>
+                    <p><strong>Resultado:</strong> Se generaron <code>System.evtx</code>, <code>Security.evtx</code> y <code>Application.evtx</code> en el Escritorio de <code>jacc2</code> el 16/11/2026 entre la 1:07 y 1:08 AM, cada uno con un tamaño de 21,041,152 bytes (63.1 MB en total, al haber alcanzado su cuota máxima circular).</p>
+                    <p><strong>Por qué importa:</strong> Preservan la auditoría histórica de inicios de sesión, creación de procesos, errores e instalación de servicios para su análisis offline.</p>
+                </div>
+                <figure class="bg-slate-50 p-3 rounded-lg border border-slate-200 mb-3">
+                    <img src="evidencia/desktop dir.png" alt="Archivos .evtx exportados al Escritorio" loading="lazy" class="evidence-img w-full rounded border border-slate-200">
+                    <figcaption class="text-xs text-slate-500 mt-2 text-center">Figura 16. Verificación de los archivos <code>.evtx</code> exportados mediante <code>dir</code>.</figcaption>
+                </figure>
+                <a href="evidencia/adir.txt" target="_blank" class="inline-flex items-center text-xs font-medium text-blue-600 hover:text-blue-800">
+                    Ver registro de listado en archivo (evidencia/adir.txt) &rarr;
+                </a>
+            </div>
+
+            <!-- Paso 19 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">19</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Inspección y respaldo del archivo hosts</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-purple-100 text-purple-800">Configuración • Procedimiento</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4 overflow-x-auto">
+                    type C:\Windows\System32\drivers\etc\hosts<br>
+                    copy C:\Windows\System32\drivers\etc\hosts "%USERPROFILE%\Desktop\hosts.txt"
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed">
+                    <p><strong>Qué hacen:</strong> Visualizan y crean una copia de trabajo del archivo de resolución estática de nombres local, el cual Windows consulta con prioridad sobre el DNS.</p>
+                    <p><strong>Procedimiento y qué buscar:</strong> En un archivo limpio todas las líneas activas son comentarios iniciados con <code>#</code>. El análisis busca entradas sin <code>#</code> que redirijan sitios legítimos (banca, antivirus, Windows Update) hacia IPs maliciosas o hacia <code>127.0.0.1</code> para bloquear actualizaciones.</p>
+                    <p><strong>Por qué importa:</strong> El secuestro del archivo <code>hosts</code> es una técnica clásica de phishing local y evasión de defensas.</p>
+                </div>
+            </div>
+
+            <!-- Paso 20 -->
+            <div class="step-card bg-accent-light border-accent p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number !bg-accent !text-white !border-white">20</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Listado de archivos por fecha de creación</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-indigo-100 text-indigo-800">Línea de Tiempo • Procedimiento</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4 overflow-x-auto">
+                    dir C:\ /a /s /t:c /o:d &gt; "%USERPROFILE%\Desktop\listado_creacion.txt"
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed mb-3">
+                    <p><strong>Qué hace:</strong> Recorre recursivamente todo el volumen <code>C:\</code> (<code>/s</code>), incluyendo archivos ocultos y de sistema (<code>/a</code>), ordenándolos cronológicamente (<code>/o:d</code>) por fecha de creación (<code>/t:c</code>).</p>
+                    <p><strong>Procedimiento y qué buscar:</strong> Permite filtrar artefactos, ejecutables, scripts o archivos comprimidos creados en rutas críticas (<code>Downloads</code>, <code>Temp</code>, <code>AppData</code>) alrededor de la ventana temporal del incidente para construir la línea de tiempo forense.</p>
+                    <p><strong>Por qué importa:</strong> Cierra la fase de adquisición en caliente proporcionando el mapa cronológico completo del sistema de archivos.</p>
+                </div>
+                <a href="evidencia/list.txt" target="_blank" class="inline-flex items-center text-xs font-medium text-navy-900 hover:underline font-semibold">
+                    Ver muestra de listado de archivos (evidencia/list.txt) &rarr;
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sección 4: Comparación Técnica CMD vs PowerShell -->
+    <section class="reveal-up">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            4. Comparación Técnica: CMD vs. PowerShell y Categorización
+        </h2>
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-navy-800 text-white font-display">
+                    <tr>
+                        <th class="px-5 py-3.5">Aspecto</th>
+                        <th class="px-5 py-3.5">CMD (Símbolo del sistema)</th>
+                        <th class="px-5 py-3.5">PowerShell</th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 text-slate-600">
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Servicios</td>
+                        <td class="px-5 py-3"><code>sc query state= all</code>: bloques extensos con tipo, estado y códigos de salida Win32.</td>
+                        <td class="px-5 py-3"><code>Get-Service</code>: tabla compacta con estado, nombre interno y nombre visible.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Filtrado</td>
+                        <td class="px-5 py-3">Requiere encadenar con <code>findstr</code> o parámetros específicos.</td>
+                        <td class="px-5 py-3"><code>Where-Object</code> filtra y ordena dinámicamente por cualquier propiedad.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Tipo de salida</td>
+                        <td class="px-5 py-3">Texto plano no estructurado.</td>
+                        <td class="px-5 py-3">Objetos .NET exportables directamente a CSV, JSON o HTML.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Fecha y hora</td>
+                        <td class="px-5 py-3"><code>date /t</code> y <code>time /t</code> por separado (sin segundos).</td>
+                        <td class="px-5 py-3"><code>Get-Date</code> unificado con precisión de segundos.</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Historial</td>
+                        <td class="px-5 py-3"><code>doskey /history</code>: limitado únicamente a la ventana actual.</td>
+                        <td class="px-5 py-3"><code>Get-History</code> (sesión) + archivo persistente <code>PSReadLine</code> entre reinicios.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 5: Indicios Maliciosos y Siguientes Pasos -->
+    <section class="reveal-up grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Posibles Indicios -->
+        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-amber-500">
+            <h2 class="font-display text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                5. Indicios y Puntos de Atención
+            </h2>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                Aunque no hay compromiso confirmado ni herramientas de acceso remoto no autorizadas (AnyDesk/TeamViewer), se marcan 6 hallazgos para investigación profunda:
+            </p>
+            <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
+                <li><strong>Ejecución remota sin inspección:</strong> <code>irm https://massgrave.dev/get | iex</code> en el historial de PowerShell (script público de activación que ejecuta código descargado directamente).</li>
+                <li><strong>Sitios de repacks en DNS:</strong> Más de 40 dominios apuntando a <code>109.94.209.70</code>, asociados a descargas no oficiales con riesgo de troyanos.</li>
+                <li><strong>Puertos expuestos en <code>0.0.0.0</code>:</strong> Puertos <code>2343</code> (<code>lkads.exe</code>) y <code>6850</code> (<code>AacAmbientLighting.exe</code>) escuchando en todas las interfaces.</li>
+                <li><strong>Vecinos locales:</strong> Identificar por MAC los dispositivos <code>192.168.1.95</code> y <code>192.168.1.149</code>.</li>
+                <li><strong>Npcap y VirtualBox:</strong> Verificar legitimidad de instalación e inspeccionar las VMs alojadas.</li>
+                <li><strong>Artefactos pendientes:</strong> Revisar el contenido completo de <code>hosts</code> y <code>listado_creacion.txt</code>.</li>
+            </ul>
+        </div>
+
+        <!-- Siguientes Pasos Forenses -->
+        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-green-500">
+            <h2 class="font-display text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                6. Siguientes Pasos en la Investigación
+            </h2>
+            <ol class="list-decimal list-inside text-slate-600 text-sm space-y-2">
+                <li><strong>Cadena de custodia:</strong> Documentar cada paso y evitar cualquier alteración adicional al equipo.</li>
+                <li><strong>Integridad criptográfica:</strong> Calcular hashes <code>SHA-256</code> de todos los <code>.evtx</code> y <code>.txt</code> exportados.</li>
+                <li><strong>Adquisición de RAM y disco:</strong> Volcar la memoria volátil antes de apagar y generar imágenes forenses bit a bit de <code>C:</code>, <code>D:</code> y <code>E:</code>.</li>
+                <li><strong>Auditoría de Event IDs:</strong> Analizar eventos <code>4624/4625</code> (logons), <code>4688</code> (procesos), <code>7045</code> (servicios) y <code>4698</code> (tareas).</li>
+                <li><strong>Artefactos de navegador y scripts:</strong> Revisar historial/descargas del navegador y auditar el payload descargado desde <code>massgrave.dev</code>.</li>
+                <li><strong>Línea de tiempo maestra:</strong> Correlacionar <code>listado_creacion.txt</code> con los logs de eventos y emitir el dictamen final.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Sección 6: Evidencia Documental Original (PDF Viewer) -->
+    <section class="reveal-up mt-16">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            7. Evidencia Documental Original
+        </h2>
+        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm text-center">
+            <p class="text-slate-600 mb-6 text-lg">Consulta el informe ejecutivo original de la Actividad 19 con el desarrollo completo de los 20 puntos de adquisición.</p>
+
+            <!-- Visor de PDF embebido -->
+            <iframe src="CasteloCuriocaJorge-ACT19.pdf" class="w-full h-[700px] rounded-lg border-2 border-slate-200 mb-8 shadow-inner" title="Reporte Actividad 19 - Adquisición Forense"></iframe>
+
+            <a href="CasteloCuriocaJorge-ACT19.pdf" download="CasteloCuriocaJorge-ACT19.pdf" class="inline-flex items-center gap-3 bg-accent text-navy-900 font-bold px-8 py-4 rounded-full hover:bg-navy-900 hover:text-accent transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                Descargar Documento (PDF)
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-gray-200 bg-white mt-12 py-10 text-center">
+    <h3 class="font-display font-bold text-accent text-xl mb-2">Road to Hall of Fame</h3>
+    <p class="text-slate-500 text-sm mb-1">
+        Portafolio Digital de Ciberseguridad &copy; 2026.
+    </p>
+    <p class="text-slate-400 text-xs">
+        Jorge Abraham Castelo Curioca - Ingeniería en TI
+    </p>
+</footer>
+
+<!-- Modal Lightbox para ampliar capturas -->
+<div id="imageModal" class="fixed inset-0 z-50 hidden bg-navy-900/90 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeModal()">
+    <div class="relative max-w-5xl w-full flex flex-col items-center" onclick="event.stopPropagation()">
+        <button onclick="closeModal()" class="self-end mb-2 text-white hover:text-accent font-display font-bold text-sm px-3 py-1 rounded bg-navy-800 border border-slate-700">
+            Cerrar &times;
+        </button>
+        <img id="modalImage" src="" alt="Vista ampliada" class="max-h-[82vh] w-auto rounded-lg border border-slate-700 shadow-2xl">
+        <p id="modalCaption" class="text-slate-300 text-xs mt-3 text-center"></p>
+    </div>
+</div>
+
+<!-- Scripts para animaciones de Scroll y Lightbox -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observerOptions = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.1
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        const animatedElements = document.querySelectorAll('.reveal-up');
+        animatedElements.forEach(el => observer.observe(el));
+
+        // Lightbox para imágenes de evidencia
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+
+        document.querySelectorAll('.evidence-img').forEach(img => {
+            img.addEventListener('click', () => {
+                modalImg.src = img.src;
+                modalCaption.textContent = img.alt;
+                modal.classList.remove('hidden');
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    });
+
+    function closeModal() {
+        document.getElementById('imageModal').classList.add('hidden');
+    }
+</script>
+</body>
+</html>

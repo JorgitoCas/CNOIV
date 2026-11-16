@@ -1,0 +1,574 @@
+
+Active Connections
+
+  Proto  Local Address          Foreign Address        State           PID
+  TCP    0.0.0.0:135            0.0.0.0:0              FIN_WAIT_1      1840
+  RpcSs
+ [svchost.exe]
+  TCP    0.0.0.0:2343           0.0.0.0:0              LISTENING       7420
+ [lkads.exe]
+  TCP    0.0.0.0:3580           0.0.0.0:0              CLOSED          6820
+ [nisvcloc.exe]
+  TCP    0.0.0.0:5357           0.0.0.0:0              FIN_WAIT_1      4
+ Can not obtain ownership information
+  TCP    0.0.0.0:6850           0.0.0.0:0              LISTENING       17604
+ [AacAmbientLighting.exe]
+  TCP    0.0.0.0:9013           0.0.0.0:0              FIN_WAIT_1      5412
+ [ArmourySocketServer.exe]
+  TCP    127.0.0.1:1042         0.0.0.0:0              FIN_WAIT_1      12060
+ [asus_framework.exe]
+  TCP    127.0.0.1:1042         127.0.0.1:50920        ESTABLISHED     12060
+ [asus_framework.exe]
+  TCP    127.0.0.1:1042         127.0.0.1:58265        ESTABLISHED     12060
+ [asus_framework.exe]
+  TCP    127.0.0.1:1042         127.0.0.1:58266        ESTABLISHED     12060
+ [asus_framework.exe]
+  TCP    127.0.0.1:1042         127.0.0.1:58277        ESTABLISHED     12060
+ [asus_framework.exe]
+  TCP    127.0.0.1:1042         127.0.0.1:58296        ESTABLISHED     12060
+ [asus_framework.exe]
+  TCP    127.0.0.1:6850         127.0.0.1:49834        ESTABLISHED     17604
+ [AacAmbientLighting.exe]
+  TCP    127.0.0.1:6850         127.0.0.1:59087        ESTABLISHED     17604
+ [AacAmbientLighting.exe]
+  TCP    127.0.0.1:7768         0.0.0.0:0              CLOSED          31408
+ [Spotify.exe]
+  TCP    127.0.0.1:7768         127.0.0.1:56258        ESTABLISHED     31408
+ [Spotify.exe]
+  TCP    127.0.0.1:9012         127.0.0.1:58267        ESTABLISHED     5412
+ [ArmourySocketServer.exe]
+  TCP    127.0.0.1:9013         127.0.0.1:50921        CLOSED          5412
+ [ArmourySocketServer.exe]
+  TCP    127.0.0.1:9013         127.0.0.1:58278        ESTABLISHED     5412
+ [ArmourySocketServer.exe]
+  TCP    127.0.0.1:13010        0.0.0.0:0              LISTENING       6300
+ [ArmouryCrate.Service.exe]
+  TCP    127.0.0.1:13030        0.0.0.0:0              CLOSED          6896
+ [ROGLiveService.exe]
+  TCP    127.0.0.1:13030        127.0.0.1:49695        ESTABLISHED     6896
+ [ROGLiveService.exe]
+  TCP    127.0.0.1:13032        0.0.0.0:0              FIN_WAIT_1      11784
+ [ArmouryCrate.UserSessionHelper.exe]
+  TCP    127.0.0.1:17532        127.0.0.1:59080        ESTABLISHED     6300
+ [ArmouryCrate.Service.exe]
+  TCP    127.0.0.1:17945        0.0.0.0:0              LISTENING       11784
+ [ArmouryCrate.UserSessionHelper.exe]
+  TCP    127.0.0.1:22112        0.0.0.0:0              CLOSED          6896
+ [ROGLiveService.exe]
+  TCP    127.0.0.1:27339        0.0.0.0:0              FIN_WAIT_1      4
+ Can not obtain ownership information
+  TCP    127.0.0.1:49670        127.0.0.1:49684        ESTABLISHED     7388
+ [nimdnsResponder.exe]
+  TCP    127.0.0.1:49670        127.0.0.1:49685        ESTABLISHED     7388
+ [nimdnsResponder.exe]
+  TCP    127.0.0.1:49670        127.0.0.1:49686        ESTABLISHED     7388
+ [nimdnsResponder.exe]
+  TCP    127.0.0.1:49670        127.0.0.1:49692        ESTABLISHED     7388
+ [nimdnsResponder.exe]
+  TCP    127.0.0.1:49684        127.0.0.1:49670        ESTABLISHED     7648
+ [niDiscSvc.exe]
+  TCP    127.0.0.1:49685        127.0.0.1:49670        ESTABLISHED     7648
+ [niDiscSvc.exe]
+  TCP    127.0.0.1:49686        127.0.0.1:49670        ESTABLISHED     7648
+ [niDiscSvc.exe]
+  TCP    127.0.0.1:49687        127.0.0.1:49670        ESTABLISHED     7648
+ [niDiscSvc.exe]
+  TCP    127.0.0.1:49692        127.0.0.1:49670        ESTABLISHED     7420
+ [lkads.exe]
+  TCP    127.0.0.1:49695        127.0.0.1:13030        ESTABLISHED     6896
+ [ROGLiveService.exe]
+  TCP    127.0.0.1:49834        127.0.0.1:6850         ESTABLISHED     6828
+ [LightingService.exe]
+  TCP    127.0.0.1:50920        127.0.0.1:1042         ESTABLISHED     28416
+ [asus_framework.exe]
+  TCP    127.0.0.1:50921        127.0.0.1:9013         ESTABLISHED     28416
+ [asus_framework.exe]
+  TCP    127.0.0.1:54413        127.0.0.1:58337        FIN_WAIT_1      27060
+ [steamwebhelper.exe]
+  TCP    127.0.0.1:54414        127.0.0.1:58336        ESTABLISHED     27060
+ [steamwebhelper.exe]
+  TCP    127.0.0.1:56258        127.0.0.1:7768         ESTABLISHED     20612
+ [SpotifyLauncher.exe]
+  TCP    127.0.0.1:58265        127.0.0.1:1042         FIN_WAIT_1      5412
+ [ArmourySocketServer.exe]
+  TCP    127.0.0.1:58266        127.0.0.1:1042         ESTABLISHED     6524
+ [AcPowerNotification.exe]
+  TCP    127.0.0.1:58267        127.0.0.1:9012         ESTABLISHED     11784
+ [ArmouryCrate.UserSessionHelper.exe]
+  TCP    127.0.0.1:58278        127.0.0.1:9013         ESTABLISHED     8188
+ [asus_framework.exe]
+  TCP    127.0.0.1:58296        127.0.0.1:1042         ESTABLISHED     23296
+ [asus_framework.exe]
+  TCP    127.0.0.1:58336        127.0.0.1:54414        ESTABLISHED     17176
+ [steam.exe]
+  TCP    127.0.0.1:58337        127.0.0.1:54413        FIN_WAIT_1      17176
+ [steam.exe]
+  TCP    127.0.0.1:58728        127.0.0.1:58729        ESTABLISHED     6752
+ [nvcontainer.exe]
+  TCP    127.0.0.1:58729        127.0.0.1:58728        ESTABLISHED     6752
+ [nvcontainer.exe]
+  TCP    127.0.0.1:59087        127.0.0.1:6850         ESTABLISHED     6828
+ [LightingService.exe]
+  TCP    127.0.0.1:62827        127.0.0.1:62828        ESTABLISHED     32920
+ [RobloxPlayerBeta.exe]
+  TCP    127.0.0.1:62828        127.0.0.1:62827        ESTABLISHED     32920
+ [RobloxPlayerBeta.exe]
+  TCP    192.168.1.73:139       0.0.0.0:0              CLOSED          4
+ Can not obtain ownership information
+  TCP    192.168.1.73:54162     128.116.95.3:443       ESTABLISHED     32920
+ [RobloxPlayerBeta.exe]
+  TCP    192.168.1.73:55722     162.159.133.234:443    ESTABLISHED     26564
+ [Discord.exe]
+  TCP    192.168.1.73:57633     104.18.157.37:443      ESTABLISHED     6564
+ [RiotClientServices.exe]
+  TCP    192.168.1.73:57636     172.64.151.57:443      ESTABLISHED     6564
+ [RiotClientServices.exe]
+  TCP    192.168.1.73:57639     104.16.55.40:443       ESTABLISHED     6564
+ [RiotClientServices.exe]
+  TCP    192.168.1.73:57640     104.16.55.40:443       ESTABLISHED     6564
+ [RiotClientServices.exe]
+  TCP    192.168.1.73:58227     192.168.1.73:0         LISTENING       0
+  TCP    192.168.1.73:58730     23.34.80.97:443        CLOSE_WAIT      6752
+ [nvcontainer.exe]
+  TCP    192.168.1.73:59202     3.232.34.19:0          LISTENING       27696
+ [chrome.exe]
+  TCP    192.168.1.73:59333     20.184.175.3:443       ESTABLISHED     33772
+ [copilotapphost.exe]
+  TCP    192.168.1.73:59341     20.190.155.130:443     TIME_WAIT       0
+  TCP    192.168.1.73:59342     4.152.89.97:443        CLOSED          0
+  TCP    192.168.1.73:59347     52.106.7.7:0           LISTENING       0
+  TCP    192.168.1.73:59353     20.184.175.10:443      TIME_WAIT       0
+  TCP    192.168.1.73:62482     149.154.167.99:443     ESTABLISHED     27696
+ [chrome.exe]
+  TCP    192.168.1.73:62831     128.116.95.3:443       ESTABLISHED     32920
+ [RobloxPlayerBeta.exe]
+  TCP    192.168.1.73:62836     128.116.95.3:443       ESTABLISHED     32920
+ [RobloxPlayerBeta.exe]
+  TCP    192.168.1.73:64407     192.168.1.95:17654     TIME_WAIT       0
+  TCP    192.168.1.73:64409     192.168.1.149:42677    TIME_WAIT       0
+  TCP    192.168.1.73:64411     192.168.1.149:7678     TIME_WAIT       0
+  TCP    192.168.1.73:64412     192.168.1.149:8080     TIME_WAIT       0
+  TCP    192.168.1.73:64436     104.154.127.247:4070   ESTABLISHED     31408
+ [Spotify.exe]
+  TCP    192.168.1.73:65264     104.18.41.183:443      CLOSE_WAIT      6564
+ [RiotClientServices.exe]
+  TCP    192.168.212.1:139      0.0.0.0:0              LISTENING       4
+ Can not obtain ownership information
+  TCP    [::]:5357              [::]:0                 FIN_WAIT_1      4
+ Can not obtain ownership information
+  TCP    [::]:47546             [::]:0                 LISTENING       5476
+ [spoolsv.exe]
+  TCP    [::1]:49672            [::1]:49673            ESTABLISHED     7420
+ [lkads.exe]
+  TCP    [::1]:49673            [::1]:49672            ESTABLISHED     7420
+ [lkads.exe]
+  TCP    [::1]:49676            [::1]:49677            ESTABLISHED     7768
+ [nidmsrv.exe]
+  TCP    [::1]:49677            [::1]:49676            ESTABLISHED     7768
+ [nidmsrv.exe]
+  TCP    [::1]:49688            [::1]:49689            ESTABLISHED     7756
+ [lktsrv.exe]
+  TCP    [::1]:49689            [::1]:49688            ESTABLISHED     7756
+ [lktsrv.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:49732  [2a06:98c1:58::1fd]:80  CLOSE_WAIT      16208
+ [LockApp.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:49734  [2600:141c:4000::bdf7:d68a]:443  CLOSE_WAIT      16208
+ [LockApp.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:49836  [2603:1030:40c:e::1]:443  ESTABLISHED     6788
+  WpnService
+ [svchost.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:51213  [2600:1f18:24e6:b902:b031:28ae:e5c:782b]:443  ESTABLISHED     27696
+ [chrome.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:54159  [2806:1080:cefe::bdf7:a79b]:443  ESTABLISHED     26564
+ [Discord.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:54412  [2600:1901:1:292::]:443  ESTABLISHED     26564
+ [Discord.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:56971  [2606:4700:7::a29f:81eb]:443  ESTABLISHED     26564
+ [Discord.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:57048  [2600:1901:1:6ac::]:443  ESTABLISHED     31728
+ [Spotify.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:57839  [2001:b28:f23d:8005:7:0:109:338]:443  ESTABLISHED     27696
+ [chrome.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:59248  [2001:67c:4e8:f004::9]:443  ESTABLISHED     27696
+ [chrome.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:59345  [2603:1063:2001:3103::365:ff1]:443  TIME_WAIT       0
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:60410  [2001:67c:4e8:f004::9]:443  ESTABLISHED     27696
+ [chrome.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:60588  [2600:1901:1:3b2::]:443  ESTABLISHED     31408
+ [Spotify.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:62981  [2600:1901:1:3b2::]:443  ESTABLISHED     31728
+ [Spotify.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:63765  [2607:f8b0:4023:1004::bc]:5228  ESTABLISHED     27696
+ [chrome.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:64405  [2600:141c:e000::bdf7:d089]:443  ESTABLISHED     27696
+ [chrome.exe]
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:64410  [2600:1901:1:7c5::]:443  TIME_WAIT       0
+  TCP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:65125  [2600:1901:1:7c5::]:443  ESTABLISHED     31728
+ [Spotify.exe]
+  UDP    0.0.0.0:123            *:*                                    24844
+  W32Time
+ [svchost.exe]
+  UDP    0.0.0.0:500            *:*                                    6448
+  IKEEXT
+ [svchost.exe]
+  UDP    0.0.0.0:1900           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:1900           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:1900           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:2343           *:*                                    7420
+ [lkads.exe]
+  UDP    0.0.0.0:3702           *:*                                    2212
+ [dashost.exe]
+  UDP    0.0.0.0:3702           *:*                                    2212
+ [dashost.exe]
+  UDP    0.0.0.0:4500           *:*                                    6448
+  IKEEXT
+ [svchost.exe]
+  UDP    0.0.0.0:5000           *:*                                    7768
+ [nidmsrv.exe]
+  UDP    0.0.0.0:5001           *:*                                    7756
+ [lktsrv.exe]
+  UDP    0.0.0.0:5050           *:*                                    6532
+  CDPSvc
+ [svchost.exe]
+  UDP    0.0.0.0:5353           *:*                                    27696
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:5353           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:5353           *:*                                    32652
+ [copilotapp.exe]
+  UDP    0.0.0.0:5353           *:*                                    32652
+ [copilotapp.exe]
+  UDP    0.0.0.0:5353           *:*                                    32652
+ [copilotapp.exe]
+  UDP    0.0.0.0:5353           *:*                                    26072
+ [steamwebhelper.exe]
+  UDP    0.0.0.0:5353           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:5353           *:*                                    26024
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    26024
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    26024
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    26072
+ [steamwebhelper.exe]
+  UDP    0.0.0.0:5353           *:*                                    26072
+ [steamwebhelper.exe]
+  UDP    0.0.0.0:5353           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:5353           *:*                                    27696
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    26024
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:5353           *:*                                    27696
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    26024
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    26072
+ [steamwebhelper.exe]
+  UDP    0.0.0.0:5353           *:*                                    27696
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:5353           *:*                                    32652
+ [copilotapp.exe]
+  UDP    0.0.0.0:5353           *:*                                    32652
+ [copilotapp.exe]
+  UDP    0.0.0.0:5353           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:5353           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:5353           *:*                                    32652
+ [copilotapp.exe]
+  UDP    0.0.0.0:5353           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:5353           *:*                                    26072
+ [steamwebhelper.exe]
+  UDP    0.0.0.0:5353           *:*                                    26072
+ [steamwebhelper.exe]
+  UDP    0.0.0.0:5353           *:*                                    26024
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:5353           *:*                                    27696
+ [chrome.exe]
+  UDP    0.0.0.0:5353           *:*                                    27696
+ [chrome.exe]
+  UDP    0.0.0.0:5355           *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:6000           *:*                                    7768
+ [nidmsrv.exe]
+  UDP    0.0.0.0:6001           *:*                                    7756
+ [lktsrv.exe]
+  UDP    0.0.0.0:27036          *:*                                    17176
+ [steam.exe]
+  UDP    0.0.0.0:49601          *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:49889          *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:52486          *:*                                    17176
+ [steam.exe]
+  UDP    0.0.0.0:54228          *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:55261          *:*                                    2212
+ [dashost.exe]
+  UDP    0.0.0.0:57138          *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:57433          *:*                                    7388
+ [nimdnsResponder.exe]
+  UDP    0.0.0.0:57621          *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:58351          *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:58718          *:*                                    26860
+ [Discord.exe]
+  UDP    0.0.0.0:58837          0.0.32.10:443                          27696
+ [chrome.exe]
+  UDP    0.0.0.0:59259          0.0.136.136:443                        27696
+ [chrome.exe]
+  UDP    0.0.0.0:60073          *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:60074          *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:60075          *:*                                    31408
+ [Spotify.exe]
+  UDP    0.0.0.0:60103          *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:60885          *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:61194          *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:62760          *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    0.0.0.0:65479          *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    127.0.0.1:1900         *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    127.0.0.1:10010        *:*                                    17720
+ [NVIDIA Overlay.exe]
+  UDP    127.0.0.1:10011        *:*                                    6752
+ [nvcontainer.exe]
+  UDP    127.0.0.1:10012        *:*                                    8100
+ [nvcontainer.exe]
+  UDP    127.0.0.1:44301        *:*                                    6876
+ [PnkBstrA.exe]
+  UDP    127.0.0.1:51537        127.0.0.1:51537                        6496
+  iphlpsvc
+ [svchost.exe]
+  UDP    127.0.0.1:56381        *:*                                    6752
+ [nvcontainer.exe]
+  UDP    127.0.0.1:59710        *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    192.168.1.73:137       *:*                                    4
+ Can not obtain ownership information
+  UDP    192.168.1.73:138       *:*                                    4
+ Can not obtain ownership information
+  UDP    192.168.1.73:1900      *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    192.168.1.73:2177      *:*                                    14644
+  QWAVE
+ [svchost.exe]
+  UDP    192.168.1.73:5353      *:*                                    7388
+ [nimdnsResponder.exe]
+  UDP    192.168.1.73:27036     *:*                                    17176
+ [steam.exe]
+  UDP    192.168.1.73:59707     *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    192.168.56.1:137       *:*                                    4
+ Can not obtain ownership information
+  UDP    192.168.56.1:138       *:*                                    4
+ Can not obtain ownership information
+  UDP    192.168.56.1:1900      *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    192.168.56.1:2177      *:*                                    14644
+  QWAVE
+ [svchost.exe]
+  UDP    192.168.56.1:5353      *:*                                    7388
+ [nimdnsResponder.exe]
+  UDP    192.168.56.1:59708     *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    192.168.212.1:137      *:*                                    4
+ Can not obtain ownership information
+  UDP    192.168.212.1:138      *:*                                    4
+ Can not obtain ownership information
+  UDP    192.168.212.1:1900     *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    192.168.212.1:2177     *:*                                    14644
+  QWAVE
+ [svchost.exe]
+  UDP    192.168.212.1:5353     *:*                                    7388
+ [nimdnsResponder.exe]
+  UDP    192.168.212.1:59709    *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    [::]:123               *:*                                    24844
+  W32Time
+ [svchost.exe]
+  UDP    [::]:500               *:*                                    6448
+  IKEEXT
+ [svchost.exe]
+  UDP    [::]:3702              *:*                                    2212
+ [dashost.exe]
+  UDP    [::]:3702              *:*                                    2212
+ [dashost.exe]
+  UDP    [::]:4500              *:*                                    6448
+  IKEEXT
+ [svchost.exe]
+  UDP    [::]:5353              *:*                                    26024
+ [chrome.exe]
+  UDP    [::]:5353              *:*                                    26024
+ [chrome.exe]
+  UDP    [::]:5353              *:*                                    26072
+ [steamwebhelper.exe]
+  UDP    [::]:5353              *:*                                    31408
+ [Spotify.exe]
+  UDP    [::]:5353              *:*                                    26072
+ [steamwebhelper.exe]
+  UDP    [::]:5353              *:*                                    27696
+ [chrome.exe]
+  UDP    [::]:5353              *:*                                    31408
+ [Spotify.exe]
+  UDP    [::]:5353              *:*                                    26072
+ [steamwebhelper.exe]
+  UDP    [::]:5353              *:*                                    31408
+ [Spotify.exe]
+  UDP    [::]:5353              *:*                                    26024
+ [chrome.exe]
+  UDP    [::]:5353              *:*                                    27696
+ [chrome.exe]
+  UDP    [::]:5353              *:*                                    27696
+ [chrome.exe]
+  UDP    [::]:5353              *:*                                    31408
+ [Spotify.exe]
+  UDP    [::]:5353              *:*                                    31408
+ [Spotify.exe]
+  UDP    [::]:5353              *:*                                    32652
+ [copilotapp.exe]
+  UDP    [::]:5353              *:*                                    31408
+ [Spotify.exe]
+  UDP    [::]:5353              *:*                                    31408
+ [Spotify.exe]
+  UDP    [::]:5353              *:*                                    31408
+ [Spotify.exe]
+  UDP    [::]:5353              *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:5353              *:*                                    32652
+ [copilotapp.exe]
+  UDP    [::]:5353              *:*                                    32652
+ [copilotapp.exe]
+  UDP    [::]:5353              *:*                                    31408
+ [Spotify.exe]
+  UDP    [::]:5355              *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:27036             *:*                                    17176
+ [steam.exe]
+  UDP    [::]:49601             *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:49889             *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:54228             *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:55262             *:*                                    2212
+ [dashost.exe]
+  UDP    [::]:57138             *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:57434             *:*                                    7388
+ [nimdnsResponder.exe]
+  UDP    [::]:58351             *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:58837             [2607:f8b0:4012:81f::200a]:443                  27696
+ [chrome.exe]
+  UDP    [::]:59259             [2001:4860:4860::8888]:443                  27696
+ [chrome.exe]
+  UDP    [::]:60103             *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:60885             *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:61194             *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:62760             *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::]:65479             *:*                                    2640
+  Dnscache
+ [svchost.exe]
+  UDP    [::1]:1900             *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    [::1]:5353             *:*                                    7388
+ [nimdnsResponder.exe]
+  UDP    [::1]:59706            *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    [2806:108e:1f:5e39::9]:2177  *:*                                    14644
+  QWAVE
+ [svchost.exe]
+  UDP    [2806:108e:1f:5e39:3927:4bfa:a003:eb4f]:2177  *:*                                    14644
+  QWAVE
+ [svchost.exe]
+  UDP    [2806:108e:1f:5e39:fa3c:a9ab:3718:5370]:2177  *:*                                    14644
+  QWAVE
+ [svchost.exe]
+  UDP    [fe80::5b22:b0cf:b8e0:40fe%16]:1900  *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::5b22:b0cf:b8e0:40fe%16]:2177  *:*                                    14644
+  QWAVE
+ [svchost.exe]
+  UDP    [fe80::5b22:b0cf:b8e0:40fe%16]:59704  *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::72b4:9916:fc48:f8fd%14]:1900  *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::72b4:9916:fc48:f8fd%14]:2177  *:*                                    14644
+  QWAVE
+ [svchost.exe]
+  UDP    [fe80::72b4:9916:fc48:f8fd%14]:59703  *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::8533:4d92:edf9:866c%15]:1900  *:*                                    23256
+  SSDPSRV
+ [svchost.exe]
+  UDP    [fe80::8533:4d92:edf9:866c%15]:2177  *:*                                    14644
+  QWAVE
+ [svchost.exe]
+  UDP    [fe80::8533:4d92:edf9:866c%15]:59705  *:*                                    23256
+  SSDPSRV
+ [svchost.exe]

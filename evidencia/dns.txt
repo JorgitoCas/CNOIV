@@ -1,0 +1,1039 @@
+
+Windows IP Configuration
+
+    www.fitgirlrepacks.pro
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirlrepacks.pro
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirlrepacks.in
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirlrepacks.in
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    ww9.fitgirl-repacks.xyz
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : ww9.fitgirl-repacks.xyz
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    cache10-dfw2.steamcontent.com
+    ----------------------------------------
+    Record Name . . . . . : cache10-dfw2.steamcontent.com
+    Record Type . . . . . : 28
+    Time To Live  . . . . : 3095
+    Data Length . . . . . : 16
+    Section . . . . . . . : Answer
+    AAAA Record . . . . . : 2602:801:f003:1::a2fe:c219
+
+
+    Record Name . . . . . : cache10-dfw2.steamcontent.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 1659
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 162.254.194.25
+
+
+    fitgirl-repack.org
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repack.org
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirlrepacks.in
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirlrepacks.in
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    *.fitgirl-repacks.xyz
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : *.fitgirl-repacks.xyz
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirlrepacks.co
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirlrepacks.co
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirl-repack.com
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirl-repack.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    skydrive.wns.windows.com
+    ----------------------------------------
+    Record Name . . . . . : skydrive.wns.windows.com
+    Record Type . . . . . : 5
+    Time To Live  . . . . : 62
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    CNAME Record  . . . . : client.wns.windows.com
+
+
+    Record Name . . . . . : client.wns.windows.com
+    Record Type . . . . . : 5
+    Time To Live  . . . . : 62
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    CNAME Record  . . . . : wns.notify.trafficmanager.net
+
+
+    Record Name . . . . . : wns.notify.trafficmanager.net
+    Record Type . . . . . : 28
+    Time To Live  . . . . : 62
+    Data Length . . . . . : 16
+    Section . . . . . . . : Answer
+    AAAA Record . . . . . : 2603:1030:40c:e::2
+
+
+    skydrive.wns.windows.com
+    ----------------------------------------
+    Record Name . . . . . : skydrive.wns.windows.com
+    Record Type . . . . . : 5
+    Time To Live  . . . . : 68
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    CNAME Record  . . . . : client.wns.windows.com
+
+
+    Record Name . . . . . : client.wns.windows.com
+    Record Type . . . . . : 5
+    Time To Live  . . . . : 68
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    CNAME Record  . . . . : wns.notify.trafficmanager.net
+
+
+    Record Name . . . . . : wns.notify.trafficmanager.net
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 68
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 104.208.203.90
+
+
+    www.fitgirl-repacks.cc
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirl-repacks.cc
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirl-repacks-site.org
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirl-repacks-site.org
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirl-repacks-site.org
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repacks-site.org
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirl-repack.net
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repack.net
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirl-repacks.in
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repacks.in
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirl-repack.net
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirl-repack.net
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirls-repacks.com
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirls-repacks.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    lolxp.www.vivox.com
+    ----------------------------------------
+    Record Name . . . . . : lolxp.www.vivox.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 36901
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 85.236.99.77
+
+
+    cmp2-lax1.steamserver.net
+    ----------------------------------------
+    Record Name . . . . . : cmp2-lax1.steamserver.net
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 1069
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 162.254.195.75
+
+
+    fitgirl-repacks.xyz
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repacks.xyz
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirlrepack.cc
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirlrepack.cc
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    cmp1-dfw2.steamserver.net
+    ----------------------------------------
+    Record Name . . . . . : cmp1-dfw2.steamserver.net
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 1214
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 162.254.194.56
+
+
+    fitgirlrepack.net
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirlrepack.net
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirl-repacks.net
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repacks.net
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirlrepack.net
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirlrepack.net
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    70.209.94.109.in-addr.arpa.
+    ----------------------------------------
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirlrepacks.in
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirlrepacks.in
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirlrepacks.co
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repacks.cc
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repacks.to
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repack.com
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repacks.website
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirlrepacks.co
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirl-repacks.cc
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirl-repacks.to
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirl-repack.com
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirl-repacks.website
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : ww9.fitgirl-repacks.xyz
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : *.fitgirl-repacks.xyz
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repacks.xyz
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repack.net
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirl-repack.net
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirlpack.site
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirlpack.site
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repack.org
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirl-repack.org
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirlrepacks.pro
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirlrepacks.pro
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirlrepack.games
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirlrepack.games
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repacks-site.org
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirl-repacks-site.org
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirls-repacks.com
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirlrepack.cc
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirlrepacks.org
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirls-repacks.com
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirlrepack.cc
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirlrepacks.org
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirltorrent.org
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirltorrent.org
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repacks.net
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirl-repacks.net
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirlrepack.net
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirlrepack.net
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repacks.com.de
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirl-repacks.com.de
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirltorrent.com
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : www.fitgirltorrent.com
+
+
+    Record Name . . . . . : 70.209.94.109.in-addr.arpa.
+    Record Type . . . . . : 12
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 8
+    Section . . . . . . . : Answer
+    PTR Record  . . . . . : fitgirl-repacks.in
+
+
+    www.fitgirlpack.site
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirlpack.site
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirlrepack.games
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirlrepack.games
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirl-repacks.website
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repacks.website
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirlrepack.games
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirlrepack.games
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirlrepacks.org
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirlrepacks.org
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirlpack.site
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirlpack.site
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirltorrent.com
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirltorrent.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirltorrent.com
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirltorrent.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirltorrent.org
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirltorrent.org
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirlrepacks.pro
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirlrepacks.pro
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirltorrent.org
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirltorrent.org
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirls-repacks.com
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirls-repacks.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirl-repacks.to
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirl-repacks.to
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirl-repack.org
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirl-repack.org
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    cmp2-dfw2.steamserver.net
+    ----------------------------------------
+    Record Name . . . . . : cmp2-dfw2.steamserver.net
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 994
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 162.254.194.57
+
+
+    www.fitgirlrepack.cc
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirlrepack.cc
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirlrepacks.co
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirlrepacks.co
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirl-repacks.com.de
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirl-repacks.com.de
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirl-repacks.to
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repacks.to
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirl-repacks.com.de
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repacks.com.de
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirl-repacks.cc
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repacks.cc
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirl-repacks.net
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirl-repacks.net
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirl-repack.com
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirl-repack.com
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    www.fitgirl-repacks.website
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : www.fitgirl-repacks.website
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+
+    fitgirlrepacks.org
+    ----------------------------------------
+    No records of type AAAA
+
+
+    Record Name . . . . . : fitgirlrepacks.org
+    Record Type . . . . . : 1
+    Time To Live  . . . . : 563108
+    Data Length . . . . . : 4
+    Section . . . . . . . : Answer
+    A (Host) Record . . . : 109.94.209.70
+
+

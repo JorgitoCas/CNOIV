@@ -1,0 +1,69 @@
+
+Windows IP Configuration
+
+   Host Name . . . . . . . . . . . . : Jacc
+   Primary Dns Suffix  . . . . . . . : 
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+
+Ethernet adapter Ethernet:
+
+   Connection-specific DNS Suffix  . : 
+   Description . . . . . . . . . . . : Realtek Gaming 2.5GbE Family Controller
+   Physical Address. . . . . . . . . : 58-11-22-CF-16-C5
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+   IPv6 Address. . . . . . . . . . . : 2806:108e:1f:5e39::9(Preferred) 
+   Lease Obtained. . . . . . . . . . : Sunday, November 15, 2026 1:28:08 PM
+   Lease Expires . . . . . . . . . . : Tuesday, December 15, 2026 1:27:29 PM
+   IPv6 Address. . . . . . . . . . . : 2806:108e:1f:5e39:fa3c:a9ab:3718:5370(Preferred) 
+   Temporary IPv6 Address. . . . . . : 2806:108e:1f:5e39:3927:4bfa:a003:eb4f(Preferred) 
+   Link-local IPv6 Address . . . . . : fe80::72b4:9916:fc48:f8fd%14(Preferred) 
+   IPv4 Address. . . . . . . . . . . : 192.168.1.73(Preferred) 
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Lease Obtained. . . . . . . . . . : Sunday, November 15, 2026 1:28:08 PM
+   Lease Expires . . . . . . . . . . : Monday, November 16, 2026 1:27:24 PM
+   Default Gateway . . . . . . . . . : fe80::1%14
+                                       192.168.1.254
+   DHCP Server . . . . . . . . . . . : 192.168.1.254
+   DHCPv6 IAID . . . . . . . . . . . : 106434850
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-2A-07-B2-49-58-11-22-CF-16-C5
+   DNS Servers . . . . . . . . . . . : 2806:1080:ffff:4::2
+                                       2806:1090:ffff:4::2
+                                       8.8.8.8
+                                       8.8.4.4
+                                       192.168.100.1
+                                       2806:1080:ffff:4::2
+                                       2806:1090:ffff:4::2
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+Ethernet adapter Ethernet 2:
+
+   Connection-specific DNS Suffix  . : 
+   Description . . . . . . . . . . . : VirtualBox Host-Only Ethernet Adapter
+   Physical Address. . . . . . . . . : 0A-00-27-00-00-10
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   Link-local IPv6 Address . . . . . : fe80::5b22:b0cf:b8e0:40fe%16(Preferred) 
+   IPv4 Address. . . . . . . . . . . : 192.168.56.1(Preferred) 
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 
+   DHCPv6 IAID . . . . . . . . . . . : 420085799
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-2A-07-B2-49-58-11-22-CF-16-C5
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+
+Ethernet adapter Ethernet 3:
+
+   Connection-specific DNS Suffix  . : 
+   Description . . . . . . . . . . . : VirtualBox Host-Only Ethernet Adapter #2
+   Physical Address. . . . . . . . . : 0A-00-27-00-00-0F
+   DHCP Enabled. . . . . . . . . . . : No
+   Autoconfiguration Enabled . . . . : Yes
+   Link-local IPv6 Address . . . . . : fe80::8533:4d92:edf9:866c%15(Preferred) 
+   IPv4 Address. . . . . . . . . . . : 192.168.212.1(Preferred) 
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : 
+   DHCPv6 IAID . . . . . . . . . . . : 386531367
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-2A-07-B2-49-58-11-22-CF-16-C5
+   NetBIOS over Tcpip. . . . . . . . : Enabled
