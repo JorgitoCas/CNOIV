@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 18 - La huella digital de un cibercriminal</title>
+
+    <!-- Fuentes de Google: Space Grotesk e Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#0B1120',
+                            800: '#0F172A',
+                            700: '#1E293B',
+                        },
+                        accent: {
+                            DEFAULT: '#FFC107',
+                            hover: '#FFB300',
+                            light: '#FFF8E1',
+                            subtle: 'rgba(255, 193, 7, 0.1)'
+                        },
+                        bgbase: '#F8FAFC'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F8FAFC;
+            color: #0F172A;
+            overflow-x: hidden;
+        }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        .is-visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        .step-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #CBD5E1;
+            transform: translateY(-2px);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 60px;
+            height: 60px;
+            background-color: #FFF8E1;
+            color: #FFC107;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            border: 4px solid #FFFFFF;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- Navbar -->
+<nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="index.html" class="inline-flex items-center text-sm font-medium text-slate-600 hover:text-navy-800 transition-colors group">
+            <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Volver al Roadmap
+        </a>
+        <div class="text-xs font-display font-bold tracking-widest text-slate-400 uppercase hidden sm:block">
+            Hall of Fame / Actividad 18
+        </div>
+    </div>
+</nav>
+
+<!-- Header -->
+<header class="pt-16 pb-12 px-6 bg-white border-b border-gray-200">
+    <div class="max-w-4xl mx-auto reveal-up">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+            <span class="px-3 py-1 text-xs font-bold text-navy-900 bg-accent rounded-md uppercase tracking-wide">Actividad 18</span>
+            <span class="text-sm font-medium text-slate-500">CNO IV - Seguridad Informática • Forense Digital con Autopsy</span>
+        </div>
+        <h1 class="font-display text-3xl md:text-5xl font-bold text-navy-800 mb-4 leading-tight">
+            La investigación forense: la huella digital de un cibercriminal
+        </h1>
+        <p class="text-slate-600 text-base md:text-lg mb-6">
+            Parte I. Análisis forense de imagen de disco sobre el caso de entrenamiento oficial NIST CFReDS / NSA Cybersecurity («Hacking Case» — Greg Schardt / Mr. Evil).
+        </p>
+        <a href="https://cfreds-archive.nist.gov/Hacking_Case.html" target="_blank" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors">
+            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+            Archivo Oficial de Evidencia NIST CFReDS (Hacking Case)
+        </a>
+    </div>
+</header>
+
+<main class="py-12 px-6 max-w-4xl mx-auto space-y-16">
+
+    <!-- Sección 1: Ficha Técnica -->
+    <section class="reveal-up">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            1. Ficha Técnica del Caso
+        </h2>
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Nombre del Caso en Autopsy</h3>
+                <p class="text-navy-900 font-medium"><code>INV01UPSLP</code> (Case Number: <code>01</code>)</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Organización / Materia</h3>
+                <p class="text-navy-900 font-medium">Universidad Politécnica de San Luis Potosí — CNO IV</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Perito Examinador</h3>
+                <p class="text-navy-900 font-medium">Jorge Abraham Castelo Curioca (Matrícula: 181512)</p>
+            </div>
+            <div>
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Evidencia Analizada</h3>
+                <p class="text-navy-900 font-medium">Imagen segmentada <code>SCHARDT.001</code> – <code>.008</code> (4,871,301,120 bytes)</p>
+            </div>
+            <div class="md:col-span-2">
+                <h3 class="text-xs uppercase tracking-wider text-slate-500 font-bold mb-1">Objetivo de la Investigación</h3>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Identificar software de piratería e interceptación de tráfico, extraer metadatos del sistema operativo y del Registro de Windows, y establecer la vinculación técnica entre la computadora portátil abandonada y el sospechoso <strong>Greg Schardt</strong> (alias <strong>«Mr. Evil»</strong>).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 2: Escenario del Crimen Digital -->
+    <section class="reveal-up">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            2. Escenario del Incidente y Contexto Forense
+        </h2>
+        <div class="bg-navy-800 text-white p-6 md:p-8 rounded-xl shadow-lg relative overflow-hidden space-y-4">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-accent opacity-10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+            <p class="text-slate-300 leading-relaxed relative z-10 text-base md:text-lg">
+                El <strong>20 de septiembre de 2004</strong>, una computadora portátil <strong>Dell CPi</strong> (número de serie <code>VLQLW</code>) fue hallada abandonada junto con una tarjeta inalámbrica <strong>PCMCIA</strong> y una antena externa <strong>802.11b</strong> de fabricación casera.
+            </p>
+            <p class="text-slate-300 leading-relaxed relative z-10 text-sm md:text-base">
+                Las líneas de inteligencia vinculan el dispositivo con actividades de piratería informática y fraude financiero (<em>carding</em>) atribuibles a <strong>Greg Schardt</strong>, conocido en línea como <strong class="text-amber-300">«Mr. Evil»</strong>. De acuerdo con testimonios de sus asociados, estacionaba su vehículo dentro del alcance de puntos de acceso inalámbricos públicos (como cafeterías Starbucks y hotspots de T-Mobile) para interceptar tráfico de red sin cifrar y capturar números de tarjetas de crédito, nombres de usuario y contraseñas.
+            </p>
+        </div>
+    </section>
+
+    <!-- Sección 3: Procedimiento y Preguntas de Análisis (1 al 11) -->
+    <section>
+        <div class="mb-10 reveal-up">
+            <h2 class="font-display text-2xl font-bold text-navy-800 mb-2 flex items-center gap-2">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                3. Desarrollo del Análisis Forense en Autopsy
+            </h2>
+            <p class="text-slate-500 text-sm">Configuración del caso, importación de la imagen y resolución de las preguntas periciales.</p>
+        </div>
+
+        <div class="space-y-8">
+
+            <!-- Paso 1 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">1</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Adquisición de Evidencia y Creación del Caso en Autopsy</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-amber-100 text-amber-800">Preparación</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                    Se descargaron las <strong>08 partes</strong> de la imagen forense desde el repositorio CFReDS de NIST dentro de un directorio dedicado en el escritorio (<code>EVIDENCE</code>). Posteriormente se creó un nuevo caso en Autopsy con los parámetros de cadena de custodia y se seleccionó la opción <em>«Generate new host name based on data source name»</em>:
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-4 rounded-lg border border-slate-200 text-xs">
+                    <div><span class="font-bold text-slate-500 uppercase">Case Name:</span> <code class="text-navy-900 font-semibold">INV01UPSLP</code></div>
+                    <div><span class="font-bold text-slate-500 uppercase">Case Number:</span> <code class="text-navy-900 font-semibold">01</code></div>
+                    <div><span class="font-bold text-slate-500 uppercase">Examiner:</span> <span class="text-navy-900 font-medium">Castelo Curioca Jorge Abraham</span></div>
+                    <div><span class="font-bold text-slate-500 uppercase">Email:</span> <span class="text-navy-900 font-medium">181512@upslp.edu.mx</span></div>
+                    <div class="sm:col-span-2"><span class="font-bold text-slate-500 uppercase">Organization:</span> <span class="text-navy-900 font-medium">Universidad Politécnica de San Luis Potosí (CNO IV - Seguridad Informática)</span></div>
+                </div>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">2</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Selección del Tipo de Fuente de Datos (Data Source Type)</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-blue-100 text-blue-800">Conceptos Forenses</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                    En el asistente <em>Add Data Source</em> se seleccionó <strong>«Disk Image or VM File»</strong> para procesar la copia bit a bit completa del disco duro de la Dell CPi. Adicionalmente se documentan las diferencias frente a otros tipos de origen:
+                </p>
+                <div class="space-y-3 text-sm">
+                    <div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
+                        <p class="font-bold text-navy-900 mb-1">¿A qué se refiere el tipo de origen «Logical Files»?</p>
+                        <p class="text-slate-600 text-xs leading-relaxed">Permite incorporar archivos o carpetas individuales extraídos directamente de un sistema de archivos activo, sin incluir espacio no asignado (<em>unallocated space</em>), sectores ocultos ni la tabla de particiones física.</p>
+                    </div>
+                    <div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
+                        <p class="font-bold text-navy-900 mb-1">¿A qué se refiere el tipo de origen «Local Disk»?</p>
+                        <p class="text-slate-600 text-xs leading-relaxed">Hace referencia al análisis directo de un dispositivo de almacenamiento físico o volumen lógico conectado localmente al equipo pericial donde se ejecuta Autopsy (como un disco duro interno, memoria USB o unidad externa).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">3</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">Importación de la Imagen, Módulos de Ingestión e Integridad</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-100 text-emerald-800">Integridad</span>
+                </div>
+                <div class="bg-slate-900 text-amber-300 font-mono text-xs md:text-sm p-3 rounded-lg mb-4 overflow-x-auto">
+                    Path: C:\Users\usuario1\Desktop\EVIDENCE\SCHARDT.001 &nbsp;|&nbsp; Sector Size: Auto Detect (512 Bytes) &nbsp;|&nbsp; Timezone: (GMT-6:00) America/Mexico_City
+                </div>
+                <div class="space-y-2 text-slate-600 text-sm leading-relaxed">
+                    <p><strong>Configuración de Ingestión:</strong> Se ejecutaron todos los módulos disponibles sobre <em>All Files, Directories, and Unallocated Space</em> (<code>Recent Activity</code>, <code>Hash Lookup</code>, <code>File Type Identification</code>, <code>Extension Mismatch Detector</code>, <code>Embedded File Extractor</code>, <code>Picture Analyzer</code>, <code>Keyword Search</code> y <code>Email Parser</code>).</p>
+                    <p><strong>Verificación de Hash:</strong> Mediante el módulo <em>Hash Lookup</em> y los metadatos de origen en Autopsy, se verifica el resumen criptográfico calculado durante la ingestión frente al hash de adquisición original de la imagen <code>SCHARDT.001</code> (4,871,301,120 bytes). Ambos valores coinciden íntegramente, confirmando que la evidencia no sufrió alteraciones ni corrupción durante su descarga e importación.</p>
+                </div>
+            </div>
+
+            <!-- Paso 4 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">4</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">¿Qué sistema operativo se utilizó en la computadora?</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-purple-100 text-purple-800">Data Artifacts • OS Info</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                    A través de <code>Data Artifacts &rarr; Operating System Information</code> (extraído por el módulo <em>Recent Activity</em> desde el Registro de Windows), se confirma que el equipo ejecutaba <strong>Microsoft Windows XP</strong> sobre arquitectura <code>x86</code>.
+                </p>
+                <div class="overflow-x-auto rounded-lg border border-slate-200">
+                    <table class="w-full text-left text-xs font-mono">
+                        <thead class="bg-slate-100 text-slate-700">
+                        <tr>
+                            <th class="px-4 py-2">Propiedad (Type)</th>
+                            <th class="px-4 py-2">Valor Extraído (Value)</th>
+                            <th class="px-4 py-2">Origen</th>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-600 bg-white">
+                        <tr><td class="px-4 py-2 font-semibold text-navy-900">Name</td><td class="px-4 py-2">N-1A9ODN6ZXK4LQ</td><td class="px-4 py-2">Recent Activity</td></tr>
+                        <tr><td class="px-4 py-2 font-semibold text-navy-900">Program Name</td><td class="px-4 py-2 font-bold text-navy-900">Microsoft Windows XP</td><td class="px-4 py-2">Recent Activity</td></tr>
+                        <tr><td class="px-4 py-2 font-semibold text-navy-900">Processor Architecture</td><td class="px-4 py-2">x86</td><td class="px-4 py-2">Recent Activity</td></tr>
+                        <tr><td class="px-4 py-2 font-semibold text-navy-900">Temporary Files Directory</td><td class="px-4 py-2">%SystemRoot%\TEMP</td><td class="px-4 py-2">Recent Activity</td></tr>
+                        <tr><td class="px-4 py-2 font-semibold text-navy-900">Path</td><td class="px-4 py-2">C:\WINDOWS</td><td class="px-4 py-2">Recent Activity</td></tr>
+                        <tr><td class="px-4 py-2 font-semibold text-navy-900">Product ID</td><td class="px-4 py-2">55274-640-0147306-23684</td><td class="px-4 py-2">Recent Activity</td></tr>
+                        <tr><td class="px-4 py-2 font-semibold text-navy-900">Owner</td><td class="px-4 py-2 font-bold text-pink-600">Greg Schardt</td><td class="px-4 py-2">Recent Activity</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Paso 5 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">5</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">¿Cuándo fue la fecha de instalación?</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-purple-100 text-purple-800">Línea de Tiempo</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 border-dashed mb-3">
+                    <span class="font-mono text-sm font-bold text-navy-900">19 de agosto de 2004 a las 16:07:38 UTC</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Obtenida de la marca temporal <code>InstallDate</code> almacenada en la clave <code>SOFTWARE\Microsoft\Windows NT\CurrentVersion</code> del Registro, un mes antes de que la portátil fuera encontrada abandonada.
+                </p>
+            </div>
+
+            <!-- Paso 6 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">6</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">¿Cuál es la configuración de zona horaria?</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-purple-100 text-purple-800">Configuración del Sistema</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 border-dashed mb-3">
+                    <span class="font-mono text-sm font-bold text-navy-900">Mountain Standard Time (MST / GMT-06:00)</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Extraída de <code>SYSTEM\ControlSet001\Control\TimeZoneInformation</code>, dato indispensable para normalizar todas las marcas de tiempo (MACB) de archivos, registros y capturas de red a UTC.
+                </p>
+            </div>
+
+            <!-- Paso 7 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">7</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">¿Quién es el propietario registrado?</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-red-100 text-red-800">Atribución Directa</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 border-dashed mb-3">
+                    <span class="font-mono text-base font-bold text-pink-600">Greg Schardt</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    El valor <code>RegisteredOwner</code> dentro de la información del sistema operativo identifica explícitamente a <strong>Greg Schardt</strong>, proporcionando la primera prueba directa de titularidad sobre el equipo incautado.
+                </p>
+            </div>
+
+            <!-- Paso 8 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">8</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">¿Cuál es el nombre de la cuenta / equipo de la computadora?</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-purple-100 text-purple-800">Identificación de Host</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 border-dashed mb-3">
+                    <span class="font-mono text-sm font-bold text-navy-900">N-1A9ODN6ZXK4LQ</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Identificador NetBIOS / nombre de equipo generado durante la instalación de Windows XP y reflejado en el campo <code>Name</code> de <em>Operating System Information</em>.
+                </p>
+            </div>
+
+            <!-- Paso 9 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">9</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">¿Cuál es el nombre de dominio principal?</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-red-100 text-red-800">Vinculación de Alias</span>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 border-dashed mb-3">
+                    <span class="font-mono text-base font-bold text-pink-600">EVIL</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    El grupo de trabajo / dominio configurado en el equipo es <strong><code>EVIL</code></strong>, coincidiendo directamente con el seudónimo en línea del sospechoso (<strong>«Mr. Evil»</strong>).
+                </p>
+            </div>
+
+            <!-- Paso 10 -->
+            <div class="step-card p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number">10</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">¿Cuándo fue la última fecha/hora registrada en que se apagó la computadora?</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-indigo-100 text-indigo-800">Registro SYSTEM • FILETIME</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                    Inspeccionando la colmena <code>SYSTEM</code> en la clave <code>ControlSet001\Control\Windows</code>, el valor binario <code>ShutdownTime</code> (<code>C4 FC 00 07 4D 8C C4 01</code> en formato <em>little-endian</em> Windows FILETIME de 64 bits) y los metadatos de modificación de la clave registran el último apagado limpio el <strong>27 de agosto de 2004 a las 15:46:33 GMT+00:00</strong>.
+                </p>
+                <div class="overflow-x-auto rounded-lg border border-slate-200">
+                    <table class="w-full text-left text-xs font-mono">
+                        <thead class="bg-slate-100 text-slate-700">
+                        <tr>
+                            <th class="px-4 py-2">Valor del Registro</th>
+                            <th class="px-4 py-2">Tipo</th>
+                            <th class="px-4 py-2">Dato / Interpretación</th>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-600 bg-white">
+                        <tr><td class="px-4 py-2 font-semibold text-navy-900">Directory</td><td class="px-4 py-2">REG_EXPAND_SZ</td><td class="px-4 py-2">%SystemRoot%</td></tr>
+                        <tr><td class="px-4 py-2 font-semibold text-navy-900">SystemDirectory</td><td class="px-4 py-2">REG_EXPAND_SZ</td><td class="px-4 py-2">%SystemRoot%\system32</td></tr>
+                        <tr class="bg-amber-50/70"><td class="px-4 py-2 font-bold text-navy-900">ShutdownTime</td><td class="px-4 py-2">REG_BIN</td><td class="px-4 py-2 font-bold text-pink-600">C4 FC 00 07 4D 8C C4 01 (2004-08-27 15:46:33 UTC)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Paso 11 -->
+            <div class="step-card bg-accent-light border-accent p-6 md:p-8 pt-10 reveal-up">
+                <div class="step-number !bg-accent !text-white !border-white">11</div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h3 class="text-xl font-bold text-navy-800">¿Cuántas cuentas están registradas (número total)?</h3>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-red-100 text-red-800">OS Account • SAM</span>
+                </div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                    Existen <strong>4 cuentas registradas</strong> en total dentro de la sección <code>OS Account</code> de Autopsy: tres cuentas internas de servicio del sistema operativo y una cuenta local de usuario denominada <strong><code>mr</code></strong> (RID <code>1003</code>), cerrando el vínculo con el alias <em>«Mr. Evil»</em>.
+                </p>
+                <div class="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+                    <table class="w-full text-left text-xs font-mono">
+                        <thead class="bg-slate-100 text-slate-700">
+                        <tr>
+                            <th class="px-4 py-2">SID</th>
+                            <th class="px-4 py-2">Login Name</th>
+                            <th class="px-4 py-2">Scope</th>
+                            <th class="px-4 py-2">Realm Name</th>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 text-slate-600">
+                        <tr class="bg-amber-50/80"><td class="px-4 py-2">S-1-5-21-2000478354-688789844-1708537768-1003</td><td class="px-4 py-2 font-bold text-pink-600">mr</td><td class="px-4 py-2">Local</td><td class="px-4 py-2">—</td></tr>
+                        <tr><td class="px-4 py-2">S-1-5-19</td><td class="px-4 py-2 font-semibold text-navy-900">LOCAL SERVICE</td><td class="px-4 py-2">Local</td><td class="px-4 py-2">NT AUTHORITY</td></tr>
+                        <tr><td class="px-4 py-2">S-1-5-20</td><td class="px-4 py-2 font-semibold text-navy-900">NETWORK SERVICE</td><td class="px-4 py-2">Local</td><td class="px-4 py-2">NT AUTHORITY</td></tr>
+                        <tr><td class="px-4 py-2">S-1-5-18</td><td class="px-4 py-2 font-semibold text-navy-900">SYSTEM</td><td class="px-4 py-2">Local</td><td class="px-4 py-2">NT AUTHORITY</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sección 4: Tabla Resumen de Artefactos -->
+    <section class="reveal-up">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            4. Resumen de Hallazgos y Correlación de Identidad
+        </h2>
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-navy-800 text-white font-display">
+                    <tr>
+                        <th class="px-5 py-3.5">Pregunta Pericial</th>
+                        <th class="px-5 py-3.5">Artefacto / Evidencia Hallada</th>
+                        <th class="px-5 py-3.5">Fuente en Autopsy</th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 text-slate-600">
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Sistema Operativo</td>
+                        <td class="px-5 py-3">Microsoft Windows XP (x86)</td>
+                        <td class="px-5 py-3"><code>Operating System Information</code></td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Fecha de Instalación</td>
+                        <td class="px-5 py-3">19 de agosto de 2004, 16:07:38 UTC</td>
+                        <td class="px-5 py-3"><code>SOFTWARE\...\CurrentVersion</code></td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Zona Horaria</td>
+                        <td class="px-5 py-3">Mountain Standard Time (MST / GMT-06:00)</td>
+                        <td class="px-5 py-3"><code>SYSTEM\...\TimeZoneInformation</code></td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Propietario Registrado</td>
+                        <td class="px-5 py-3 font-bold text-pink-600">Greg Schardt</td>
+                        <td class="px-5 py-3"><code>Operating System Information</code></td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Nombre del Equipo</td>
+                        <td class="px-5 py-3"><code>N-1A9ODN6ZXK4LQ</code></td>
+                        <td class="px-5 py-3"><code>Operating System Information</code></td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Dominio / Grupo de Trabajo</td>
+                        <td class="px-5 py-3 font-bold text-pink-600"><code>EVIL</code></td>
+                        <td class="px-5 py-3">Registro <code>SYSTEM</code> / Red</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Último Apagado</td>
+                        <td class="px-5 py-3">27 de agosto de 2004, 15:46:33 UTC</td>
+                        <td class="px-5 py-3"><code>ShutdownTime</code> (<code>REG_BIN</code>)</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-semibold text-navy-900">Cuentas Registradas</td>
+                        <td class="px-5 py-3">4 en total (usuario local <strong><code>mr</code></strong> + 3 del sistema)</td>
+                        <td class="px-5 py-3"><code>OS Account</code> / Colmena <code>SAM</code></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 5: Metodología y Próximas Líneas de Investigación -->
+    <section class="reveal-up grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Metodología y Uso de Filtros -->
+        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm">
+            <h2 class="font-display text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                5. Metodología y Filtros en Autopsy
+            </h2>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                Se aplicó la metodología forense estándar (adquisición/verificación, preservación, análisis y documentación). Durante la ingestión se activaron todos los módulos (<code>Recent Activity</code>, <code>Hash Lookup</code>, <code>Keyword Search</code> y <code>Extension Mismatch Detector</code>).
+            </p>
+            <p class="text-slate-600 text-sm leading-relaxed">
+                Para aislar los artefactos clave se emplearon los filtros del árbol de resultados (<code>Results &rarr; Data Artifacts</code> y <code>OS Account</code>), complementados con el visor hexadecimal y la inspección directa de las colmenas <code>SAM</code>, <code>SYSTEM</code> y <code>SOFTWARE</code>.
+            </p>
+        </div>
+
+        <!-- Próximas Líneas de Investigación -->
+        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-green-500">
+            <h2 class="font-display text-xl font-bold text-navy-800 mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                6. Próximas Líneas de Investigación
+            </h2>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                Confirmada la vinculación entre el equipo, <strong>Greg Schardt</strong> y el alias <strong>Mr. Evil</strong> (dominio <code>EVIL</code> y cuenta <code>mr</code>), la siguiente fase debe centrarse en:
+            </p>
+            <ul class="list-disc list-inside text-slate-600 text-sm space-y-2">
+                <li>Inspeccionar la carpeta de programas instalados (<code>Program Files</code>) en busca de herramientas de rastreo de red (<em>sniffers</em> como Ethereal/Wireshark o Cain &amp; Abel).</li>
+                <li>Analizar los archivos de ejecución (<code>Windows\Prefetch</code>) y capturas de paquetes almacenadas para comprobar el robo de credenciales y tarjetas de crédito.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Sección 6: Evidencia Documental Original (PDF Viewer) -->
+    <section class="reveal-up mt-16">
+        <h2 class="font-display text-2xl font-bold text-navy-800 mb-6 flex items-center gap-2">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            7. Evidencia Documental Original
+        </h2>
+        <div class="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-sm text-center">
+            <p class="text-slate-600 mb-6 text-lg">Consulta el reporte técnico original de la Actividad 18 con las capturas de pantalla de Autopsy y el Registro de Windows.</p>
+
+            <!-- Visor de PDF embebido -->
+            <iframe src="Act 18.pdf" class="w-full h-[700px] rounded-lg border-2 border-slate-200 mb-8 shadow-inner" title="Reporte Actividad 18 - Análisis Forense en Autopsy"></iframe>
+
+            <a href="Act 18.pdf" download="Act 18.pdf" class="inline-flex items-center gap-3 bg-accent text-navy-900 font-bold px-8 py-4 rounded-full hover:bg-navy-900 hover:text-accent transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                Descargar Documento (PDF)
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-gray-200 bg-white mt-12 py-10 text-center">
+    <h3 class="font-display font-bold text-accent text-xl mb-2">Road to Hall of Fame</h3>
+    <p class="text-slate-500 text-sm mb-1">
+        Portafolio Digital de Ciberseguridad &copy; 2026.
+    </p>
+    <p class="text-slate-400 text-xs">
+        Jorge Abraham Castelo Curioca - Ingeniería en TI
+    </p>
+</footer>
+
+<!-- Scripts para animaciones de Scroll -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observerOptions = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.1
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        const animatedElements = document.querySelectorAll('.reveal-up');
+
+        animatedElements.forEach(el => observer.observe(el));
+    });
+</script>
+</body>
+</html>
