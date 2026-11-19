@@ -1,0 +1,64 @@
+﻿Created By AccessData® FTK® Imager 4.2.0.13 
+
+Case Information: 
+Acquired using: ADI4.2.0.13
+Case Number:  
+Evidence Number:  
+Unique Description: 
+Examiner:  
+Notes:  
+
+--------------------------------------------------------------
+
+Information for F:\Final Images RAW\Narcos-1\Image\Narcos-1:
+
+Physical Evidentiary Item (Source) Information:
+[Device Info]
+ Source Type: Physical
+[Drive Geometry]
+ Cylinders: 3,916
+ Heads: 255
+ Sectors per Track: 63
+ Bytes per Sector: 512
+ Sector Count: 62,914,560
+[Physical Drive Information]
+ Drive Interface Type: lsilogic
+[Image]
+ Image Type: VMWare Virtual Disk
+ Source data size: 30720 MB
+ Sector count:    62914560
+[Computed Hashes]
+ MD5 checksum:    c63a3d19e9c9495b573f45be544e50f9
+ SHA1 checksum:   4d8e5041f47e0b0fc0eacc85d300661946537418
+
+Image Information:
+ Acquisition started:   Sun Feb 17 17:34:16 2019
+ Acquisition finished:  Sun Feb 17 17:41:53 2019
+ Segment list:
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.001
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.002
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.003
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.004
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.005
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.006
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.007
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.008
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.009
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.010
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.011
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.012
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.013
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.014
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.015
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.016
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.017
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.018
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.019
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.020
+  F:\Final Images RAW\Narcos-1\Image\Narcos-1.021
+
+Image Verification Results:
+ Verification started:  Sun Feb 17 17:41:55 2019
+ Verification finished: Sun Feb 17 17:50:02 2019
+ MD5 checksum:    c63a3d19e9c9495b573f45be544e50f9 : verified
+ SHA1 checksum:   4d8e5041f47e0b0fc0eacc85d300661946537418 : verified
